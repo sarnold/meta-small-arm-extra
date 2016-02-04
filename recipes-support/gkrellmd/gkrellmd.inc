@@ -20,6 +20,8 @@ DEPENDS = "glib-2.0"
 
 EXTRA_OEMAKE = "TARGET= 'CC=${CC}' 'STRIP=' INSTALLROOT='/usr'"
 
+S = "${WORKDIR}/gkrellm-${PV}"
+
 export LINK_FLAGS = "${LDFLAGS}"
 export SMC_LIBS = "-lgmodule-2.0 -lm"
 
@@ -34,37 +36,26 @@ do_configure_prepend() {
 
 do_compile() {
 	cd server
-	oe_runmake 'LINK_FLAGS=$LDFLAGS -Wl,-E' STRIP=""
+	oe_runmake STRIP=""
 }
 
-do_install () {
-	oe_runmake 'INSTALLDIR=${D}${bindir}' \
-		'SINSTALLDIR=${D}${bindir}' \
-		'MANDIR=${D}${mandir}/man1' \
-		'SMANDIR=${D}${mandir}/man1' \
-		'INCLUDEDIR=${D}${includedir}' \
-		'PKGCONFIGDIR=${D}${libdir}/pkgconfig' \
-		'LOCALEDIR=${D}${datadir}/locale' \
-		'STRIP=' \
-		install
-
+do_install() {
 	install -d ${D}${sysconfdir}/init.d
 	install -m 0755 ${WORKDIR}/gkrellmd ${D}${sysconfdir}/init.d
-	install -m 0755 ${WORKDIR}/gkrellmd.conf ${D}${sysconfdir}
+	install -m 0644 ${WORKDIR}/gkrellmd.conf ${D}${sysconfdir}
 
-	mkdir -p ${D}${sbindir}
-	mv ${D}${bindir}/gkrellmd ${D}${sbindir}/
-	find ${D} -name true | xargs rm -f
+	install -d ${D}${sbindir}
+	install -m 0755 server/gkrellmd ${D}${sbindir}/
 }
 
-PROVIDES += "gkrellm-daemon"
+#PROVIDES += "gkrellm-daemon"
+RCONFLICTS_${PN} = "gkrellm-daemon"
+PACKAGES = "gkrellmd-dbg gkrellmd"
 
-PACKAGES =+ "gkrellm-daemon-dbg gkrellm-daemon"
-
-FILES_${PN}-daemon-dbg = "${sbindir}/.debug"
-FILES_${PN}-daemon = "${sysconfdir}/gkrellmd.conf ${sbindir} \
+FILES_${PN}-dbg = "${sbindir}/.debug ${prefix}/src"
+FILES_${PN} = "${sysconfdir}/gkrellmd.conf ${sbindir} \
   ${sysconfdir}/init.d/gkrellmd \
 "
 
-CONFFILES_${PN}-daemon = "${sysconfdir}/gkrellmd.conf"
+CONFFILES_${PN} = "${sysconfdir}/gkrellmd.conf"
 
