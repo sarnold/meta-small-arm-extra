@@ -21,8 +21,11 @@ do_configure_append_raspberrypi() {
     fi
 }
 
-do_install_append() {
+do_install_append_raspberrypi() {
     install -m 0644 ${WORKDIR}/local-feeds.conf ${D}${sysconfdir}/opkg/
 }
 
+do_install_append_beaglebone() {
+    install -m 0644 ${WORKDIR}/local-feeds.conf ${D}${sysconfdir}/opkg/
+}
 
