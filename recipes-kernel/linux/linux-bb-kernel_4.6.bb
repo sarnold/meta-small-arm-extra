@@ -7,6 +7,8 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
            http://rcn-ee.net/deb/xenial-armhf/v${LINUX_VERSION}.0-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.gz;name=patch \
            file://defconfig"
 
+PATCHTOOL = "git"
+
 LINUX_VERSION = "4.6"
 BB_VERSION = "bone3"
 LINUX_VERSION_EXTENSION = "-${BB_VERSION}"
