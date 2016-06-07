@@ -39,10 +39,12 @@ release of poky and related layers. then follow the steps to initialize and sync
 all of the layers.
 
 * If you select a poky-* branch and use meta-yocto-bsp, then
+
   - add meta-small-arm-extra to bblayers **below** the meta-yocto-bsp layer
   - set your preferred kernel to linux-boneblack
 
 * Ifyou select an oe-core-* branch and use meta-ti or meta-beagleboard, then
+
   - add meta-small-arm-extra to bblayers **above** the meta-ti/bb layer
   - set your preferred kernel to linux-bb-kernel
 
@@ -61,7 +63,7 @@ bblayers.conf.
 Since your build config is your own, any required additional layers will depend
 on what image you want to build and any additional packages you want to install.
 The above configuration requirements are illustrated below; they assume you
-followed the BSP manifest steps for ``repo init`` and ``repo sync``..
+followed the BSP manifest steps for ``repo init`` and ``repo sync``.
 
 Example poky config snippets for bblayers.conf::
 
