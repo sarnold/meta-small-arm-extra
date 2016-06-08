@@ -21,9 +21,11 @@ KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
 
 COMPATIBLE_MACHINE_beaglebone = "beaglebone"
 
-PV = "${LINUX_VERSION}+git${SRCPV}"
-
 S = "${WORKDIR}/git"
+
+# Append to the MACHINE_KERNEL_PR so that a new SRCREV will cause a rebuild
+MACHINE_KERNEL_PR_append = "a"
+PR = "${MACHINE_KERNEL_PR}"
 
 do_install_append() {
 	cd ${S}/firmware

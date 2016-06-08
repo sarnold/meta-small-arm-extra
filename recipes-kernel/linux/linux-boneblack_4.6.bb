@@ -1,5 +1,5 @@
 # custom yocto-based kernel for upstream plus RCN bb-kernel giant patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${LINUX_VERSION}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
@@ -7,10 +7,12 @@ require recipes-kernel/linux/linux-yocto.inc
 # Override SRC_URI in a copy of this recipe to point at a different source
 # tree if you do not want to build from Linus' tree.
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=http;branch=${KBRANCH};name=machine \
-           http://rcn-ee.net/deb/xenial-armhf/v${LINUX_VERSION}.0-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.gz;name=patch \
+           http://rcn-ee.net/deb/xenial-armhf/${RELEASE_TAG}-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.gz;name=patch \
            file://defconfig"
 
-LINUX_VERSION = "4.6"
+BRANCH_VERSION = "4.6"
+LINUX_VERSION = "${BRANCH_VERSION}.2"
+RELEASE_TAG = "v${LINUX_VERSION}"
 BB_VERSION = "bone3"
 LINUX_VERSION_EXTENSION = "-${BB_VERSION}"
 
@@ -18,7 +20,8 @@ RDEPENDS_kernel-base += "kernel-devicetree"
 KERNEL_DEVICETREE_beaglebone = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
 RDEPENDS_kernel-base_append_beaglebone = " kernel-firmware-am335x-pm"
 
-SRCREV_beaglebone = "${AUTOREV}"
+SRCREV_beaglebone = "${RELEASE_TAG}"
+#SRCREV_beaglebone = "${AUTOREV}"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
