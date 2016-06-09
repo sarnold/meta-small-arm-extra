@@ -1,8 +1,11 @@
-# extra u-boot config for non-yocto builds
+# extra u-boot config for non-yocto builds of beaglebone
 
-SPL_BINARY = "MLO"
+IMAGE_BOOT_FILES_beaglebone = "u-boot.${UBOOT_SUFFIX} MLO"
+IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX}"
+
+SPL_BINARY_beaglebone = "MLO"
 UBOOT_SUFFIX = "img"
-UBOOT_MACHINE = "am335x_evm_config"
+UBOOT_MACHINE = "am335x_evm_defconfig"
 UBOOT_ENTRYPOINT = "0x80008000"
 UBOOT_LOADADDRESS = "0x80008000"
 
