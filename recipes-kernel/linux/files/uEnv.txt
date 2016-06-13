@@ -1,0 +1,11 @@
+# edit this file to change kernel cmline args
+
+console=ttyS0,115200n8
+mmcroot=/dev/mmcblk0p1 rootwait rw
+cmdline=cma=64M verbose net.ifnames=0 elevator=noop
+mmcrootfstype=ext4 fixrtc
+
+optargs=video=HDMI-A-1:1920x1080@24
+
+# set kernel version (uname -r output) below if needed
+#uname_r=4.1.17-rt
