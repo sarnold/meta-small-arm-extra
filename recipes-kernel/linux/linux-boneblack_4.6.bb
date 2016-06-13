@@ -34,14 +34,22 @@ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
 
 S = "${WORKDIR}/git"
 
+do_configure_append() {
+	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >> ${B}/.conf$
+}
+
 do_install_append() {
+	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux
+-${KERNEL_VERSION} ARCH=$ARCH
+
 	cd ${S}/firmware
 	install -d ${D}/lib/firmware
 	install -m 0644 -t ${D}/lib/firmware \
 		am335x-pm-firmware.bin am335x-pm-firmware.elf am335x-bone-scale-data.bin
 }
 
-PACKAGES =+ "kernel-firmware-am335x-pm"
+PACKAGES =+ "kernel-firmware-am335x-pm kernel-headers"
+FILES_kernel-headers = "${exec_prefix}/src/linux*"
 FILES_kernel-firmware-am335x-pm = "/lib/firmware/am335x-pm-firmware.bin /lib/firmware/am335x-pm-firmware.elf /lib/firmware/am335x-bone-scale-data.bin"
 
 SRC_URI[patch.md5sum] = "f6de36b3215daf396ca202113e2cd18b"
