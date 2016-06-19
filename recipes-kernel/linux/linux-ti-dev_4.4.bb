@@ -31,6 +31,7 @@ do_install_append() {
 	install -m 0644 -t ${D}/lib/firmware am335x-pru0-fw am335x-pru1-fw
 }
 
+RDEPENDS_kernel-base_append_beaglebone = " kernel-firmware-am335x-pru"
 PACKAGES =+ "kernel-firmware-am335x-pru"
 FILES_kernel-firmware-am335x-pru = "/lib/firmware/am335x-pru*"
 

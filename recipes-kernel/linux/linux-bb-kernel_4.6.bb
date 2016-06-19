@@ -10,7 +10,7 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 PATCHTOOL = "git"
 
 BRANCH_VERSION = "4.6"
-LINUX_VERSION = "${BRANCH_VERSION}.1"
+LINUX_VERSION = "${BRANCH_VERSION}.2"
 RELEASE_TAG = "v${LINUX_VERSION}"
 # KERNEL_TAG and RELEASE_TAG are normally in sync but sometimes the bone patch
 # version lags behind the actual kernel tag
@@ -24,5 +24,6 @@ KBRANCH_beaglebone = "linux-4.6.y"
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
-SRC_URI[patch.md5sum] = "0599dabc8c6538328e678e594556078f"
-SRC_URI[patch.sha256sum] = "45c3228bedb2b391cd2ce82849f7c1ef01b0beeed6ec2b0888eb16fe177a275a"
+SRC_URI[patch.md5sum] = "08140a75d99ab9680ad4a604f2ab864e"
+SRC_URI[patch.sha256sum] = "18f58d19853ab30493c3f394a1db119f28e5043910854273226305f4a79d7200"
+

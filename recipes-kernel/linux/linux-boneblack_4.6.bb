@@ -3,6 +3,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
+require uenv-fw-hdrs.inc
 
 # Override SRC_URI in a copy of this recipe to point at a different source
 # tree if you do not want to build from Linus' tree.
@@ -11,8 +12,9 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
            file://defconfig"
 
 BRANCH_VERSION = "4.6"
-LINUX_VERSION = "${BRANCH_VERSION}.1"
+LINUX_VERSION = "${BRANCH_VERSION}.2"
 RELEASE_TAG = "v${LINUX_VERSION}"
+
 # KERNEL_TAG and RELEASE_TAG are normally in sync but sometimes the bone patch
 # version lags behind the actual kernel tag
 KERNEL_TAG = "v${BRANCH_VERSION}.2"
@@ -38,19 +40,6 @@ do_configure_append() {
 	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >> ${B}/.conf$
 }
 
-do_install_append() {
-	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
-
-	cd ${S}/firmware
-	install -d ${D}/lib/firmware
-	install -m 0644 -t ${D}/lib/firmware \
-		am335x-pm-firmware.bin am335x-pm-firmware.elf am335x-bone-scale-data.bin
-}
-
-PACKAGES =+ "kernel-firmware-am335x-pm kernel-headers"
-FILES_kernel-headers = "${exec_prefix}/src/linux*"
-FILES_kernel-firmware-am335x-pm = "/lib/firmware/am335x-pm-firmware.bin /lib/firmware/am335x-pm-firmware.elf /lib/firmware/am335x-bone-scale-data.bin"
-
-SRC_URI[patch.md5sum] = "f6de36b3215daf396ca202113e2cd18b"
-SRC_URI[patch.sha256sum] = "ca3041543137709efca353c0640100201b3f1f25620f766e6d5cf11dc68274ba"
+SRC_URI[patch.md5sum] = "08140a75d99ab9680ad4a604f2ab864e"
+SRC_URI[patch.sha256sum] = "18f58d19853ab30493c3f394a1db119f28e5043910854273226305f4a79d7200"
 
