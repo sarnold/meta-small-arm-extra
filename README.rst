@@ -15,9 +15,14 @@ current beaglebone machines (white, black, green, and shortly blue)..
 * linux-boneblack recipe depends on Yocto/Poky (meta-yocto-bsp) layers
 * linux-bb-kernel recipe depends on OE-core and either meta-ti or meta-beagleboard BSP layers
 
-There also some generic and machine-specific recipes here that can be used on
-any poky or oe-core build; tested on Beagles, RPi, edgerouter, CI-20, and many
-freescale machines (imx233 to imx6quad).
+There are also some generic and machine-specific recipes here that can be used
+with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
+and many freescale machines (imx233 to imx6quad).  This layer also contains
+the minimal "machine" info required for beaglebone kernel and u-boot recipes
+to build properly against oe-core and meta-ti (but is not a stand-alone BSP).
+
+The current machine-specific support is for BeagleBone and RaspberryPi, with
+additional support planned for the future.
 
 To Use This Layer for BeagleBone
 ================================
@@ -43,7 +48,7 @@ all of the layers.
   - add meta-small-arm-extra to bblayers **below** the meta-yocto-bsp layer
   - set your preferred kernel to linux-boneblack
 
-* Ifyou select an oe-core-* branch and use meta-ti or meta-beagleboard, then
+* If you select an oe-core-* branch and use meta-ti or meta-beagleboard, then
 
   - add meta-small-arm-extra to bblayers **above** the meta-ti/bb layer
   - set your preferred kernel to linux-bb-kernel
