@@ -70,6 +70,14 @@ on what image you want to build and any additional packages you want to install.
 The above configuration requirements are illustrated below; they assume you
 followed the BSP manifest steps for ``repo init`` and ``repo sync``.
 
+Full config file examples for poky-krogoth:
+
+* `local.conf`_
+* `bblayers.conf`_
+
+.. _local.conf: https://gist.github.com/sarnold/55d55bbf355ccc9d8d8d09d35f993959
+.. _bblayers.conf: https://gist.github.com/sarnold/431831e6cec25b678f5a9e521af12a8a
+
 Example poky config snippets for bblayers.conf::
 
   POKYROOT = "/home/user/beagleboard-bsp/poky"
