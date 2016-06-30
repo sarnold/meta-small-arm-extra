@@ -17,7 +17,7 @@ RELEASE_TAG = "v${LINUX_VERSION}"
 # KERNEL_TAG and RELEASE_TAG are normally in sync but sometimes the patch
 # version lags behind the actual kernel tag
 KERNEL_TAG = "v${BRANCH_VERSION}.12"
-BB_VERSION = "ti-r30"
+BB_VERSION = "ti-r32"
 LINUX_VERSION_EXTENSION = "-${BB_VERSION}"
 
 SRCREV_beaglebone = "${KERNEL_TAG}"
@@ -35,7 +35,7 @@ RDEPENDS_kernel-base_append_beaglebone = " kernel-firmware-am335x-pru"
 PACKAGES =+ "kernel-firmware-am335x-pru"
 FILES_kernel-firmware-am335x-pru = "/lib/firmware/am335x-pru*"
 
-SRC_URI[patch.md5sum] = "a69602f341afe922ef3bf7ad79489206"
-SRC_URI[patch.sha256sum] = "5eecc3eaf2455e4d866c592ee8b75bbe8d190e719d83095fce9ebbd7ad93d0d4"
+SRC_URI[patch.md5sum] = "a916db5a77d62177cd97d0e18c92c47e"
+SRC_URI[patch.sha256sum] = "2754512e83cfa13c5203351aa9cd7961d11cf822a2bb61c1ccedc8d77c5269e6"
 
 INSANE_SKIP_kernel-firmware-am335x-pru = "arch"
