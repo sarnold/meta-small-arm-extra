@@ -1,0 +1,243 @@
+# set distro for OE or leave blank for "OpenEmbedded nodistro.0"
+DISTRO = "vctlabs"
+
+# We default to ipk:
+PACKAGE_CLASSES ?= "package_ipk"
+
+# adjust machine features from meta-ti to include keyboard
+MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet sgx"
+
+CORE_IMAGE_EXTRA_INSTALL += "\
+    kernel-modules \
+    libcgroup \
+    zram \
+    nano \
+    vim \
+    vim-vimrc \
+    vim-syntax \
+    ntp \
+    ltp \
+    rsync \
+    bash \
+    screen \
+    pax-utils \
+    pps-tools \
+    mtd-utils \
+    devmem2 \
+    sysfsutils \
+    spitools \
+    i2c-tools \
+    usbutils \
+    alsa-utils \
+    distro-feed-configs \
+    cpufrequtils \
+    gkrellmd \
+    sqlite3 \
+    redis \
+    python-redis \
+    perl \
+    perl-misc \
+    perl-modules \
+    ${BB_BRINGUP} \
+    ${TOUCH} \
+    ${QT5} \
+    ${DEV_TOOLS} \
+"
+
+BB_BRINGUP = " \
+        iw \
+        bonnie++ \
+        hdparm \
+        iozone3 \
+        iperf \
+        lmbench \
+        rt-tests \
+        evtest \
+        bc \
+        memtester \
+"
+
+BB_X11 = " \
+    packagegroup-base-apm \
+    packagegroup-xfce-extended \
+    packagegroup-xfce-multimedia \
+    packagegroup-fonts-truetype-core \
+    xuser-account \
+    lxdm \
+    localedef \
+    libx11-locale \
+    libxi \
+    libxtst \
+    xserver-xf86-config \
+    xorg-minimal-fonts \
+    xkeyboard-config \
+    setxkbmap \
+    xmodmap \
+    xrdb \
+    rgb \
+    xprop \
+    xterm \
+"
+
+TOUCH = "\
+        tslib-conf \
+        tslib-tests \
+        tslib-calibrate \
+        tslib \
+        evtest \
+        dbus \
+"
+
+QT5 = "\
+      qtbase \
+      qtbase-tools \
+      qtbase-plugins \
+      qtbase-fonts \
+      qtwebkit \
+      qtwebkit-qmlplugins \
+      qtwebkit-examples \
+      qtwebkit-examples-examples \
+      qt5-demo-extrafiles \
+      cinematicexperience \
+      gstreamer \
+      cairo pango \
+      fontconfig \
+      freetype \
+      alsa-lib \
+      alsa-tools \
+      alsa-state \
+      alsa-utils \
+      alsa-utils-scripts \
+"
+
+DEV_TOOLS = "\
+    ti-cgt-pru \
+    diffutils \
+    python-docutils \
+    python-pyserial \
+    python-pyusb \
+    guile \
+    bison \
+    flex \
+    yasm \
+    gdb \
+"
+
+DEFAULT_TEST_SUITES_remove = "connman"
+
+# epiphany needs gnome-keyring, versions out of sync (poky/meta-oe is old)
+
+IMAGE_FEATURES += "splash ssh-server-openssh package-management x11 x11-base"
+#IMAGE_FEATURES += "splash ssh-server-openssh package-management"
+
+EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
+
+MACHINE = "beaglebone"
+#BBMASK ?= ".*/meta-ti/recipes-misc/(images|payload)/"
+
+DEFAULTTUNE = "cortexa8hf-neon"
+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+
+# this is needed if not using yocto bsp beaglebone machine config
+# see also extra u-boot settings in bbappend
+IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX} MLO"
+
+SERIAL_CONSOLE = "115200 ttyS0"
+IMAGE_FSTYPES = "tar.bz2"
+
+#PREFERRED_PROVIDER_virtual/kernel = "linux-bb-kernel"
+#PREFERRED_VERSION_linux-bb-kernel = "4.6%"
+PREFERRED_PROVIDER_virtual/kernel = "linux-ti-dev"
+PREFERRED_VERSION_linux-boneblack = "4.4%"
+
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
+#PREFERRED_VERSION_virtual/bootloader = "2016.03%"
+
+VIRTUAL-RUNTIME_dev_manager = "udev"
+VIRTUAL-RUNTIME_login_manager = "busybox"
+VIRTUAL-RUNTIME_init_manager = "sysvinit"
+VIRTUAL-RUNTIME_initscripts = "initscripts"
+VIRTUAL-RUNTIME_keymaps = "keymaps"
+
+PREFERRED_PROVIDER_virtual/mesa = "mesa"
+PREFERRED_PROVIDER_virtual/libgl = "mesa"
+REFERRED_PROVIDER_virtual/egl = "mesa"
+#PREFERRED_PROVIDER_virtual/libgles2 = "mesa"
+
+PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
+PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
+
+PACKAGECONFIG_pn-openbox = "xrandr xcursor startup-notification"
+PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
+PACKAGECONFIG_pn-vim = "acl gtkgui x11"
+
+DL_DIR = "/home/sarnold/shared/downloads"
+SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
+
+INHERIT += "rm_work"
+INHERIT += "buildhistory"
+INHERIT += "toaster"
+
+# need this for real-time audio (includes RT_GROUP_SCHED)
+KERNEL_ENABLE_CGROUPS = "1"
+
+# try out java/fortran support
+#   disable java if tools-sdk is in IMAGE FEATURES
+#JAVA = ",java"
+#JAVA_arm = ",java"
+FORTRAN = ",fortran"
+FORTRAN_forcevariable = ",fortran"
+RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
+
+# set color of beaglebone (leave blank or set to 0 for white)
+BONE_IS_BLACK = "1"
+
+# possible values are internal or external
+CUSTOM_FEED_CONFIG = "internal"
+
+# set internal feed URL
+CUSTOM_FEED_URL = "slarti"
+
+LICENSE_FLAGS_WHITELIST = "\
+  commercial_gst-fluendo-mp3 \
+  commercial_gst-openmax \
+  commercial_gst-plugins-ugly \
+  commercial \
+  commercial_lame \
+  commercial_libmad \
+  commercial_libomxil \
+  commercial_mpeg2dec \
+  commercial_qmmp"
+
+#DISTRO_FEATURES_append = " pam udev "
+DISTRO_FEATURES_append = " opengl pam pulseaudio udev x11"
+
+#DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
+# need to allow pulseaudio for epiphany  :/
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch systemd"
+
+
+# Additional image features
+USER_CLASSES ?= "buildstats image-mklibs"
+#OE_TERMINAL = "auto"
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+#SSTATE_MIRRORS ?= "\
+#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+#file://.* file:///some/local/dir/sstate/PATH"
+
+#PACKAGECONFIG_append_pn-qemu-native = " sdl"
+#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ASSUME_PROVIDED += "qemu-native libsdl-native"
+
+CONF_VERSION = "1"
