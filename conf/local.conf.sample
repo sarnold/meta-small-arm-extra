@@ -88,6 +88,7 @@ TOUCH = "\
         dbus \
 "
 
+# note: qt5-opengles2-test fails to compile with mesa as GL provider
 QT5 = "\
       qtbase \
       qtbase-tools \
@@ -99,6 +100,10 @@ QT5 = "\
       qtwebkit-examples-examples \
       qt5-demo-extrafiles \
       cinematicexperience \
+      qt5everywheredemo \
+      qt5ledscreen \
+      qt5nmapper \
+      qt-webkit-kiosk \
       gstreamer \
       cairo pango \
       fontconfig \
@@ -142,7 +147,7 @@ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
 # see also extra u-boot settings in bbappend
 IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX} MLO"
 
-SERIAL_CONSOLE = "115200 ttyS0"
+SERIAL_CONSOLES_beaglebone = "115200;ttyS0"
 IMAGE_FSTYPES = "tar.bz2"
 
 #PREFERRED_PROVIDER_virtual/kernel = "linux-bb-kernel"
