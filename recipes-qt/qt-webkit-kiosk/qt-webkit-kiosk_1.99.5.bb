@@ -26,12 +26,7 @@ do_compile_prepend() {
     export PKG_CONFIG_PATH=$(qmake -query QT_INSTALL_LIBS)/pkconfig
 }
 
-#do_install() {
-#    install -d ${D}${datadir}/${P}
-#    cp -R --no-dereference --preserve=mode,links ${S}/* ${D}${datadir}/${P}
-#}
-
 FILES_${PN}-dbg += "${datadir}/${P}/.debug"
 FILES_${PN} += "${datadir}"
 
-#RDEPENDS_${PN} = "qtdeclarative-qmlplugins qtgraphicaleffects-qmlplugins"
+RDEPENDS_${PN} = "libx11-xcb qtdeclarative-qmlplugins qtgraphicaleffects-qmlplugins"
