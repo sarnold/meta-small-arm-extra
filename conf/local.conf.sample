@@ -7,6 +7,11 @@ PACKAGE_CLASSES ?= "package_ipk"
 # adjust machine features from meta-ti to include keyboard
 MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet sgx"
 
+# this should pull in xuser-account package and start X correctly
+BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
+#PREFERRED_VERSION_xserver-nodm-init = "1.0"
+ROOTLESS_X = "1"
+
 CORE_IMAGE_EXTRA_INSTALL += "\
     kernel-modules \
     libcgroup \
@@ -33,6 +38,8 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     cpufrequtils \
     gkrellmd \
     sqlite3 \
+    python-sqlite3 \
+    python-sqlite3-tests \
     redis \
     python-redis \
     perl \
@@ -41,78 +48,85 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     ${BB_BRINGUP} \
     ${TOUCH} \
     ${QT5} \
+    ${BB_X11} \
     ${DEV_TOOLS} \
 "
 
 BB_BRINGUP = " \
-        iw \
-        bonnie++ \
-        hdparm \
-        iozone3 \
-        iperf \
-        lmbench \
-        rt-tests \
-        evtest \
-        bc \
-        memtester \
+    iw \
+    bonnie++ \
+    hdparm \
+    iozone3 \
+    iperf \
+    lmbench \
+    rt-tests \
+    evtest \
+    bc \
+    memtester \
 "
 
 BB_X11 = " \
-    packagegroup-base-apm \
-    packagegroup-xfce-extended \
-    packagegroup-xfce-multimedia \
-    packagegroup-fonts-truetype-core \
-    xuser-account \
-    lxdm \
     localedef \
     libx11-locale \
-    libxi \
-    libxtst \
     xserver-xf86-config \
     xorg-minimal-fonts \
     xkeyboard-config \
     setxkbmap \
     xmodmap \
     xrdb \
+"
+
+BB_X11_EXTRA = " \
+    packagegroup-base-apm \
+    packagegroup-fonts-truetype-core \
+    lxdm \
+    libxi \
+    libxtst \
     rgb \
     xprop \
     xterm \
 "
 
+BB_XFCE = " \
+    packagegroup-xfce-extended \
+    packagegroup-xfce-multimedia \
+"
+
 TOUCH = "\
-        tslib-conf \
-        tslib-tests \
-        tslib-calibrate \
-        tslib \
-        evtest \
-        dbus \
+    tslib-conf \
+    tslib-tests \
+    tslib-calibrate \
+    tslib \
+    evtest \
+    dbus \
 "
 
 # note: qt5-opengles2-test fails to compile with mesa as GL provider
 QT5 = "\
-      qtbase \
-      qtbase-tools \
-      qtbase-plugins \
-      qtbase-fonts \
-      qtwebkit \
-      qtwebkit-qmlplugins \
-      qtwebkit-examples \
-      qtwebkit-examples-examples \
-      qt5-demo-extrafiles \
-      cinematicexperience \
-      qt5everywheredemo \
-      qt5ledscreen \
-      qt5nmapper \
-      qt-webkit-kiosk \
-      gstreamer \
-      cairo pango \
-      fontconfig \
-      freetype \
-      alsa-lib \
-      alsa-tools \
-      alsa-state \
-      alsa-utils \
-      alsa-utils-scripts \
+    qtbase \
+    qtbase-tools \
+    qtbase-plugins \
+    qtbase-fonts \
+    qtwebkit \
+    qtwebkit-qmlplugins \
+    qtwebkit-examples \
+    qtwebkit-examples-examples \
+    qt5-demo-extrafiles \
+    cinematicexperience \
+    qt5everywheredemo \
+    qt5ledscreen \
+    qt5nmapper \
+    qt-webkit-kiosk \
+    gstreamer \
+    cairo \
+    pango \
+    fontconfig \
+    freetype \
+    alsa-lib \
+    alsa-tools \
+    alsa-state \
+    alsa-utils \
+    alsa-utils-scripts \
 "
 
 DEV_TOOLS = "\
