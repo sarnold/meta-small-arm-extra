@@ -190,8 +190,8 @@ PACKAGECONFIG_pn-openbox = "xrandr xcursor startup-notification"
 PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
 PACKAGECONFIG_pn-vim = "acl gtkgui x11"
 
-DL_DIR = "/home/sarnold/shared/downloads"
-SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
+DL_DIR = "/home/user/shared/downloads"
+SSTATE_DIR = "/home/user/shared/oe/sstate-cache"
 
 INHERIT += "rm_work"
 INHERIT += "buildhistory"
@@ -215,7 +215,7 @@ BONE_IS_BLACK = "1"
 CUSTOM_FEED_CONFIG = "internal"
 
 # set internal feed URL
-CUSTOM_FEED_URL = "slarti"
+CUSTOM_FEED_URL = "localhost.localdomain"
 
 LICENSE_FLAGS_WHITELIST = "\
   commercial_gst-fluendo-mp3 \
