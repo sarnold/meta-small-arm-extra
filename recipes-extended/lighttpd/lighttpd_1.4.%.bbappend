@@ -1,4 +1,4 @@
-pFILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI_append = "file://lighttpd.ldm.conf \
                   file://lighttpd.ldm.init \
