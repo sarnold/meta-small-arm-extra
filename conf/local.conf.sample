@@ -33,7 +33,6 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     spitools \
     i2c-tools \
     usbutils \
-    alsa-utils \
     distro-feed-configs \
     cpufrequtils \
     gkrellmd \
@@ -41,10 +40,20 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     python-sqlite3 \
     python-sqlite3-tests \
     redis \
+    lighttpd \
+    lighttpd-module-cgi \
+    lighttpd-module-alias \
+    lighttpd-module-compress \
+    lighttpd-module-redirect \
     python-redis \
     perl \
     perl-misc \
     perl-modules \
+    alsa-lib \
+    alsa-tools \
+    alsa-state \
+    alsa-utils \
+    alsa-utils-scripts \
     ${BB_BRINGUP} \
     ${TOUCH} \
     ${QT5} \
@@ -122,11 +131,6 @@ QT5 = "\
     pango \
     fontconfig \
     freetype \
-    alsa-lib \
-    alsa-tools \
-    alsa-state \
-    alsa-utils \
-    alsa-utils-scripts \
 "
 
 DEV_TOOLS = "\
@@ -228,8 +232,8 @@ LICENSE_FLAGS_WHITELIST = "\
   commercial_mpeg2dec \
   commercial_qmmp"
 
-#DISTRO_FEATURES_append = " pam udev "
-DISTRO_FEATURES_append = " opengl pam pulseaudio udev x11"
+#DISTRO_FEATURES_append = " pam sysvinit udev "
+DISTRO_FEATURES_append = " opengl pam pulseaudio sysvinit udev x11"
 
 #DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
 # need to allow pulseaudio for epiphany  :/
