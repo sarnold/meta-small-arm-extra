@@ -22,6 +22,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     vim-syntax \
     ntp \
     ltp \
+    git \
     rsync \
     bash \
     screen \
@@ -39,17 +40,26 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     sqlite3 \
     python-sqlite3 \
     python-sqlite3-tests \
+    python-modules \
+    python-misc \
+    python-pyyaml \
+    python-evdev \
+    python-git \
+    neobunch \
+    python-redis \
     redis \
     lighttpd \
     lighttpd-module-cgi \
     lighttpd-module-alias \
+    lighttpd-module-status \
     lighttpd-module-setenv \
     lighttpd-module-compress \
     lighttpd-module-redirect \
-    python-redis \
     perl \
     perl-misc \
     perl-modules \
+    cups \
+    pycups \
     alsa-lib \
     alsa-tools \
     alsa-state \
@@ -140,6 +150,7 @@ DEV_TOOLS = "\
     python-docutils \
     python-pyserial \
     python-pyusb \
+    python-pip \
     guile \
     bison \
     flex \
