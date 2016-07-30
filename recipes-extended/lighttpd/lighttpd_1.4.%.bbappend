@@ -1,6 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = "file://${PN}.ldm.conf \
+SRC_URI_append = "file://${PN}-1.4.39-include-glob.patch \
+                  file://${PN}.ldm.conf \
                   file://${PN}.ldm.init \
 "
 
