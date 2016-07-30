@@ -58,6 +58,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     perl \
     perl-misc \
     perl-modules \
+    ghostscript \
     cups \
     pycups \
     alsa-lib \
@@ -73,6 +74,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
 "
 
 BB_BRINGUP = " \
+    tzdata \
     iw \
     bonnie++ \
     hdparm \
@@ -202,16 +204,23 @@ REFERRED_PROVIDER_virtual/egl = "mesa"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
+PACKAGECONFIG_pn-cups = "acl avahi pam"
+
 PACKAGECONFIG_pn-openbox = "xrandr xcursor startup-notification"
 PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
 PACKAGECONFIG_pn-vim = "acl gtkgui x11"
 
 DL_DIR = "/home/sarnold/shared/downloads"
 SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
+PERSISTENT_DIR = "/home/sarnold/shared/oe-core"
 
 INHERIT += "rm_work"
-INHERIT += "buildhistory"
 INHERIT += "toaster"
+
+# enable the PR service
+PRSERV_HOST = "localhost:0"
+INHERIT += "buildhistory"
+BUILDHISTORY_COMMIT = "1"
 
 # need this for real-time audio (includes RT_GROUP_SCHED)
 KERNEL_ENABLE_CGROUPS = "1"
