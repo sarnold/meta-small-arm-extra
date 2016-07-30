@@ -18,4 +18,3 @@ do_install_append() {
     install -m 0755 ${WORKDIR}/${PN}.ldm.init ${INIT_DIR}/${PN}d
 }
 
-RDEPENDS_${PN} = "bash"
