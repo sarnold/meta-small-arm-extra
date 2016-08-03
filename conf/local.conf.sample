@@ -59,6 +59,8 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     perl-misc \
     perl-modules \
     ghostscript \
+    acl \
+    attr \
     cups \
     pycups \
     alsa-lib \
