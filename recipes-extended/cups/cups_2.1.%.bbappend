@@ -12,6 +12,8 @@ INITSCRIPT_PARAMS = "defaults 65"
 INIT_DIR = "${D}${sysconfdir}/init.d"
 CONF_DIR = "${D}${sysconfdir}/default"
 
+DEPENDS += "libgcrypt"
+
 EXTRA_OECONF_append = " --with-docdir=${datadir}/cups/html \
                         --disable-libpaper \
 "
@@ -22,3 +24,6 @@ do_install_append() {
     install -m 0755 ${WORKDIR}/${PN}.ldm.init ${INIT_DIR}/${PN}d
 }
 
+FILES_${PN} += "${datadir}/cups/ \
+                ${datadir}/icons/ \
+               "
