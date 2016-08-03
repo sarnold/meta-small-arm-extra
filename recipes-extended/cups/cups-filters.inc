@@ -15,6 +15,7 @@ inherit autotools-brokensep gettext pkgconfig
 
 EXTRA_OECONF_append = " --enable-ghostscript --disable-ijs --disable-ldap \
                        --with-pdftops=hybrid --enable-imagefilters \
+                       --enable-ghostscript --with-gs-path=system \
                        --with-fontdir=${datadir}/fonts --with-rcdir=no \
                        --with-cups-rundir=${localstatedir}/run/cups \
                        --localstatedir=${localstatedir}/var \

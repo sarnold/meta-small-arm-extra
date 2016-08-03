@@ -12,6 +12,10 @@ INITSCRIPT_PARAMS = "defaults 65"
 INIT_DIR = "${D}${sysconfdir}/init.d"
 CONF_DIR = "${D}${sysconfdir}/default"
 
+EXTRA_OECONF_append = " --with-docdir=${datadir}/cups/html \
+                        --disable-libpaper \
+"
+
 do_install_append() {
     install -d ${INIT_DIR} ${CONF_DIR}
     install -m 0644 ${WORKDIR}/${PN}.ldm.conf ${CONF_DIR}/${PN}
