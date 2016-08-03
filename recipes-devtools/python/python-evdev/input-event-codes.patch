@@ -1,0 +1,127 @@
+Description: upstream patch to fix import issue with Linux 4.4.0
+Author: Georgi Valkov <georgi.t.valkov@gmail.com>
+Origin: upstream
+Bug: https://github.com/gvalkov/python-evdev/issues/43
+Applied-Upstream: https://github.com/gvalkov/python-evdev/commit/631e2d32d7bdf38e3d7a5c850c9f5869d61e9183
+Last-Update: 2016-03-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+diff --git a/evdev/genecodes.py b/evdev/genecodes.py
+index 5f89c98..65ddfc4 100755
+--- a/evdev/genecodes.py
++++ b/evdev/genecodes.py
+@@ -2,13 +2,33 @@
+ # -*- coding: utf-8; -*-
+ 
+ '''
+-Generate a Python extension module that exports macros from
+-/usr/include/linux/input.h
++Generate a Python extension module with the constants defined in linux/input.h.
+ '''
+ 
++from __future__ import print_function
+ import os, sys, re
+ 
+ 
++#-----------------------------------------------------------------------------
++# The default header file locations to try.
++headers = [
++    '/usr/include/linux/input.h',
++    '/usr/include/linux/input-event-codes.h',
++]
++
++if sys.argv[1:]:
++    headers = sys.argv[1:]
++
++
++#-----------------------------------------------------------------------------
++macro_regex = r'#define +((?:KEY|ABS|REL|SW|MSC|LED|BTN|REP|SND|ID|EV|BUS|SYN|FF)_\w+)'
++macro_regex = re.compile(macro_regex)
++
++uname = list(os.uname()); del uname[1]
++uname = ' '.join(uname)
++
++
++#-----------------------------------------------------------------------------
+ template = r'''
+ #include <Python.h>
+ #ifdef __FreeBSD__
+@@ -73,22 +93,24 @@
+ #endif
+ '''
+ 
+-header = '/usr/include/linux/input.h' if len(sys.argv) == 1 else sys.argv[1]
+-regex = r'#define +((?:KEY|ABS|REL|SW|MSC|LED|BTN|REP|SND|ID|EV|BUS|SYN|FF)_\w+)'
+-regex = re.compile(regex)
+-
+-if not os.path.exists(header):
+-    print('no such file: %s' % header)
+-    sys.exit(1)
+-
+-def getmacros():
++def parse_header(header):
+     for line in open(header):
+-        macro = regex.search(line)
++        macro = macro_regex.search(line)
+         if macro:
+             yield '    PyModule_AddIntMacro(m, %s);' % macro.group(1)
+ 
+-uname = list(os.uname()); del uname[1]
+-uname = ' '.join(uname)
++all_macros = []
++for header in headers:
++    try:
++        fh = open(header)
++    except (IOError, OSError):
++        continue
++    all_macros += parse_header(header)
++
++if not all_macros:
++    print('no input macros found in: %s' % ' '.join(headers), file=sys.stderr)
++    sys.exit(1)
++
+ 
+-macros = os.linesep.join(getmacros())
++macros = os.linesep.join(all_macros)
+ print(template % (uname, macros))
+diff --git a/setup.py b/setup.py
+index b309fe9..30fea8c 100755
+--- a/setup.py
++++ b/setup.py
+@@ -65,15 +65,21 @@
+ 
+ #-----------------------------------------------------------------------------
+ def create_ecodes():
+-    header = '/usr/include/linux/input.h'
++    headers = [
++        '/usr/include/linux/input.h',
++        '/usr/include/linux/input-event-codes.h',
++    ]
+ 
+-    if not os.path.isfile(header):
++    headers = [header for header in headers if os.path.isfile(header)]
++    if not headers:
+         msg = '''\
+-        The linux/input.h header file is missing. You will have to
+-        install the headers for your kernel in order to continue:
++        The linux/input.h and linux/input-event-codes.h include files are
++        missing missing. You will have to install the kernel header files in
++        order to continue:
+ 
+             yum install kernel-headers-$(uname -r)
+             apt-get install linux-headers-$(uname -r)
++            emerge sys-kernel/linux-headers
+             pacman -S kernel-headers\n\n'''
+ 
+         sys.stderr.write(textwrap.dedent(msg))
+@@ -81,8 +87,8 @@ def create_ecodes():
+ 
+     from subprocess import check_call
+ 
+-    print('writing ecodes.c (using %s)' % header)
+-    cmd = '%s genecodes.py %s > ecodes.c' % (sys.executable, header)
++    print('writing ecodes.c (using %s)' % ' '.join(headers))
++    cmd = '%s genecodes.py %s > ecodes.c' % (sys.executable, ' '.join(headers))
+     check_call(cmd, cwd="%s/evdev" % here, shell=True)
+ 
+ 
