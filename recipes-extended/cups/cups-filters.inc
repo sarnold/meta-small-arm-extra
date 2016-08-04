@@ -15,7 +15,8 @@ inherit autotools-brokensep gettext pkgconfig
 
 EXTRA_OECONF_append = " --enable-ghostscript --disable-ijs --disable-ldap \
                        --with-pdftops=hybrid --enable-imagefilters \
-                       --enable-ghostscript --with-gs-path=system \
+                       --enable-ghostscript --with-gs-path=${bindir}/gs \
+                       --with-pdftops-path=${bindir}/gs \
                        --with-fontdir=${datadir}/fonts --with-rcdir=no \
                        --with-cups-rundir=${localstatedir}/run/cups \
                        --localstatedir=${localstatedir}/var \
@@ -40,7 +41,7 @@ PACKAGECONFIG ??= "${@bb.utils.contains('DISTRO_FEATURES', 'zeroconf', 'avahi', 
 PACKAGECONFIG[avahi] = "--enable-avahi,--disable-avahi,avahi"
 PACKAGECONFIG[dbus] = "--enable-dbus,--disable-dbus,dbus"
 
-PACKAGES += "\
+PACKAGES =+ "\
 	${PN}-gst \
         ${PN}-data \
         "
@@ -60,28 +61,7 @@ FILES_${PN}-dbg += "\
 	"
 
 FILES_${PN} += "\
-        ${libdir}/cups/filter/bannertopdf \
-        ${libdir}/cups/filter/commandtoescpx \
-        ${libdir}/cups/filter/commandtopclx \
-        ${libdir}/cups/filter/foomatic-rip \
-        ${libdir}/cups/filter/imagetopdf \
-        ${libdir}/cups/filter/imagetops \
-        ${libdir}/cups/filter/imagetoraster \
-        ${libdir}/cups/filter/pdftoijs \
-        ${libdir}/cups/filter/pdftoippprinter \
-        ${libdir}/cups/filter/pdftoopvp \
-        ${libdir}/cups/filter/pdftopdf \
-        ${libdir}/cups/filter/pdftops \
-        ${libdir}/cups/filter/pdftoraster \
-        ${libdir}/cups/filter/pstopdf \
-        ${libdir}/cups/filter/rastertoescpx \
-        ${libdir}/cups/filter/rastertopclx \
-        ${libdir}/cups/filter/textonly \
-        ${libdir}/cups/filter/texttopdf \
-        ${libdir}/cups/filter/texttops \
-        ${libdir}/cups/filter/urftopdf \
-        ${libdir}/cups/filter/rastertopdf \
-        ${libdir}/cups/filter/sys5ippprinter \
+        ${libdir}/cups/filter \
         ${libdir}/cups/backend \
         /usr/share/cups/charsets \
         /usr/share/cups/drv \
@@ -91,13 +71,8 @@ FILES_${PN} += "\
         "
 
 do_install_append() {
-	# remove banners, braille, and extra filters
-	rm -rf ${D}/usr/share/cups/banners ${D}/usr/share/cups/braille
-	rm -f ${D}${libdir}/cups/filter/*brf* ${D}${libdir}/cups/filter/*brl*
-
-	# remove gst, already provided by ghostscript-cups
-	#rm -f ${D}${libdir}/cups/filter/gstopxl
-	#rm -f ${D}${libdir}/cups/filter/gstoraster
+	# remove banners, braille dirs
+	rm -rf ${D}/usr/share/cups/{banners,braille}
 
 	# remove testprint (already provided by cups)
 	rm -f ${D}/usr/share/cups/data/testprint
