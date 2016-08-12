@@ -43,9 +43,9 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     python-modules \
     python-misc \
     python-pyyaml \
-    python-evdev \
     python-git \
     neobunch \
+    libevdev \
     python-redis \
     redis \
     lighttpd \
