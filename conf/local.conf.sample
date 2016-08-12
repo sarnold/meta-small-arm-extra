@@ -55,14 +55,19 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     lighttpd-module-setenv \
     lighttpd-module-compress \
     lighttpd-module-redirect \
+    python-reportlab \
+    python-pillow \
     perl \
     perl-misc \
     perl-modules \
     ghostscript \
-    acl \
-    attr \
+    poppler \
+    qpdf \
     cups \
     pycups \
+    cups-filters \
+    cups-filters-gst \
+    cups-filters-data \
     alsa-lib \
     alsa-tools \
     alsa-state \
@@ -206,7 +211,9 @@ REFERRED_PROVIDER_virtual/egl = "mesa"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
-PACKAGECONFIG_pn-cups = "acl avahi pam"
+PACKAGECONFIG_pn-cups = "acl pam"
+PACKAGECONFIG_pn-poppler = "jpeg png tiff curl"
+PACKAGECONFIG_pn-cups-filters = "jpeg png tiff dbus"
 
 PACKAGECONFIG_pn-openbox = "xrandr xcursor startup-notification"
 PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
