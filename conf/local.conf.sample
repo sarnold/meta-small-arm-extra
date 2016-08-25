@@ -45,6 +45,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     python-pyyaml \
     python-git \
     neobunch \
+    python-evdev \
     libevdev \
     python-redis \
     redis \
