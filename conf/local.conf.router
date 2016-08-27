@@ -1,0 +1,191 @@
+# set distro for OE or leave blank for poky or "OpenEmbedded nodistro.0"
+#DISTRO = "vctlabs"
+
+# We default to ipk:
+PACKAGE_CLASSES ?= "package_ipk"
+
+# adjust machine features from meta-ti to include keyboard
+MACHINE_FEATURES = "apm usbhost vfat rtc ext2 screen ethernet"
+
+CORE_IMAGE_EXTRA_INSTALL += "\
+    kernel-modules \
+    libcgroup \
+    zram \
+    nano \
+    vim \
+    vim-vimrc \
+    vim-syntax \
+    ntp \
+    ltp \
+    git \
+    rsync \
+    bash \
+    screen \
+    pax-utils \
+    pps-tools \
+    mtd-utils \
+    devmem2 \
+    sysfsutils \
+    spitools \
+    i2c-tools \
+    usbutils \
+    distro-feed-configs \
+    cpufrequtils \
+    gkrellmd \
+    sqlite3 \
+    python-sqlite3 \
+    python-sqlite3-tests \
+    python-modules \
+    python-misc \
+    python-pyyaml \
+    python-git \
+    python-evdev \
+    python-redis \
+    redis \
+    lighttpd \
+    lighttpd-module-cgi \
+    lighttpd-module-alias \
+    lighttpd-module-status \
+    lighttpd-module-setenv \
+    lighttpd-module-compress \
+    lighttpd-module-redirect \
+    perl \
+    perl-misc \
+    perl-modules \
+    ${HW_BRINGUP} \
+    ${DEV_TOOLS} \
+    ${NET_TOOLS} \
+"
+
+NET_TOOLS = " \
+    logrotate \
+    arptables \
+    ebtables \
+    nftables \
+    iptables \
+    hostapd \
+    inetutils \
+    iproute2 \
+    dnsmasq \
+    iputils \
+    netmap \
+    bridge-utils \
+    openvpn \
+    bind \
+    postfix \
+    firewall3 \
+    ufw \
+    iwinfo \
+"
+
+HW_BRINGUP = " \
+    tzdata \
+    iw \
+    bonnie++ \
+    hdparm \
+    iozone3 \
+    iperf \
+    lmbench \
+    rt-tests \
+    evtest \
+    bc \
+    memtester \
+"
+
+DEV_TOOLS = "\
+    diffutils \
+    python-docutils \
+    python-pyserial \
+    python-pyusb \
+    python-pip \
+    guile \
+    bison \
+    flex \
+    yasm \
+    gdb \
+    gdbserver \
+    packagegroup-core-device-devel \
+"
+
+DEFAULT_TEST_SUITES_remove = "connman"
+
+IMAGE_FEATURES += "ssh-server-openssh package-management"
+
+EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
+
+MACHINE = "edgerouter"
+
+#COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+
+SERIAL_CONSOLES_edgerouter = "115200;ttyS0"
+#IMAGE_FSTYPES = "tar.bz2"
+
+PREFERRED_VERSION_linux-octeon-kernel = "4.8%"
+
+#PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
+#PREFERRED_VERSION_virtual/bootloader = "2016.03%"
+
+VIRTUAL-RUNTIME_dev_manager = "udev"
+VIRTUAL-RUNTIME_login_manager = "busybox"
+VIRTUAL-RUNTIME_init_manager = "sysvinit"
+VIRTUAL-RUNTIME_initscripts = "initscripts"
+VIRTUAL-RUNTIME_keymaps = "keymaps"
+
+PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
+PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
+
+PACKAGECONFIG_pn-vim = "acl"
+
+DL_DIR = "/home/sarnold/shared/downloads"
+SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
+PERSISTENT_DIR = "/home/sarnold/shared/oe-core"
+
+INHERIT += "rm_work"
+INHERIT += "toaster"
+
+# enable the PR service
+PRSERV_HOST = "localhost:0"
+INHERIT += "buildhistory"
+BUILDHISTORY_COMMIT = "1"
+
+# need this for real-time audio (includes RT_GROUP_SCHED)
+KERNEL_ENABLE_CGROUPS = "1"
+
+# possible values are internal or external
+CUSTOM_FEED_CONFIG = "internal"
+
+# set internal feed URL
+CUSTOM_FEED_URL = "ptolemy"
+
+LICENSE_FLAGS_WHITELIST = "\
+  commercial \
+  commercial_qmmp"
+
+DISTRO_FEATURES_append = " pam sysvinit udev "
+
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "pulseaudio systemd"
+
+# Additional image features
+USER_CLASSES ?= "buildstats image-mklibs"
+#OE_TERMINAL = "auto"
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+#SSTATE_MIRRORS ?= "\
+#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+#file://.* file:///some/local/dir/sstate/PATH"
+
+#PACKAGECONFIG_append_pn-qemu-native = " sdl"
+#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ASSUME_PROVIDED += "qemu-native libsdl-native"
+
+CONF_VERSION = "1"

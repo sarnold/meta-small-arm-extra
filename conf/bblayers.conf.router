@@ -1,0 +1,32 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+POKYROOT = "/home/sarnold/edgerouter-bsp/poky"
+
+BBLAYERS ?= " \
+  ${POKYROOT}/meta \
+  ${POKYROOT}/openembedded-core/meta \
+  ${POKYROOT}/meta-poky \
+  ${POKYROOT}/meta-yocto-bsp \
+  ${POKYROOT}/meta-small-arm-extra \
+  ${POKYROOT}/meta-ti \
+  ${POKYROOT}/meta-qt5 \
+  ${POKYROOT}/meta-openembedded/meta-oe \
+  ${POKYROOT}/meta-openembedded/meta-perl \
+  ${POKYROOT}/meta-openembedded/meta-networking \
+  ${POKYROOT}/meta-openembedded/meta-python \
+  ${POKYROOT}/meta-openembedded/meta-filesystems \
+  ${POKYROOT}/meta-nodejs \
+  ${POKYROOT}/meta-nodejs-contrib \
+  ${POKYROOT}/meta-openwrt \
+  ${POKYROOT}/meta-security \
+  "
+
+#  ${POKYROOT}/meta-foss-openswitch
+
+
+
