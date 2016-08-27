@@ -1,0 +1,36 @@
+From 485346176b245aba4462d1e3f0d2f29a7061eec6 Mon Sep 17 00:00:00 2001
+From: Aaro Koskinen <aaro.koskinen@iki.fi>
+Date: Tue, 23 Aug 2016 18:39:43 -0700
+Subject: [PATCH 1/5] MIPS: OCTEON: fix platform bus probing
+
+Commit 44a7185c2ae6 ("of/platform: Add common method to populate
+default bus") added new arch_initcall of_platform_default_populate_init()
+that will override device_initcall octeon_publish_devices(). This broke
+many OCTEON boards as important devices are not getting probed anymore
+(e.g. on EdgeRouter Lite the USB mass storage/rootfs is missing).
+
+Fix by changing octeon_publish_devices() to arch_initcall.
+
+Fixes: 44a7185c2ae6 ("of/platform: Add common method to populate default bus")
+Signed-off-by: Aaro Koskinen <aaro.koskinen@iki.fi>
+Signed-off-by: Stephen Arnold <sarnold@vctlabs.com>
+---
+ arch/mips/cavium-octeon/octeon-platform.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/mips/cavium-octeon/octeon-platform.c b/arch/mips/cavium-octeon/octeon-platform.c
+index b31fbc9..37a932d 100644
+--- a/arch/mips/cavium-octeon/octeon-platform.c
++++ b/arch/mips/cavium-octeon/octeon-platform.c
+@@ -1059,7 +1059,7 @@ static int __init octeon_publish_devices(void)
+ {
+ 	return of_platform_bus_probe(NULL, octeon_ids, NULL);
+ }
+-device_initcall(octeon_publish_devices);
++arch_initcall(octeon_publish_devices);
+ 
+ MODULE_AUTHOR("David Daney <ddaney@caviumnetworks.com>");
+ MODULE_LICENSE("GPL");
+-- 
+2.9.0
+
