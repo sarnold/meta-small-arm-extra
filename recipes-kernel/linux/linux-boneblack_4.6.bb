@@ -37,7 +37,8 @@ COMPATIBLE_MACHINE_beaglebone = "beaglebone"
 S = "${WORKDIR}/git"
 
 do_configure_append() {
-	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >> ${B}/.conf$
+	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" \
+		>> ${B}/.config
 }
 
 SRC_URI[patch.md5sum] = "08140a75d99ab9680ad4a604f2ab864e"
