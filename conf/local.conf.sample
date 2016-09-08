@@ -44,6 +44,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     python-misc \
     python-pyyaml \
     python-git \
+    python-apsw \
     neobunch \
     python-evdev \
     libevdev \
