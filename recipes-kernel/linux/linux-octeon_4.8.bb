@@ -24,24 +24,22 @@ RELEASE_TAG = "v${BRANCH_VERSION}-${RC_VERSION}"
 
 # KERNEL_TAG and RELEASE_TAG are normally in sync but sometimes the bone patch
 # version lags behind the actual kernel tag
-LINUX_VERSION_EXTENSION = "-${RC_VERSION}"
+LINUX_VERSION_EXTENSION = "-vct1"
 KERNEL_TAG = "${RELEASE_TAG}"
 
 RDEPENDS_kernel-base += "kernel-devicetree"
 KERNEL_DEVICETREE_edgerouter = "cavium-octeon/octeon_3xxx.dtb cavium-octeon/ubnt_e100.dtb"
 
 SRCREV_edgerouter = "${KERNEL_TAG}"
-
 PV = "${BRANCH_VERSION}+git${SRCPV}"
-
+LINUX_VERSION_EXTENSION = "-vct1"
 KBRANCH_edgerouter = "master"
 
 COMPATIBLE_MACHINE_edgerouter = "edgerouter"
 
 S = "${WORKDIR}/git"
 
-do_configure_append() {
-	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" \
-		>> ${B}/.config
-}
+#do_configure_append() {
+#	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >> ${B}/.conf$
+#}
 
