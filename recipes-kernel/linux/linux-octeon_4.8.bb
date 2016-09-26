@@ -24,7 +24,6 @@ RELEASE_TAG = "v${BRANCH_VERSION}-${RC_VERSION}"
 
 # KERNEL_TAG and RELEASE_TAG are normally in sync but sometimes the bone patch
 # version lags behind the actual kernel tag
-LINUX_VERSION_EXTENSION = "-vct1"
 KERNEL_TAG = "${RELEASE_TAG}"
 
 RDEPENDS_kernel-base += "kernel-devicetree"
