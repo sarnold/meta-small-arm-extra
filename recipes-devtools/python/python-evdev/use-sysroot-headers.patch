@@ -1,0 +1,24 @@
+--- a/setup.py	2016-10-01 10:00:11.491758891 -0700
++++ b/setup.py	2016-10-01 10:01:45.045089476 -0700
+@@ -65,10 +65,17 @@
+ 
+ #-----------------------------------------------------------------------------
+ def create_ecodes():
+-    headers = [
+-        '/usr/include/linux/input.h',
+-        '/usr/include/linux/input-event-codes.h',
+-    ]
++
++    if not os.path.lexists(os.path.expandvars('$STAGING_INCDIR')):
++        headers = [
++            '/usr/include/linux/input.h',
++            '/usr/include/linux/input-event-codes.h',
++        ]
++    else:
++        headers = [
++            os.path.expandvars('$STAGING_INCDIR/linux/input.h'),
++            os.path.expandvars('$STAGING_INCDIR/linux/input-event-codes.h'),   
++        ]
+ 
+     headers = [header for header in headers if os.path.isfile(header)]
+     if not headers:
