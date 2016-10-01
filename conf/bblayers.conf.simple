@@ -5,23 +5,14 @@ LCONF_VERSION = "7"
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
-OEROOT = "/home/sarnold/beagleboard-oecore/oe-core"
+OEROOT = "/home/sarnold/beagleboard-python-test/oe-core"
 
 BBLAYERS ?= " \
   ${OEROOT}/meta \
   ${OEROOT}/meta-small-arm-extra \
   ${OEROOT}/meta-ti \
   ${OEROOT}/meta-qt5 \
-  ${OEROOT}/meta-browser \
   ${OEROOT}/meta-openembedded/meta-oe \
   ${OEROOT}/meta-openembedded/meta-networking \
   ${OEROOT}/meta-openembedded/meta-python \
-  ${OEROOT}/meta-openembedded/meta-multimedia \
-  ${OEROOT}/meta-openembedded/meta-filesystems \
-  ${OEROOT}/meta-openembedded/meta-efl \
-  ${OEROOT}/meta-openembedded/meta-gnome \
   "
-
-#  ${OEROOT}/meta-beagleboard/common-bsp
-
-

@@ -1,0 +1,98 @@
+MACHINE = "beaglebone"
+DEFAULTTUNE = "cortexa8hf-neon"
+COMPATIBLE_MACHINE_beaglebone = "beaglebone"
+
+# We default to ipk:
+PACKAGE_CLASSES ?= "package_ipk"
+
+ROOTLESS_X = "1"
+
+CORE_IMAGE_EXTRA_INSTALL += "\
+    kernel-modules \
+    libcgroup \
+    zram \
+    nano \
+    vim \
+    bash \
+    screen \
+    devmem2 \
+    sysfsutils \
+    spitools \
+    i2c-tools \
+    usbutils \
+    distro-feed-configs \
+    cpufrequtils \
+    gkrellmd \
+    sqlite3 \
+    python-sqlite3 \
+    python-sqlite3-tests \
+    python-modules \
+    python-misc \
+    python-pyyaml \
+    python-git \
+    python-apsw \
+    neobunch \
+    python-evdev \
+"
+
+PREFERRED_VERSION_python-evdev = "0.6.0"
+
+IMAGE_FEATURES += "splash ssh-server-openssh package-management"
+
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+
+# this is needed if not using yocto bsp beaglebone machine config
+# see also extra u-boot settings in bbappend
+IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX} MLO"
+
+SERIAL_CONSOLES_beaglebone = "115200;ttyS0"
+IMAGE_FSTYPES = "tar.bz2"
+
+DL_DIR = "/home/sarnold/shared/downloads"
+SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
+PERSISTENT_DIR = "/home/sarnold/shared/oe-core"
+
+INHERIT += "rm_work"
+INHERIT += "toaster"
+
+# enable the PR service
+PRSERV_HOST = "localhost:0"
+INHERIT += "buildhistory"
+BUILDHISTORY_COMMIT = "1"
+
+LICENSE_FLAGS_WHITELIST = "\
+  commercial_gst-fluendo-mp3 \
+  commercial_gst-openmax \
+  commercial_gst-plugins-ugly \
+  commercial \
+  commercial_lame \
+  commercial_libmad \
+  commercial_libomxil \
+  commercial_mpeg2dec \
+  commercial_qmmp"
+
+DISTRO_FEATURES_append = " pam sysvinit udev "
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
+
+USER_CLASSES ?= "buildstats image-mklibs"
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+
+PACKAGECONFIG_append_pn-qemu-native = " sdl"
+PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ASSUME_PROVIDED += "libsdl-native"
+
+# CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+# track the version of this file when it was generated. This can safely be ignored if
+# this doesn't mean anything to you.
+CONF_VERSION = "1"
