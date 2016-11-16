@@ -3,7 +3,7 @@ SECTION = "net/misc"
 LICENSE = "GPLv3"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6aa4c0c48b808b45244efd507765e2b8"
 
-SRC_URI = "http://members.dslextreme.com/users/billw/gkrellm/gkrellm-${PV}.tar.bz2 \
+SRC_URI = "http://gkrellm.srcbox.net/gkrellm-${PV}.tar.bz2 \
            file://gkrellm-2.3.5-autofs.patch \
            file://gkrellm-2.3.5-binding.patch \
            file://gkrellm-2.3.5-cifs.patch \
@@ -12,6 +12,7 @@ SRC_URI = "http://members.dslextreme.com/users/billw/gkrellm/gkrellm-${PV}.tar.b
            file://gkrellm-2.3.5-format-security.patch \
            file://gkrellm-2.3.5-sansfont.patch \
            file://gkrellm-2.3.5-width.patch \
+           file://gkrellm-2.3.5-fix-ipv6-cidr-match.patch \
 "
 
 require gkrellmd.inc
