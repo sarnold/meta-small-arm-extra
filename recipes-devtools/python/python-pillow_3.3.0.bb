@@ -13,7 +13,7 @@ S = "${WORKDIR}/Pillow-${PV}"
 
 DEPENDS = "lcms freetype libpng jpeg zlib tiff python-cython-native libwebp"
 DEPENDS += "python-dateutil python-pytz python-six python-native \
-            python-jinja2 python-markupsafe python-docutils \
+            python-jinja2 python-markupsafe python3-docutils \
             python-requests python-pyflakes python-pep8"
 
 # this is in the upstream docs but no configure exists  :(
