@@ -1,26 +1,23 @@
-# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
 # changes incompatibly
-LCONF_VERSION = "7"
+POKY_BBLAYERS_CONF_VERSION = "2"
 
 BBPATH = "${TOPDIR}"
-BSPDIR = "${HOME}/foss-boundary-morty"
+BSPDIR = "${HOME}/foss-boundary-bsp"
 BBFILES ?= ""
 
-BBLAYERS = " \
-  ${BSPDIR}/oe-core/meta \
-  ${BSPDIR}/oe-core/meta-freescale \
-  ${BSPDIR}/oe-core/meta-freescale-3rdparty \
-  ${BSPDIR}/oe-core/meta-boundary \
+BBLAYERS ?= " \
+  ${BSPDIR}/poky/meta \
+  ${BSPDIR}/poky/meta-poky \
+  ${BSPDIR}/poky/meta-yocto-bsp \
+  ${BSPDIR}/poky/meta-freescale \
+  ${BSPDIR}/poky/meta-freescale-3rdparty \
+  ${BSPDIR}/poky/meta-boundary \
   \
-  ${BSPDIR}/oe-core/meta-printing \
-  ${BSPDIR}/oe-core/meta-small-arm-extra \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-oe \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-multimedia \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-filesystems \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-efl \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-gnome \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-xfce \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-python \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-networking \
-  ${BSPDIR}/oe-core/meta-qt5 \
+  ${BSPDIR}/poky/meta-small-arm-extra \
+  ${BSPDIR}/poky/meta-openembedded/meta-oe \
+  ${BSPDIR}/poky/meta-openembedded/meta-multimedia \
+  ${BSPDIR}/poky/meta-openembedded/meta-python \
+  ${BSPDIR}/poky/meta-openembedded/meta-networking \
+  ${BSPDIR}/poky/meta-qt5 \
 "

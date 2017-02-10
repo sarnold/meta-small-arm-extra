@@ -25,8 +25,19 @@
 #MACHINE ?= "qemux86"
 #MACHINE ?= "qemux86-64"
 #
+# There are also the following hardware board target machines included for 
+# demonstration purposes:
+#
+#MACHINE ?= "beaglebone"
+#MACHINE ?= "genericx86"
+#MACHINE ?= "genericx86-64"
+#MACHINE ?= "mpc8315e-rdb"
+#MACHINE ?= "edgerouter"
+#
 # This sets the default machine to be qemux86 if no other machine is selected:
 #MACHINE ??= "qemux86"
+
+MACHINE = "nitrogen6x"
 
 #
 # Where to place downloads
@@ -69,6 +80,20 @@
 #
 #TMPDIR = "${TOPDIR}/tmp"
 
+#
+# Default policy config
+#
+# The distribution setting controls which policy settings are used as defaults.
+# The default value is fine for general Yocto project use, at least initially.
+# Ultimately when creating custom policy, people will likely end up subclassing 
+# these defaults.
+#
+DISTRO ?= "poky"
+# As an example of a subclass there is a "bleeding" edge policy configuration
+# where many versions are set to the absolute latest code from the upstream 
+# source control systems. This is just mentioned here as an example, its not
+# useful to most new users.
+# DISTRO ?= "poky-bleeding"
 
 #
 # Package Management configuration
@@ -81,8 +106,7 @@
 #  - 'package_ipk' for ipk files are used by opkg (a debian style embedded package manager)
 #  - 'package_rpm' for rpm style packages
 # E.g.: PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
-# We default to ipk:
-
+# We default to rpm:
 PACKAGE_CLASSES ?= "package_ipk"
 
 #
@@ -118,14 +142,13 @@ PACKAGE_CLASSES ?= "package_ipk"
 # We default to enabling the debugging tweaks.
 #EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 
-DISTRO = "vctlabs"
+BBMASK = "meta-boundary/recipes-browser/chromium/"
 
-# adjust machine features from meta-ti to include keyboard
-MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
 
-# this should pull in xuser-account package and start X correctly
-BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
-#PREFERRED_VERSION_xserver-nodm-init = "1.0"
+IMAGE_FEATURES += "splash ssh-server-openssh package-management"
+
+EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
+
 ROOTLESS_X = "1"
 
 CORE_IMAGE_EXTRA_INSTALL += "\
@@ -284,39 +307,6 @@ DEV_TOOLS = "\
     gdb \
 "
 
-DEFAULT_TEST_SUITES_remove = "connman"
-
-#BBMASK = "meta-fsl-arm/browser-layer/recipes-browser/chromium/"
-#BBMASK .= "|.*meta-freescale/recipes-graphics/"
-BBMASK .= "|.*meta-boundary/recipes-browser/chromium/"
-BBMASK .= "|.*meta-freescale/recipes-multimedia/gstreamer/"
-
-# epiphany needs gnome-keyring, versions out of sync (poky/meta-oe is old)
-
-IMAGE_FEATURES += "splash ssh-server-openssh package-management x11 x11-base"
-#IMAGE_FEATURES += "splash ssh-server-openssh package-management"
-
-EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
-
-#LOCALE_UTF8_ONLY = "1"
-#IMAGE_LINGUAS = "en-us en-gb"
-
-#BB_NUMBER_THREADS = "4"
-#PARALLEL_MAKE = "-j5"
-
-MACHINE = "nitrogen6x"
-
-# this is needed for building morty and up on hardened server (eg, Gentoo)
-GCCVERSION = "5.4%"
-SDKGCCVERSION = "${GCCVERSION}"
-BINUVERSION = "2.27%"
-GDBVERSION = "7.11%"
-GLIBCVERSION = "2.24"
-
-# this is needed if not using yocto bsp beaglebone machine config
-# see also extra u-boot settings in bbappend
-#IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX} MLO"
-
 IMAGE_FSTYPES = "tar.bz2 ext3 sdcard"
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-boundary"
@@ -334,9 +324,6 @@ VIRTUAL-RUNTIME_init_manager = "sysvinit"
 VIRTUAL-RUNTIME_initscripts = "initscripts"
 VIRTUAL-RUNTIME_keymaps = "keymaps"
 
-## need this until I untangle the open source bits from the graphics blobs
-## cannot set to mesa or just fb yet
-ACCEPT_FSL_EULA = "1"
 #PREFERRED_PROVIDER_virtual/egl_nitrogen6x = "mesa"
 #PREFERRED_PROVIDER_virtual/libgl_nitrogen6x = "mesa"
 #PREFERRED_PROVIDER_virtual/libgles1_nitrogen6x = "mesa"
@@ -347,17 +334,9 @@ PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
-PACKAGECONFIG_pn-cups = "acl pam"
-PACKAGECONFIG_pn-poppler = "jpeg png tiff curl"
-PACKAGECONFIG_pn-cups-filters = "jpeg png tiff dbus"
-
-PACKAGECONFIG_pn-openbox = "xrandr xcursor startup-notification"
-PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
-PACKAGECONFIG_pn-vim = "acl gtkgui x11"
-
-DL_DIR = "/home/sarnold/shared/downloads"
-SSTATE_DIR = "/home/sarnold/shared/fsl/sstate-cache"
-PERSISTENT_DIR = "/home/sarnold/shared/fsl"
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/fsl/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/fsl"
 
 INHERIT += "rm_work"
 INHERIT += "toaster"
@@ -370,37 +349,14 @@ BUILDHISTORY_COMMIT = "1"
 # need this for real-time audio (includes RT_GROUP_SCHED)
 KERNEL_ENABLE_CGROUPS = "1"
 
-# try out java/fortran support
-#JAVA = ",java"
-#JAVA_arm = ",java"
-FORTRAN = ",fortran"
-FORTRAN_forcevariable = ",fortran"
-RUNTIMETARGET_append_pn-gcc-runtime = " libquadmath"
-
-# possible values are internal or external
-CUSTOM_FEED_CONFIG = "internal"
-
-# set internal feed URL
-CUSTOM_FEED_URL = "slarti"
-
-#LICENSE_FLAGS_WHITELIST = "\
-#  commercial_gst-fluendo-mp3 \
-#  commercial_gst-openmax \
-#  commercial_gst-plugins-ugly \
-#  commercial \
-#  commercial_lame \
-#  commercial_libmad \
-#  commercial_libomxil \
-#  commercial_mpeg2dec \
-#  commercial_qmmp \
-#"
-
-DISTRO_FEATURES_append = " pam udev x11 pulseaudio "
+DISTRO_FEATURES_append = " pam udev "
+#DISTRO_FEATURES_append = " pam udev x11 pulseaudio "
 #DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
 # need to allow pulseaudio for epiphany  :/
 DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch systemd"
 
 
+#
 # Additional image features
 #
 # The following is a list of additional classes to use when building images which
@@ -412,9 +368,7 @@ DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch systemd"
 #   - 'image-swab' to perform host system intrusion detection
 # NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
 # NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
-# image-prelink disabled for now due to issues with IFUNC symbol relocation
-USER_CLASSES ?= "buildstats image-mklibs"
-
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
 
 #
 # Runtime testing of images
