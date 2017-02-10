@@ -13,13 +13,13 @@ S = "${WORKDIR}/Pillow-${PV}"
 
 DEPENDS = "lcms freetype libpng jpeg zlib tiff python-cython-native libwebp"
 DEPENDS += "python-dateutil python-pytz python-six python-native \
-            python-jinja2 python-markupsafe python3-docutils \
+            python-jinja2 python-markupsafe python-docutils \
             python-requests python-pyflakes python-pep8"
 
 # this is in the upstream docs but no configure exists  :(
-EXTRA_OECONF = " --disable-platform-guessing --disable-tcl --disable-tk \
-                 --disable-webp --disable-webpmux --disable-jpeg2000 \
-                 --disable-imagequant"
+DIST_CONFIG = " --disable-platform-guessing \
+    --disable-tcl --disable-tk --disable-imagequant \
+    --disable-webp --disable-webpmux --disable-jpeg2000 "
 
 DISTUTILS_INSTALL_ARGS = "--root=${D} \
     --skip-build \
@@ -27,16 +27,21 @@ DISTUTILS_INSTALL_ARGS = "--root=${D} \
     --install-lib=${PYTHON_SITEPACKAGES_DIR} \
     --install-data=${datadir}"
 
+CFLAGS += "-fno-strict-aliasing -I${STAGING_INCDIR} -I${STAGING_INCDIR}/freetype2"
+LDFLAGS += "-L${STAGING_LIBDIR} -L${STAGING_BASELIBDIR}"
+
 do_compile_prepend() {
-        sed -i -e s:/usr/local/lib:${STAGING_LIBDIR}:g \
-               -e s:/usr/local/lib64:${STAGING_LIBDIR}:g \
-               -e s:/usr/lib:${STAGING_LIBDIR}:g \
-               -e s:/usr/lib64:${STAGING_LIBDIR}:g \
-               -e s:/lib:${STAGING_BASELIBDIR}:g \
-               -e s:/lib64:${STAGING_BASELIBDIR}:g \
-               -e s:/usr/include:${STAGING_INCDIR}:g \
-               ${S}/setup.py
+    sed -i -e s:/usr/include:${STAGING_INCDIR}: \
+        -e s:/usr/local/include:${STAGING_INCDIR}: \
+        -e s:/usr/local/lib64:${STAGING_LIBDIR}: \
+        -e s:/usr/lib64:${STAGING_LIBDIR}: \
+        -e s:/lib64:${STAGING_BASELIBDIR}: \
+        ${S}/setup.py
 }
 
+do_compile() {
+    export MAX_CONCURRENCY=1
 
-BBCLASSEXTEND = "native"
+    distutils_do_compile
+}
+
