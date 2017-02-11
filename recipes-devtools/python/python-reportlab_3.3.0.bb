@@ -23,12 +23,16 @@ DEPENDS = "python-pillow libart-lgpl freetype"
 CFLAGS += "-fno-strict-aliasing -I${STAGING_INCDIR}/freetype2"
 LDFLAGS += "-L${STAGING_LIBDIR}"
 
+DISTUTILS_INSTALL_ARGS += "--skip-build"
+
 do_unpack_extra() {
 	unzip -o -q ${DL_DIR}/pfbfer-20070710.zip -d ${S}/src/reportlab/fonts
 
 	sed -i -e s:/usr/local/lib:${STAGING_LIBDIR}: \
                -e s:/usr/lib:${STAGING_LIBDIR}: \
                -e s:/usr/local/include:${STAGING_INCDIR}: \
+               -e s:"/usr/include/freetype2":"${STAGING_INCDIR}/freetype2": \
+               -e s:"/usr/include":"${STAGING_INCDIR}": \
                ${S}/setup.py
 
         sed -i -e s:/usr/local/Acrobat:/opt/Acrobat:g \
