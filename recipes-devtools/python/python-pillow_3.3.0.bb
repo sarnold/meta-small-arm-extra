@@ -7,7 +7,8 @@ SRC_URI = "https://github.com/python-pillow/Pillow/archive/${PV}.tar.gz;download
 SRC_URI[md5sum] = "56c2f864d9a64cb5491410024d755229"
 SRC_URI[sha256sum] = "ae2fbb500c81100f7e374545d008019e6f90918386f620625c3b3b98faf88414"
 
-inherit  distutils python-dir
+#inherit  distutils python-dir
+inherit setuptools python-dir
 
 S = "${WORKDIR}/Pillow-${PV}"
 
@@ -17,15 +18,11 @@ DEPENDS += "python-dateutil python-pytz python-six python-native \
             python-requests python-pyflakes python-pep8"
 
 # this is in the upstream docs but no configure exists  :(
-DIST_CONFIG = " --disable-platform-guessing \
+EXTRA_OECONF = " --disable-platform-guessing \
     --disable-tcl --disable-tk --disable-imagequant \
     --disable-webp --disable-webpmux --disable-jpeg2000 "
 
-DISTUTILS_INSTALL_ARGS = "--root=${D} \
-    --skip-build \
-    --prefix=${prefix} \
-    --install-lib=${PYTHON_SITEPACKAGES_DIR} \
-    --install-data=${datadir}"
+DISTUTILS_INSTALL_ARGS += "--skip-build"
 
 CFLAGS += "-fno-strict-aliasing -I${STAGING_INCDIR} -I${STAGING_INCDIR}/freetype2"
 LDFLAGS += "-L${STAGING_LIBDIR} -L${STAGING_BASELIBDIR}"
@@ -40,8 +37,13 @@ do_compile_prepend() {
 }
 
 do_compile() {
-    export MAX_CONCURRENCY=1
+    #distutils_do_compile
+    CFLAGS="${CFLAGS} -I${STAGING_INCDIR}" MAX_CONCURRENCY=1 \
+        python setup.py build_ext --disable-platform-guessing \
+        --disable-imagequant --disable-webp --disable-webpmux \
+        --disable-jpeg2000 
 
-    distutils_do_compile
+    CFLAGS="${CFLAGS} -I${STAGING_INCDIR}" MAX_CONCURRENCY=1 \
+        python setup.py build_scripts
 }
 
