@@ -1,0 +1,19 @@
+--- a/Makefile	2017-03-11 18:01:52.085836893 -0800
++++ b/Makefile	2017-03-11 18:02:38.548278551 -0800
+@@ -12,7 +12,7 @@
+ 
+ # Fallback to gcc when $CC is not in $PATH.
+ CC:=$(shell sh -c 'type $(CC) >/dev/null 2>/dev/null && echo $(CC) || echo gcc')
+-OPTIMIZATION?=-O3
++OPTIMIZATION?=-O2
+ WARNINGS=-Wall -W -Wstrict-prototypes -Wwrite-strings
+ DEBUG?= -g -ggdb
+ REAL_CFLAGS=$(OPTIMIZATION) -fPIC $(CFLAGS) $(WARNINGS) $(DEBUG) $(ARCH)
+@@ -56,6 +56,7 @@
+ 
+ $(STLIBNAME): $(OBJ)
+ 	$(STLIB_MAKE_CMD) $(OBJ)
++	$(RANLIB) $@
+ 
+ dynamic: $(DYLIBNAME)
+ static: $(STLIBNAME)
