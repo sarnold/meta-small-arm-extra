@@ -5,6 +5,7 @@ include linux-armv7multi.inc
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=http;branch=${KBRANCH};name=nitrogen6x \
            http://rcn-ee.net/deb/xenial-armhf/${RELEASE_TAG}-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.gz;name=patch \
+           file://0001-imx6q-nitrogen6_max.dts-enable-spidev-on-ecspi5-disa.patch \
            file://defconfig"
 
 PATCHTOOL = "git"
@@ -23,12 +24,6 @@ SRCREV_nitrogen6x = "${KERNEL_TAG}"
 KBRANCH_nitrogen6x = "linux-${BRANCH_VERSION}.y"
 
 PV = "${LINUX_VERSION}${LINUX_VERSION_EXTENSION}+git${SRCPV}"
-
-#do_install_append() {
-#	cd ${WORKDIR}
-#	install -m 0644 -t ${D}/lib/firmware am335x-pru0-fw am335x-pru1-fw
-#}
-
 
 SRC_URI[patch.md5sum] = "5a8899a0771572d01257d93160a1e604"
 SRC_URI[patch.sha256sum] = "b5f567152b010553563fc45f4251ee47ad3601594198f5f6671818d350f0820e"
