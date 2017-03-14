@@ -9,6 +9,7 @@ DEPENDS = "hiredis json-c"
 
 SRC_URI = "https://github.com/VCTLabs/redis-ipc/archive/v${PV}.tar.gz \
            file://redis-ipc-0.0.1-fix-qa-warning.patch \
+           file://redis-ipc-0.0.1-autotools-updates.patch \
 "
 SRC_URI[md5sum] = "475b42836e32de9cc5a485eae0d9c2d0"
 SRC_URI[sha256sum] = "28cb0fc70441698f2e9c23697adb80e719e77e614241c71b7a95b532a49fc3d2"
