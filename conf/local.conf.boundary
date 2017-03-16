@@ -45,8 +45,10 @@ KERNEL_DEVICETREE_nitrogen6x = "imx6q-sabrelite.dtb \
 
 MACHINE_HAS_VIVANTE_KERNEL_DRIVER_SUPPORT = "0"
 NETWORK_MANAGER = "connman-gnome"
+
 # choose pkgconfig option: openssl nettle gcrypt
-XORG_CRYPTO = "gcrypt"
+XORG_CRYPTO = "openssl"
+MESA_CRYPTO = "openssl"
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-armv7multi"
 PREFERRED_VERSION_linux-armv7multi = "4.10%"
@@ -56,23 +58,20 @@ PREFERRED_PROVIDER_virtual/bootloader = "u-boot-boundary"
 #PREFERRED_VERSION_virtual/bootloader = "2016.03%"
 
 #ACCEPT_FSL_EULA = "1"
-PREFERRED_PROVIDER_virtual/egl_nitrogen6x = "mesa"
-PREFERRED_PROVIDER_virtual/libgl_nitrogen6x = "mesa"
-PREFERRED_PROVIDER_virtual/libgles1_nitrogen6x = "mesa"
-PREFERRED_PROVIDER_virtual/libgles2_nitrogen6x = "mesa"
-PREFERRED_PROVIDER_virtual/egl_mx6q = "mesa"
-PREFERRED_PROVIDER_virtual/libgles1_mx6q = "mesa"
-PREFERRED_PROVIDER_virtual/libgles2_mx6q = "mesa"
-PREFERRED_PROVIDER_virtual/libgl_mx6q = "mesa"
+PREFERRED_PROVIDER_virtual/egl_mx6 = "mesa"
+PREFERRED_PROVIDER_virtual/libgles1_mx6 = "mesa"
+PREFERRED_PROVIDER_virtual/libgles2_mx6 = "mesa"
+PREFERRED_PROVIDER_virtual/libgl_mx6 = "mesa"
 PREFERRED_PROVIDER_virtual/libg2d_mx6 = "mesa"
 
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
-XSERVER_DRIVER = "xf86-video-fbdev"
-XSERVER_DRIVER_imxgpu2d = "xf86-video-fbdev"
+XSERVER_DRIVER = "xf86-video-armada"
+XSERVER_DRIVER_imxgpu2d = "xf86-video-armada"
 
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
+PACKAGECONFIG_pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
 PACKAGECONFIG_pn-xserver-xorg = "dri2 dri3 udev glamor xshmfence"
 PACKAGECONFIG_pn-qtbase = "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
 #PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
