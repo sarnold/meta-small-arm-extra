@@ -58,11 +58,11 @@ PREFERRED_PROVIDER_virtual/bootloader = "u-boot-boundary"
 #PREFERRED_VERSION_virtual/bootloader = "2016.03%"
 
 #ACCEPT_FSL_EULA = "1"
-PREFERRED_PROVIDER_virtual/egl_mx6 = "mesa"
-PREFERRED_PROVIDER_virtual/libgles1_mx6 = "mesa"
-PREFERRED_PROVIDER_virtual/libgles2_mx6 = "mesa"
-PREFERRED_PROVIDER_virtual/libgl_mx6 = "mesa"
-PREFERRED_PROVIDER_virtual/libg2d_mx6 = "mesa"
+PREFERRED_PROVIDER_virtual/egl_nitrogen6x = "mesa"
+PREFERRED_PROVIDER_virtual/libgles1_nitrogen6x = "mesa"
+PREFERRED_PROVIDER_virtual/libgles2_nitrogen6x = "mesa"
+PREFERRED_PROVIDER_virtual/libgl_nitrogen6x = "mesa"
+PREFERRED_PROVIDER_virtual/libg2d_nitrogen6x = "mesa"
 
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 XSERVER_DRIVER = "xf86-video-armada"
@@ -153,6 +153,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
 "
 
 BRINGUP = " \
+    u-boot-script-boundary \
     tzdata \
     iw \
     bonnie++ \
@@ -263,9 +264,9 @@ IMX_FW = " \
 #    firmware-imx-vpu-imx6q
 
 
-DL_DIR = "/home/sarnold/shared/downloads"
-SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
-PERSISTENT_DIR = "/home/sarnold/shared/oe"
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe"
 
 INHERIT += "rm_work"
 INHERIT += "toaster"

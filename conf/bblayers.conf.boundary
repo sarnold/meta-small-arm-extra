@@ -3,7 +3,7 @@
 LCONF_VERSION = "7"
 
 BBPATH = "${TOPDIR}"
-BSPDIR = "${HOME}/foss-boundary-new"
+BSPDIR = "${HOME}/foss-boundary-test"
 BBFILES ?= ""
 
 BBLAYERS = " \
