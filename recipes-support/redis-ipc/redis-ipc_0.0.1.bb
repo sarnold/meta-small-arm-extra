@@ -14,9 +14,8 @@ SRC_URI = "https://github.com/VCTLabs/redis-ipc/archive/v${PV}.tar.gz \
 SRC_URI[md5sum] = "475b42836e32de9cc5a485eae0d9c2d0"
 SRC_URI[sha256sum] = "28cb0fc70441698f2e9c23697adb80e719e77e614241c71b7a95b532a49fc3d2"
 
-inherit autotools-brokensep pkgconfig remove-libtool
+inherit autotools pkgconfig remove-libtool
 
-CLEANBROKEN = "1"
 EXTRA_AUTORECONF = "--make"
 REMOVE_LIBTOOL_LA = "1"
 EXTRA_OECONF = "\
@@ -33,12 +32,15 @@ CACHED_CONFIGUREVARS = " \
 
 do_configure_append() {
     sed -i -e "s|I\$(includedir)|I${STAGING_INCDIR}|" \
-        "${S}"/src/Makefile
+        "${B}"/src/Makefile
 }
 
-LEAD_SONAME = "lbredis_ipc.so"
-#DEBIAN_NOAUTONAME_${PN} = "1"
-#ALLOW_EMPTY_${PN} = "1"
+DEBIAN_NOAUTONAME_${PN} = "1"
+DEBIAN_NOAUTONAME_${PN}-dbg = "1"
+DEBIAN_NOAUTONAME_${PN}-dev = "1"
+DEBIAN_NOAUTONAME_${PN}-doc = "1"
+DEBIAN_NOAUTONAME_${PN}-staticdev = "1"
+
 RRECOMMENDS_${PN} = "redis"
 
 do_install_append() {
@@ -51,9 +53,3 @@ EXTRA_OEMAKE = "'LIBTOOL=${LIBTOOL}'"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
 PARALLEL_MAKE = ""
-
-#FILES_${PN} += "${libdir}/*${SOLIBS}"
-#FILES_${PN}-dev += "${libdir}/*${SOLIBSDEV} ${includedir}"
-#FILES_${PN}-staticdev += "${libdir}/*.a"
-
-#INSANE_SKIP_${PN} += "dev-so"
