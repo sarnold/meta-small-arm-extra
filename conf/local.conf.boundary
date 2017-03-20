@@ -9,7 +9,8 @@ MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa eth
 
 # this should pull in xuser-account package and start X correctly
 #BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
-PREFERRED_VERSION_xserver-nodm-init = "1.0"
+#PREFERRED_VERSION_xserver-nodm-init = "1.0"
+
 ROOTLESS_X = "1"
 
 #DEFAULT_TEST_SUITES_remove = "connman"
@@ -30,12 +31,22 @@ IMAGE_FEATURES += "splash ssh-server-openssh package-management x11 x11-base"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
-#DISTRO_FEATURES_append = " alsa opengl pam udev x11 "
 VCTLABS_DEFAULT_DISTRO_FEATURES = "alsa opengl pam udev x11"
+# or just DEFAULT_DISTRO_FEATURES for distroless...
 DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
 
 MACHINE = "nitrogen6x"
-UBOOT_MACHINE = "nitrogen6_max_config"
+
+# Boundary u-boot
+#UBOOT_MACHINE = "nitrogen6_max_config"
+# Mainline u-boot
+UBOOT_MACHINE = "nitrogen6q2g_defconfig"
+
+# required for correct image deploy
+BOOT_SCRIPTS = "6x_bootscript-${MACHINE}:6x_bootscript \
+                uEnv-${MACHINE}.txt:uEnv.txt \
+"
+
 IMAGE_FSTYPES = "tar.bz2 ext4 sdcard"
 
 # for fslc kernel, remove newer dtbs (first 3 are in fslc-imx 4.1)
@@ -53,11 +64,10 @@ MESA_CRYPTO = "openssl"
 PREFERRED_PROVIDER_virtual/kernel = "linux-armv7multi"
 PREFERRED_VERSION_linux-armv7multi = "4.10%"
 
-PREFERRED_PROVIDER_virtual/bootloader = "u-boot-boundary"
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot-nitrogen6"
 #PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
 #PREFERRED_VERSION_virtual/bootloader = "2016.03%"
 
-#ACCEPT_FSL_EULA = "1"
 PREFERRED_PROVIDER_virtual/egl_nitrogen6x = "mesa"
 PREFERRED_PROVIDER_virtual/libgles1_nitrogen6x = "mesa"
 PREFERRED_PROVIDER_virtual/libgles2_nitrogen6x = "mesa"
@@ -65,8 +75,13 @@ PREFERRED_PROVIDER_virtual/libgl_nitrogen6x = "mesa"
 PREFERRED_PROVIDER_virtual/libg2d_nitrogen6x = "mesa"
 
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
+VIRTUAL-RUNTIME_xserver_common = "x11-common"
 XSERVER_DRIVER = "xf86-video-armada"
 XSERVER_DRIVER_imxgpu2d = "xf86-video-armada"
+# don't set this unless you have a custom autostart configured
+# (or at least available to do by hand)
+# with meta-alt-desktop-extras use lxdm-init
+VIRTUAL-RUNTIME_graphical_init_manager = "lxdm-init"
 
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
@@ -77,7 +92,8 @@ PACKAGECONFIG_pn-qtbase = "accessibility dbus glib gl freetype fontconfig tslib 
 #PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
 PACKAGECONFIG_pn-qtmultimedia = "alsa"
 
-PACKAGECONFIG_pn-openbox = "xrandr xcursor startup-notification"
+PACKAGECONFIG_pn-imlib2 = "tiff bzip2 id3"
+PACKAGECONFIG_pn-openbox = "imlib2 xrandr xcursor startup-notification"
 PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
 PACKAGECONFIG_pn-vim = "acl gtkgui x11"
 PACKAGECONFIG_pn-cantarell-fonts = "fontforge"
@@ -148,12 +164,13 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     ${BRINGUP} \
     ${DEV_TOOLS} \
     ${X11} \
+    ${X11_EXTRA} \
     ${TOUCH} \
     ${QT5} \
+    ${IMX_FW} \
 "
 
 BRINGUP = " \
-    u-boot-script-boundary \
     tzdata \
     iw \
     bonnie++ \
@@ -168,11 +185,11 @@ BRINGUP = " \
 "
 
 X11 = " \
+    fbset \
     localedef \
     libx11-locale \
     libdrm-kms \
     xserver-xf86-config \
-    xf86-video-fbdev \
     xorg-minimal-fonts \
     xkeyboard-config \
     setxkbmap \
@@ -181,14 +198,32 @@ X11 = " \
 "
 
 X11_EXTRA = " \
-    packagegroup-base-apm \
-    packagegroup-fonts-truetype-core \
+    liberation-fonts \
+    fontconfig-utils \
+    cantarell-fonts \
+    ttf-dejavu-common \
+    ttf-dejavu-sans \
+    ttf-dejavu-sans-mono \
+    openbox \
+    openbox-lxde \
+    obconf \
     lxdm \
+    tint2 \
     libxi \
+    xdg-utils \
+    xdg-user-dirs \
+    pyxdg \
     libxtst \
     rgb \
     xprop \
     xterm \
+"
+
+APPS = " \
+    leafpad \
+    jack \
+    vala-terminal \
+    imagemagick \
 "
 
 XFCE = " \
@@ -231,6 +266,7 @@ QT5 = "\
     qt5everywheredemo \
     qt5ledscreen \
     qt5nmapper \
+    qtimageformats \
     gstreamer \
     cairo \
     pango \

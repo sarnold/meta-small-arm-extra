@@ -17,6 +17,7 @@ BBLAYERS = " \
   ${BSPDIR}/oe-core/meta-openembedded/meta-multimedia \
   ${BSPDIR}/oe-core/meta-openembedded/meta-python \
   ${BSPDIR}/oe-core/meta-openembedded/meta-networking \
+  ${BSPDIR}/oe-core/meta-openembedded/meta-efl \
   "
 #  ${BSPDIR}/oe-core/meta-boundary
 
