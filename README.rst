@@ -22,7 +22,7 @@ nitrogen6x wrt to u-boot flash config) and `wandboard`_ for more details.
 .. _wandboard: https://eewiki.net/display/linuxonarm/Wandboard
 
 * linux-armv7multi recipe supports the imx6 and other machines
-* u-boot-nitrogen6 recipe is for bootscripts onl since u-boot lives in SPI flash
+* u-boot-nitrogen6 recipe is for bootscripts only since u-boot lives in SPI flash
 
 There are some generic and machine-specific recipes here that can be used
 with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
