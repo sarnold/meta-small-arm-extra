@@ -1,6 +1,7 @@
 DESCRIPTION = "A lightweight panel/taskbar"
 SECTION = "x11"
-DEPENDS = "cmake-native cairo pango imlib2 glib-2.0"
+DEPENDS = "cmake-native cairo pango virtual/imlib2 glib-2.0 gdk-pixbuf gtk+ \
+           virtual/libx11 libxrandr libxcomposite libxinerama libxdamage"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 HOMEPAGE = "http://code.google.com/p/tint2/"
