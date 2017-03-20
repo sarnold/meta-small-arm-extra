@@ -3,26 +3,66 @@
 ======================
 
 Custom small ARM device layer with extra packages and config/package tweaks,
-mostly for RPi, BBB, imx2x, Neo, and similar (small being relative ;)
+mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 
-Now includes custom kernel / u-boot recipes based on the work of Robert C.
-Nelson (eg, see the `LinuxOnArm`_ wiki page for `BeagleBoneBlack`_) for
-current beaglebone machines (white, black, green, and shortly blue)..
+New work on morty for testing imx6 etnaviv graphics; now includes custom 
+kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
+Note the older kernels are still available but should get updates soon.
+
+This work should also support cubox-i (pro), wandboard, and udoo imx6
+machines with minor changes; there are new/updated packages for etnaviv
+accelerated 2D/3D graphics and most of the build tweaks are currently
+captured in the local.conf.boundary example.
+
+See the `LinuxOnArm`_ wiki pages for `sabrelite`_ (the most similar to
+nitrogen6x wrt to u-boot flash config) and `wandboard`_ for more details.
 
 .. _LinuxOnArm: https://eewiki.net/display/linuxonarm/Home
-.. _BeagleBoneBlack: https://eewiki.net/display/linuxonarm/BeagleBone+Black
+.. _sabrelite: https://eewiki.net/display/linuxonarm/i.MX6+SABRE+Lite
+.. _wandboard: https://eewiki.net/display/linuxonarm/Wandboard
 
-* linux-boneblack recipe depends on Yocto/Poky (meta-yocto-bsp) layers
-* linux-bb-kernel recipe depends on OE-core and either meta-ti or meta-beagleboard BSP layers
+* linux-armv7multi recipe supports the imx6 and other machines
+* u-boot-nitrogen6 recipe is for bootscripts only since u-boot lives in SPI flash
 
-There are also some generic and machine-specific recipes here that can be used
+There are some generic and machine-specific recipes here that can be used
 with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
-and many freescale machines (imx233 to imx6quad).  This layer also contains
+and many freescale machines.  This layer also contains
 the minimal "machine" info required for beaglebone kernel and u-boot recipes
-to build properly against oe-core and meta-ti (but is not a stand-alone BSP).
+to build properly against oe-core and meta-ti (but is not yet a stand-alone BSP).
 
-The current machine-specific support is for BeagleBone and RaspberryPi, with
+The current machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
 additional support planned for the future.
+
+To Use This Layer for Nitrogen6 Boards
+======================================
+
+Use the `vct FOSS boundary bsp manifest`_ to clone the layers; current support
+is mainly on the oe-morty-test branch, but will migrate to the main branches
+soon.
+
+Follow the "repo init, repo sync" process on the 'manifest page`_ for the test
+branch and cd into the oe-core directory, then source the oe-init-build-env
+file to create the build directory.
+
+Before you edit the default conf files, make sure to:
+
+* in meta-small-arm-extra/conf, copy local.conf.boundary and bblayers.conf.boundary
+  to your fresh build-dir/conf directory as local.conf and bblayers.conf
+* edit local.conf and set the paths for downloads, cache, and persistent dirs
+
+  - in local.conf CORE_IMAGE_EXTRA_INSTALL you can delete the variables
+    near the bottom to make a console image or leave them alone for X image
+  - comment the DISTRO line to build oe-core "distroless"
+
+* edit bblayers.conf and set the root path to your bsp clone directory
+* cd back to top-level oe-core diectory and source oe-init-build-env build-dir again
+* try "bitbake core-image-minimal"  
+* **after** the build is finished, dd the sdcard image file to your card
+* edit uEnv.txt on the boot partition to change video resolution
+  (default is 1024x768, try your LCD resolution, eg, 1280x720 or 1920x1080)
+
+.. _vct FOSS boundary bsp manifest: https://github.com/VCTLabs/vct-boundary-bsp-platform
+.. _manifest page: https://github.com/VCTLabs/vct-boundary-bsp-platform/tree/oe-morty-test
 
 To Use This Layer for BeagleBone
 ================================

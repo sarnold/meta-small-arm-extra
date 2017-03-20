@@ -1,0 +1,42 @@
+From e8f5db29c401b695e963f015f2e0562c4ea855a8 Mon Sep 17 00:00:00 2001
+From: Stephen Arnold <stephen.arnold42@gmail.com>
+Date: Sun, 12 Mar 2017 21:33:20 -0700
+Subject: [PATCH] imx6q-nitrogen6_max.dts: enable spidev on ecspi5, disable
+ can1
+
+Signed-off-by: Stephen Arnold <stephen.arnold42@gmail.com>
+---
+ arch/arm/boot/dts/imx6q-nitrogen6_max.dts | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6q-nitrogen6_max.dts b/arch/arm/boot/dts/imx6q-nitrogen6_max.dts
+index d417457ca6db..3b7835c30ba4 100644
+--- a/arch/arm/boot/dts/imx6q-nitrogen6_max.dts
++++ b/arch/arm/boot/dts/imx6q-nitrogen6_max.dts
+@@ -51,3 +51,23 @@
+ &sata {
+ 	status = "okay";
+ };
++
++&ecspi5 {
++        status = "okay";
++
++        spidev0: spi@0 {
++                compatible = "spidev";
++                reg = <0>;
++                spi-max-frequency = <54000000>;
++        };
++
++        spidev1: spi@1 {
++                compatible = "spidev";
++                reg = <1>;
++                spi-max-frequency = <54000000>;
++        };
++};
++
++&can1 {
++	status = "disabled";
++};
+-- 
+2.11.1
+

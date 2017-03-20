@@ -3,27 +3,20 @@
 LCONF_VERSION = "7"
 
 BBPATH = "${TOPDIR}"
-BSPDIR = "${HOME}/foss-boundary-bsp"
+BSPDIR = "${HOME}/foss-boundary-test"
 BBFILES ?= ""
 
 BBLAYERS = " \
   ${BSPDIR}/oe-core/meta \
   ${BSPDIR}/oe-core/meta-freescale \
   ${BSPDIR}/oe-core/meta-freescale-3rdparty \
-  ${BSPDIR}/oe-core/meta-fsl-arm \
-  ${BSPDIR}/oe-core/meta-boundary \
   \
-  ${BSPDIR}/oe-core/meta-printing \
   ${BSPDIR}/oe-core/meta-small-arm-extra \
-  \
+  ${BSPDIR}/oe-core/meta-qt5 \
   ${BSPDIR}/oe-core/meta-openembedded/meta-oe \
   ${BSPDIR}/oe-core/meta-openembedded/meta-multimedia \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-filesystems \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-efl \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-gnome \
-  ${BSPDIR}/oe-core/meta-openembedded/meta-xfce \
   ${BSPDIR}/oe-core/meta-openembedded/meta-python \
   ${BSPDIR}/oe-core/meta-openembedded/meta-networking \
-  ${BSPDIR}/oe-core/meta-browser \
-  ${BSPDIR}/oe-core/meta-qt5 \
-"
+  "
+#  ${BSPDIR}/oe-core/meta-boundary
+

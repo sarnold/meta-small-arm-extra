@@ -1,0 +1,52 @@
+From 74723c73a6cf05ff4df124c9391425a8f7d56310 Mon Sep 17 00:00:00 2001
+From: Stephen Arnold <stephen.arnold42@gmail.com>
+Date: Fri, 10 Feb 2017 18:25:25 -0800
+Subject: [PATCH] Add patch for incomplete PIE flags (fixes build on
+ hardened/pax build host)
+
+Signed-off-by: Stephen Arnold <stephen.arnold42@gmail.com>
+---
+ meta/recipes-devtools/gcc/gcc-6.2.inc                  |  1 +
+ .../gcc/gcc-6.2/0054_all_nopie-all-flags.patch         | 18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+)
+ create mode 100644 meta/recipes-devtools/gcc/gcc-6.2/0054_all_nopie-all-flags.patch
+
+diff --git a/meta/recipes-devtools/gcc/gcc-6.2.inc b/meta/recipes-devtools/gcc/gcc-6.2.inc
+index b118995e1d..1a50d3a0d4 100644
+--- a/meta/recipes-devtools/gcc/gcc-6.2.inc
++++ b/meta/recipes-devtools/gcc/gcc-6.2.inc
+@@ -78,6 +78,7 @@ SRC_URI = "\
+            file://0045-libgcc-Add-knob-to-use-ldbl-128-on-ppc.patch \
+            file://0046-Link-libgcc-using-LDFLAGS-not-just-SHLIB_LDFLAGS.patch \
+            file://0047-libgcc_s-Use-alias-for-__cpu_indicator_init-instead-.patch \
++           file://0054_all_nopie-all-flags.patch \
+            ${BACKPORTS} \
+ "
+ BACKPORTS = ""
+diff --git a/meta/recipes-devtools/gcc/gcc-6.2/0054_all_nopie-all-flags.patch b/meta/recipes-devtools/gcc/gcc-6.2/0054_all_nopie-all-flags.patch
+new file mode 100644
+index 0000000000..48536e607c
+--- /dev/null
++++ b/meta/recipes-devtools/gcc/gcc-6.2/0054_all_nopie-all-flags.patch
+@@ -0,0 +1,18 @@
++We need to pass NO_PIE_CFLAGS to ALL_* so gcc don't fail when
++we compile it with older gcc and pie.
++
++--- a/gcc/Makefile.in	2015-06-25 19:18:12.000000000 +0200
+++++ b/gcc/Makefile.in	2016-04-22 00:12:54.029178860 +0200
++@@ -991,10 +991,10 @@ ALL_CXXFLAGS = $(T_CFLAGS) $(CFLAGS-$@)
++ ALL_CPPFLAGS = $(INCLUDES) $(CPPFLAGS)
++ 
++ # This is the variable to use when using $(COMPILER).
++-ALL_COMPILERFLAGS = $(ALL_CXXFLAGS)
+++ALL_COMPILERFLAGS = $(NO_PIE_CFLAGS) $(ALL_CXXFLAGS)
++ 
++ # This is the variable to use when using $(LINKER).
++-ALL_LINKERFLAGS = $(ALL_CXXFLAGS)
+++ALL_LINKERFLAGS = $(NO_PIE_CFLAGS) $(ALL_CXXFLAGS)
++ 
++ # Build and host support libraries.
++ 
+-- 
+2.11.1
+
