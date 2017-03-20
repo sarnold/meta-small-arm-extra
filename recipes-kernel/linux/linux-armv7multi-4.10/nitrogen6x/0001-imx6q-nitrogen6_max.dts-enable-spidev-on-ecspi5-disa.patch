@@ -1,7 +1,8 @@
 From e8f5db29c401b695e963f015f2e0562c4ea855a8 Mon Sep 17 00:00:00 2001
 From: Stephen Arnold <stephen.arnold42@gmail.com>
 Date: Sun, 12 Mar 2017 21:33:20 -0700
-Subject: imx6q-nitrogen6_max.dts: enable spidev on ecspi3, disable can1
+Subject: [PATCH] imx6q-nitrogen6_max.dts: enable spidev on ecspi5, disable
+ can1
 
 Signed-off-by: Stephen Arnold <stephen.arnold42@gmail.com>
 ---
@@ -17,7 +18,7 @@ index d417457ca6db..3b7835c30ba4 100644
  	status = "okay";
  };
 +
-+&ecspi3 {
++&ecspi5 {
 +        status = "okay";
 +
 +        spidev0: spi@0 {
