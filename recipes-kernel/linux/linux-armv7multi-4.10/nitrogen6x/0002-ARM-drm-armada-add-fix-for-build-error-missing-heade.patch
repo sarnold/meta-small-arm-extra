@@ -1,0 +1,24 @@
+From e8a757e4055867c46e8f44ffe25dada57af84f07 Mon Sep 17 00:00:00 2001
+From: Stephen Arnold <stephen.arnold42@gmail.com>
+Date: Tue, 21 Mar 2017 16:10:51 -0700
+Subject: [PATCH] ARM: drm: armada: add fix for build error (missing header
+ file)
+
+Signed-off-by: Stephen Arnold <stephen.arnold42@gmail.com>
+---
+ drivers/gpu/drm/armada/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/armada/Makefile b/drivers/gpu/drm/armada/Makefile
+index a18f156c8b66..64c0b4546fb2 100644
+--- a/drivers/gpu/drm/armada/Makefile
++++ b/drivers/gpu/drm/armada/Makefile
+@@ -4,3 +4,5 @@ armada-y	+= armada_510.o
+ armada-$(CONFIG_DEBUG_FS) += armada_debugfs.o
+ 
+ obj-$(CONFIG_DRM_ARMADA) := armada.o
++
++CFLAGS_armada_trace.o := -I$(src)
+-- 
+2.11.1
+
