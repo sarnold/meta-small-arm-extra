@@ -80,7 +80,7 @@ do_deploy() {
     ln -sf 6x_upgrade-${MACHINE}-${PV}-${PR} 6x_upgrade-${MACHINE}
 }
 
-addtask deploy after do_install before do_build
+addtask deploy after do_install before do_package
 
 FILES_${PN} = "/boot/*"
 
