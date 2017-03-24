@@ -21,7 +21,7 @@ DEPENDS += "python-mako-native"
 
 do_configure() {
     cd ${S}
-    autoreconf -Wcross --verbose --install --force --exclude=autopoint ${EXTRA_AUTORECONF} $acpaths || die "autoreconf execution failed."
+    autoreconf -Wcross --verbose --install --force --exclude=autopoint ${EXTRA_AUTORECONF} $acpaths || bbnote "autoreconf execution failed."
 
     cd ${B}
     ${S}/configure ${CONFIGUREOPTS} ${EXTRA_OECONF}
