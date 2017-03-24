@@ -19,15 +19,6 @@
       </startupnotify>
     </action>
   </item>
-  <item label="LeafPad">
-    <action name="Execute">
-      <command>leafpad</command>
-      <startupnotify>
-        <enabled>yes</enabled>
-        <wmclass>LeafPad</wmclass>
-      </startupnotify>
-    </action>
-  </item>
 </menu>
 
 <menu id="apps-term-menu" label="Terminals">
@@ -39,17 +30,9 @@
       </startupnotify>
     </action>
   </item>
-  <item label="Matchbox Terminal">
-    <action name="Execute">
-      <command>matchbox-terminal</command>
-      <startupnotify>
-        <enabled>yes</enabled>
-      </startupnotify>
-    </action>
-  </item>
   <item label="Xterm">
     <action name="Execute">
-      <command>xterm -fa 'Liberation Mono' -fs 9 -rightbar -sb -ls</command>
+      <command>xterm -fn 'Liberation Mono' -rightbar -sb -ls</command>
     </action>
   </item>
 </menu>
@@ -107,6 +90,14 @@
   <item label="ImageMagick viewer">
     <action name="Execute">
       <command>xterm -iconic -e display</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Display manager">
+    <action name="Execute">
+      <command>lxrandr</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
