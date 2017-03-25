@@ -86,17 +86,30 @@ VIRTUAL-RUNTIME_graphical_init_manager = "lxdm-init"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
+PACKAGECONFIG_pn-coreutils += "acl xattr"
+PACKAGECONFIG_pn-rsync += "acl attr"
+PACKAGECONFIG_pn-tar += "acl"
+PACKAGECONFIG_pn-libarchive += "acl xattr"
+PACKAGECONFIG_pn-logrotate += "acl"
+PACKAGECONFIG_pn-mtd-utils += "xattr"
+PACKAGECONFIG_pn-shadow += "acl attr"
+PACKAGECONFIG_pn-patch += "xattr"
+PACKAGECONFIG_pn-libevent += "attr"
+PACKAGECONFIG_pn-libtdb += "attr"
+PACKAGECONFIG_pn-libtalloc += "attr"
+
 PACKAGECONFIG_pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
-PACKAGECONFIG_pn-xserver-xorg = "dri2 dri3 udev glamor xshmfence"
-PACKAGECONFIG_pn-qtbase = "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
+PACKAGECONFIG_pn-xserver-xorg += "dri2 dri3 udev glamor xshmfence"
+PACKAGECONFIG_pn-qtbase += "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
 #PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
-PACKAGECONFIG_pn-qtmultimedia = "alsa"
+PACKAGECONFIG_pn-qtmultimedia += "alsa"
 
 PACKAGECONFIG_pn-imlib2 = "tiff bzip2 id3"
 PACKAGECONFIG_pn-openbox = "imlib2 xrandr xcursor startup-notification"
-PACKAGECONFIG_pn-libxfce4ui = "gladeui startup-notification"
-PACKAGECONFIG_pn-vim = "acl gtkgui x11"
+PACKAGECONFIG_pn-libxfce4ui += "gladeui startup-notification"
+PACKAGECONFIG_pn-vim += "acl gtkgui x11"
 PACKAGECONFIG_pn-cantarell-fonts = "fontforge"
+PACKAGECONFIG_pn-pinentry += "gtk2"
 
 VIRTUAL-RUNTIME_dev_manager = "udev"
 VIRTUAL-RUNTIME_login_manager = "busybox"
@@ -167,6 +180,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     ${X11_EXTRA} \
     ${TOUCH} \
     ${QT5} \
+    ${APPS} \
     ${IMX_FW} \
 "
 
@@ -217,13 +231,49 @@ X11_EXTRA = " \
     rgb \
     xprop \
     xterm \
+    sudo \
 "
 
 APPS = " \
-    leafpad \
-    jack \
+    geany \
+    ${GEANY_PLUGINS} \
+    jack-utils \
+    jack-server \
     vala-terminal \
     imagemagick \
+"
+
+GEANY_PLUGINS = " \
+    geany-plugins \
+    geany-plugins-geanyvc \
+    geany-plugins-commander \
+    geany-plugins-automark \
+    geany-plugins-treebrowser \
+    geany-plugins-autoclose \
+    geany-plugins-defineformat \
+    geany-plugins-scope \
+    geany-plugins-shiftcolumn \
+    geany-plugins-geanymacro \
+    geany-plugins-lineoperations \
+    geany-plugins-git-changebar \
+    geany-plugins-geanypg \
+    geany-plugins-geanyprj \
+    geany-plugins-codenav \
+    geany-plugins-addons \
+    geany-plugins-multiterm \
+    geany-plugins-geanyextrasel \
+    geany-plugins-debugger \
+    geany-plugins-geanyctags \
+"
+
+# extra pam deps
+PAM_DEPS = " \
+    pam-plugin-access \
+    cgroups-pam-plugin \
+    pam-plugin-env \
+    pam-plugin-wheel \
+    pam-plugin-group \
+    pam-plugin-shells \
 "
 
 XFCE = " \
