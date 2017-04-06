@@ -7,7 +7,7 @@ DISTRO = "vctlabs"
 # adjust machine features from meta-ti to include keyboard
 MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
 
-# this should pull in xuser-account package and start X correctly
+# this should pull in xuser-account package and start X correctly w/o DM
 #BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
 #PREFERRED_VERSION_xserver-nodm-init = "1.0"
 
@@ -71,11 +71,13 @@ PREFERRED_PROVIDER_virtual/bootloader = "u-boot-nitrogen6"
 PREFERRED_PROVIDER_virtual/egl_nitrogen6x = "mesa"
 PREFERRED_PROVIDER_virtual/libgles1_nitrogen6x = "mesa"
 PREFERRED_PROVIDER_virtual/libgles2_nitrogen6x = "mesa"
+## note: mesa-gl provides only libgl and mesa virtuals
 PREFERRED_PROVIDER_virtual/libgl_nitrogen6x = "mesa"
+PREFERRED_PROVIDER_virtual/mesa_nitrogen6x = "mesa"
 PREFERRED_PROVIDER_virtual/libg2d_nitrogen6x = "mesa"
 
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
-VIRTUAL-RUNTIME_xserver_common = "x11-common"
+VIRTUAL-RUNTIME_xserver_common = "xserver-common"
 XSERVER_DRIVER = "xf86-video-armada"
 XSERVER_DRIVER_imxgpu2d = "xf86-video-armada"
 # don't set this unless you have a custom autostart configured
@@ -98,7 +100,7 @@ PACKAGECONFIG_pn-libevent += "attr"
 PACKAGECONFIG_pn-libtdb += "attr"
 PACKAGECONFIG_pn-libtalloc += "attr"
 
-PACKAGECONFIG_pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
+PACKAGECONFIG_pn-mesa += "gbm egl gles dri gallium wayland x11"
 PACKAGECONFIG_pn-xserver-xorg += "dri2 dri3 udev glamor xshmfence"
 PACKAGECONFIG_pn-qtbase += "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
 #PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
