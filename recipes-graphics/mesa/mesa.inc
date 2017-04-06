@@ -24,8 +24,6 @@ REQUIRED_DISTRO_FEATURES = "opengl"
 EXTRA_OECONF = "--enable-shared-glapi \
                 --enable-glx \
                 --enable-texture-float \
-                --enable-llvm-shared-libs=no \
-                --enable-gallium-llvm=no \
                 --with-llvm-prefix=${STAGING_DIR_NATIVE} \
                 PKG_CONFIG_PATH='${STAGING_LIBDIR}/pkgconfig/' \
 "
