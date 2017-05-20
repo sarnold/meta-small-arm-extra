@@ -13,6 +13,7 @@ BBLAYERS = " \
   \
   ${BSPDIR}/oe-core/meta-small-arm-extra \
   ${BSPDIR}/oe-core/meta-qt5 \
+  ${BSPDIR}/oe-core/meta-printing \
   ${BSPDIR}/oe-core/meta-openembedded/meta-oe \
   ${BSPDIR}/oe-core/meta-openembedded/meta-multimedia \
   ${BSPDIR}/oe-core/meta-openembedded/meta-python \
