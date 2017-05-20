@@ -7,7 +7,7 @@ DISTRO = "vctlabs"
 # adjust machine features from meta-ti to include keyboard
 MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
 
-# this should pull in xuser-account package and start X correctly w/o DM
+# this should pull in xuser-account package and start X correctly
 #BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
 #PREFERRED_VERSION_xserver-nodm-init = "1.0"
 
@@ -100,7 +100,7 @@ PACKAGECONFIG_pn-libevent += "attr"
 PACKAGECONFIG_pn-libtdb += "attr"
 PACKAGECONFIG_pn-libtalloc += "attr"
 
-PACKAGECONFIG_pn-mesa += "gbm egl gles dri gallium wayland x11"
+PACKAGECONFIG_pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
 PACKAGECONFIG_pn-xserver-xorg += "dri2 dri3 udev glamor xshmfence"
 PACKAGECONFIG_pn-qtbase += "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
 #PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
@@ -371,7 +371,7 @@ KERNEL_ENABLE_CGROUPS = "1"
 CUSTOM_FEED_CONFIG = "internal"
 
 # set internal feed URL
-CUSTOM_FEED_URL = "slarti"
+CUSTOM_FEED_URL = "localhost"
 
 LICENSE_FLAGS_WHITELIST = "\
   commercial \
