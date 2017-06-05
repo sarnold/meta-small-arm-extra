@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://doc/lgpl.html;md5=8bc8c892efca25740ff051514126b2f6"
 
 inherit qmake5 qmake5_paths
 
-DEPENDS = "qtbase qtdeclarative qtgraphicaleffects qtwebkit sqlite3 pulseaudio"
+DEPENDS = "qtbase qtdeclarative qtgraphicaleffects qtmultimedia qtwebkit sqlite3"
 
 SRCREV = "7915a93b2fdd8d15d2bab85f2717b903cf2cc509"
 SRC_URI = "git://github.com/VCTLabs/qt-webkit-kiosk;branch=master;protocol=https"
