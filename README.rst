@@ -6,8 +6,9 @@ Custom small ARM device layer with extra packages and config/package tweaks,
 mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 
 New work on morty for testing imx6 etnaviv graphics; now includes custom 
-kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
-Note the older kernels are still available but should get updates soon.
+kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine)
+and Udoo Neo. Note the older kernels are still available but should get
+updates soon.
 
 This work should also support cubox-i (pro), wandboard, and udoo imx6
 machines with minor changes; there are new/updated packages for etnaviv
@@ -26,12 +27,12 @@ nitrogen6x wrt to u-boot flash config) and `wandboard`_ for more details.
 
 There are some generic and machine-specific recipes here that can be used
 with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
-and many freescale machines.  This layer also contains
-the minimal "machine" info required for beaglebone kernel and u-boot recipes
-to build properly against oe-core and meta-ti (but is not yet a stand-alone BSP).
+and many freescale machines.  This layer also contains the minimal "machine"
+info required for beaglebone kernel and u-boot recipes to build properly
+against oe-core and meta-ti (but is not yet a stand-alone BSP).
 
-The current machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
-additional support planned for the future.
+The current machine-specific support is for Udoo Neo,  Nitrogen6, BeagleBone,
+and RaspberryPi, with additional support planned for the future.
 
 To Use This Layer for Nitrogen6 Boards
 ======================================
@@ -40,13 +41,13 @@ Use the `vct FOSS boundary bsp manifest`_ to clone the layers; current support
 is mainly on the oe-morty-test branch, but will migrate to the main branches
 soon.
 
-Follow the "repo init, repo sync" process on the 'manifest page`_ for the test
-branch and cd into the oe-core directory, then source the oe-init-build-env
+Follow the "repo init, repo sync" process on the `manifest page`_ for the morty
+branch and cd into the poky/oe-core directory, then source the oe-init-build-env
 file to create the build directory.
 
 Before you edit the default conf files, make sure to:
 
-* in meta-small-arm-extra/conf, copy local.conf.boundary and bblayers.conf.boundary
+* in meta-small-arm-extra/conf, copy local.conf.xxx and bblayers.conf.xxx
   to your fresh build-dir/conf directory as local.conf and bblayers.conf
 * edit local.conf and set the paths for downloads, cache, and persistent dirs
 
@@ -62,7 +63,16 @@ Before you edit the default conf files, make sure to:
   (default is 1024x768, try your LCD resolution, eg, 1280x720 or 1920x1080)
 
 .. _vct FOSS boundary bsp manifest: https://github.com/VCTLabs/vct-boundary-bsp-platform
-.. _manifest page: https://github.com/VCTLabs/vct-boundary-bsp-platform/tree/oe-morty-test
+.. _manifest page: https://github.com/VCTLabs/vct-boundary-bsp-platform/tree/oe-morty
+
+For Udoo Neo boards, use the `foss-udoo-neo-platform-bsp`_ to clone the 
+layers; current support is mainly on the poky-morty branch.  See also the
+extra `sdcard doc for Udoo Neo`_ (includes Neo gadget ethernet/serial info).
+The latter doc should end up in a git repo soon...
+
+.. _foss-udoo-neo-platform-bsp: https://github.com/sarnold/foss-udoo-neo-platform-bsp
+.. _sdcard doc for Udoo Neo: https://gist.github.com/sarnold/2e244fa8580ec715321a515c72535d4f
+
 
 To Use This Layer for BeagleBone
 ================================
