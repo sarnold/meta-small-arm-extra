@@ -1,0 +1,490 @@
+PACKAGE_CLASSES ?= "package_ipk"
+#SDKMACHINE ?= "i686"
+SDKMACHINE = "x86_64"
+
+DISTRO ?= "poky"
+
+# adjust machine features from meta-ti to include keyboard
+MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
+
+# this should pull in xuser-account package and start X correctly
+#BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
+#PREFERRED_VERSION_xserver-nodm-init = "1.0"
+
+ROOTLESS_X = "1"
+
+#DEFAULT_TEST_SUITES_remove = "connman"
+
+BBMASK = "meta-freescale/dynamic-layers/browser-layer/"
+BBMASK .= "|.*meta-freescale/dynamic-layers/qt5-layer/"
+#BBMASK .= "|.*meta-freescale/recipes-graphics/imx-gpu-viv/"
+#BBMASK .= "|.*meta-freescale/recipes-graphics/xorg-driver/"
+#BBMASK .= "|.*meta-freescale/recipes-graphics/xorg-xserver/"
+BBMASK .= "|.*meta-freescale/recipes-graphics/mesa/"
+#BBMASK .= "|.*meta-boundary/recipes-browser/chromium/"
+BBMASK .= "|.*meta-freescale/recipes-multimedia/gstreamer/"
+BBMASK .= "|.*meta-freescale/recipes-multimedia/alsa/"
+BBMASK .= "|.*meta/recipes-support/nss/"
+
+# choose pkgconfig option: openssl nettle gcrypt
+XORG_CRYPTO = "openssl"
+MESA_CRYPTO = "openssl"
+
+#IMAGE_FEATURES += "splash ssh-server-openssh package-management x11 x11-base"
+IMAGE_FEATURES += "splash ssh-server-openssh package-management"
+
+EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
+
+#VCTLABS_DEFAULT_DISTRO_FEATURES = "alsa opengl pam udev x11"
+# or just DEFAULT_DISTRO_FEATURES for distroless...
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
+
+MACHINE = "udooneo"
+
+# for Neo USB ethernet/serial
+SERIAL_CONSOLES = "115200;ttymxc0 115200;ttyGS0"
+KERNEL_MODULE_AUTOLOAD += " g_cdc"
+
+# can't set this if layer uses UBOOT_CONFIG
+# fslc u-boot
+#UBOOT_MACHINE = "neo_defconfig"
+UBOOT_CONFIG[sd] = "udoo_neo_defconfig,sdcard"
+# Mainline u-boot
+#UBOOT_MACHINE = "udoo_neo_defconfig"
+
+#IMAGE_FSTYPES = "tar.bz2 ext4 sdcard"
+
+#KERNEL_DEVICETREE_udooneo = "imx6sx-udoo-neo-basic.dtb \
+#			imx6sx-udoo-neo-extended.dtb \
+#			imx6sx-udoo-neo-full.dtb"
+
+MACHINE_HAS_VIVANTE_KERNEL_DRIVER_SUPPORT = "0"
+#NETWORK_MANAGER = "connman-gnome"
+
+#PREFERRED_PROVIDER_virtual/kernel = "linux-fmntf"
+PREFERRED_PROVIDER_virtual/kernel = "linux-armv7multi"
+PREFERRED_VERSION_linux-armv7multi = "4.12%"
+
+#PREFERRED_PROVIDER_virtual/bootloader = "u-boot-fslc"
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
+PREFERRED_VERSION_virtual/bootloader = "2017.11%"
+
+PREFERRED_PROVIDER_virtual/egl_udooneo = "mesa"
+PREFERRED_PROVIDER_virtual/libgles1_udooneo = "mesa"
+PREFERRED_PROVIDER_virtual/libgles2_udooneo = "mesa"
+## note: mesa-gl provides only libgl and mesa virtuals
+PREFERRED_PROVIDER_virtual/libgl_udooneo = "mesa"
+PREFERRED_PROVIDER_virtual/mesa_udooneo = "mesa"
+PREFERRED_PROVIDER_virtual/libg2d_udooneo = "mesa"
+
+PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
+VIRTUAL-RUNTIME_xserver_common = "xserver-common"
+XSERVER_DRIVER = "xf86-video-armada"
+XSERVER_DRIVER_imxgpu2d = "xf86-video-armada"
+# don't set this unless you have a custom autostart configured
+# (or at least available to do by hand)
+# with meta-alt-desktop-extras use lxdm-init
+VIRTUAL-RUNTIME_graphical_init_manager = "lxdm-init"
+
+PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
+PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
+
+PACKAGECONFIG_pn-coreutils += "acl xattr"
+PACKAGECONFIG_pn-rsync += "acl attr"
+PACKAGECONFIG_pn-tar += "acl"
+PACKAGECONFIG_pn-libarchive += "acl xattr"
+PACKAGECONFIG_pn-logrotate += "acl"
+PACKAGECONFIG_pn-mtd-utils += "xattr"
+PACKAGECONFIG_pn-shadow += "acl attr"
+PACKAGECONFIG_pn-patch += "xattr"
+PACKAGECONFIG_pn-libevent += "attr"
+PACKAGECONFIG_pn-libtdb += "attr"
+PACKAGECONFIG_pn-libtalloc += "attr"
+
+PACKAGECONFIG_pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
+PACKAGECONFIG_pn-xserver-xorg += "dri2 dri3 udev glamor xshmfence"
+PACKAGECONFIG_pn-qtbase += "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
+#PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
+PACKAGECONFIG_pn-qtmultimedia += "alsa"
+
+PACKAGECONFIG_pn-imlib2 = "tiff bzip2 id3"
+PACKAGECONFIG_pn-openbox = "imlib2 xrandr xcursor startup-notification"
+PACKAGECONFIG_pn-libxfce4ui += "gladeui startup-notification"
+PACKAGECONFIG_pn-vim += "acl gtkgui x11"
+PACKAGECONFIG_pn-cantarell-fonts = "fontforge"
+PACKAGECONFIG_pn-pinentry += "gtk2"
+
+VIRTUAL-RUNTIME_dev_manager = "udev"
+VIRTUAL-RUNTIME_login_manager = "busybox"
+VIRTUAL-RUNTIME_init_manager = "sysvinit"
+VIRTUAL-RUNTIME_initscripts = "initscripts"
+VIRTUAL-RUNTIME_keymaps = "keymaps"
+
+CORE_IMAGE_EXTRA_INSTALL += "\
+    kernel-modules \
+    libcgroup \
+    zram \
+    nano \
+    vim \
+    vim-vimrc \
+    vim-syntax \
+    ntp \
+    ltp \
+    git \
+    rsync \
+    bash \
+    screen \
+    pax-utils \
+    pps-tools \
+    mtd-utils \
+    devmem2 \
+    sysfsutils \
+    spitools \
+    i2c-tools \
+    usbutils \
+    distro-feed-configs \
+    cpufrequtils \
+    gkrellmd \
+    sqlite3 \
+    python-sqlite3 \
+    python-sqlite3-tests \
+    python-modules \
+    python-misc \
+    python-pyyaml \
+    python-git \
+    python-apsw \
+    neobunch \
+    python-evdev \
+    libevdev \
+    python-redis \
+    redis \
+    hiredis \
+    redis-ipc \
+    lighttpd \
+    lighttpd-module-cgi \
+    lighttpd-module-alias \
+    lighttpd-module-status \
+    lighttpd-module-setenv \
+    lighttpd-module-compress \
+    lighttpd-module-redirect \
+    python-reportlab \
+    python-pillow \
+    perl \
+    perl-misc \
+    perl-modules \
+    alsa-lib \
+    alsa-tools \
+    alsa-state \
+    alsa-utils \
+    alsa-utils-scripts \
+    ${BRINGUP} \
+    ${DEV_TOOLS} \
+    ${IMX_FW} \
+"
+
+BRINGUP = " \
+    tzdata \
+    iw \
+    bonnie++ \
+    hdparm \
+    iozone3 \
+    iperf \
+    lmbench \
+    rt-tests \
+    evtest \
+    bc \
+    memtester \
+"
+
+X11 = " \
+    fbset \
+    localedef \
+    libx11-locale \
+    libdrm-kms \
+    xserver-xf86-config \
+    xorg-minimal-fonts \
+    xkeyboard-config \
+    setxkbmap \
+    xmodmap \
+    xrdb \
+"
+
+X11_EXTRA = " \
+    liberation-fonts \
+    fontconfig-utils \
+    cantarell-fonts \
+    ttf-dejavu-common \
+    ttf-dejavu-sans \
+    ttf-dejavu-sans-mono \
+    openbox \
+    openbox-lxde \
+    obconf \
+    lxdm \
+    tint2 \
+    libxi \
+    xdg-utils \
+    xdg-user-dirs \
+    pyxdg \
+    libxtst \
+    rgb \
+    xprop \
+    xterm \
+    sudo \
+"
+
+APPS = " \
+    geany \
+    ${GEANY_PLUGINS} \
+    jack-utils \
+    jack-server \
+    vala-terminal \
+    imagemagick \
+"
+
+GEANY_PLUGINS = " \
+    geany-plugins \
+    geany-plugins-geanyvc \
+    geany-plugins-commander \
+    geany-plugins-automark \
+    geany-plugins-treebrowser \
+    geany-plugins-autoclose \
+    geany-plugins-defineformat \
+    geany-plugins-scope \
+    geany-plugins-shiftcolumn \
+    geany-plugins-geanymacro \
+    geany-plugins-lineoperations \
+    geany-plugins-git-changebar \
+    geany-plugins-geanypg \
+    geany-plugins-geanyprj \
+    geany-plugins-codenav \
+    geany-plugins-addons \
+    geany-plugins-multiterm \
+    geany-plugins-geanyextrasel \
+    geany-plugins-debugger \
+    geany-plugins-geanyctags \
+"
+
+# extra pam deps
+PAM_DEPS = " \
+    pam-plugin-access \
+    cgroups-pam-plugin \
+    pam-plugin-env \
+    pam-plugin-wheel \
+    pam-plugin-group \
+    pam-plugin-shells \
+"
+
+XFCE = " \
+    packagegroup-xfce-extended \
+    packagegroup-xfce-multimedia \
+"
+
+PRINTING = " \
+    ghostscript \
+    poppler \
+    qpdf \
+    cups \
+    pycups \
+    cups-filters \
+    cups-filters-gst \
+    cups-filters-data \
+"
+
+TOUCH = "\
+    tslib-conf \
+    tslib-tests \
+    tslib-calibrate \
+    tslib \
+    evtest \
+    dbus \
+"
+
+# note: qt5-opengles2-test fails to compile with mesa as GL provider
+QT5 = "\
+    packagegroup-qt5-qtcreator-debug \
+    qtbase \
+    qtbase-tools \
+    qtbase-plugins \
+    qtwebkit \
+    qtwebkit-qmlplugins \
+    qtwebkit-examples \
+    qtwebkit-examples-examples \
+    qt5-demo-extrafiles \
+    cinematicexperience \
+    qt5everywheredemo \
+    qt5ledscreen \
+    qt5nmapper \
+    qtimageformats \
+    gstreamer \
+    cairo \
+    pango \
+    fontconfig \
+    freetype \
+    qtbrowser-qt5 \
+"
+
+# needs pulseaudio and qt-multimedia
+#     qt-webkit-kiosk 
+
+DEV_TOOLS = "\
+    diffutils \
+    python3-docutils \
+    python-pyserial \
+    python-pyusb \
+    python-pip \
+    guile \
+    bison \
+    flex \
+    yasm \
+    gdb \
+    nftables \
+    ebtables \
+"
+
+IMX_FW = " \
+    linux-firmware-ath6k \
+    linux-firmware-wl12xx \
+    linux-firmware-wl18xx \
+"
+# this should not be needed
+#    firmware-imx-vpu-imx6q
+
+
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/poky/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe"
+
+INHERIT += "rm_work"
+INHERIT += "toaster"
+
+# enable the PR service
+PRSERV_HOST = "localhost:0"
+INHERIT += "buildhistory"
+BUILDHISTORY_COMMIT = "1"
+
+# need this for real-time audio (includes RT_GROUP_SCHED)
+KERNEL_ENABLE_CGROUPS = "1"
+
+# possible values are internal or external
+CUSTOM_FEED_CONFIG = "internal"
+
+# set internal feed URL
+CUSTOM_FEED_URL = "localhost"
+
+LICENSE_FLAGS_WHITELIST = "\
+  commercial \
+  commercial_lame \
+  commercial_libmad \
+  commercial_mpeg2dec \
+  commercial_gst-plugins-ugly \
+"
+#LICENSE_FLAGS_WHITELIST = "\
+#  commercial \
+#  commercial_gst-plugins-ugly \
+#  commercial_gst-fluendo-mp3 \
+#  commercial_gst-openmax \
+#  commercial_gst-plugins-ugly \
+#  commercial \
+#  commercial_lame \
+#  commercial_libmad \
+#  commercial_libomxil \
+#  commercial_mpeg2dec \
+#  commercial_qmmp \
+#"
+
+
+# Additional image features
+#
+# The following is a list of additional classes to use when building images which
+# enable extra features. Some available options which can be included in this variable
+# are:
+#   - 'buildstats' collect build statistics
+#   - 'image-mklibs' to reduce shared library files size for an image
+#   - 'image-prelink' in order to prelink the filesystem image
+#   - 'image-swab' to perform host system intrusion detection
+# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
+# NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+
+
+#
+# Runtime testing of images
+#
+# The build system can test booting virtual machine images under qemu (an emulator)
+# after any root filesystems are created and run tests against those images. To
+# enable this uncomment this line. See classes/testimage(-auto).bbclass for
+# further details.
+#TEST_IMAGE = "1"
+#
+# Interactive shell configuration
+#
+# Under certain circumstances the system may need input from you and to do this it
+# can launch an interactive shell. It needs to do this since the build is
+# multithreaded and needs to be able to handle the case where more than one parallel
+# process may require the user's attention. The default is iterate over the available
+# terminal types to find one that works.
+#
+# Examples of the occasions this may happen are when resolving patches which cannot
+# be applied, to use the devshell or the kernel menuconfig
+#
+# Supported values are auto, gnome, xfce, rxvt, screen, konsole (KDE 3.x only), none
+# Note: currently, Konsole support only works for KDE 3.x due to the way
+# newer Konsole versions behave
+
+OE_TERMINAL = "auto"
+# By default disable interactive patch resolution (tasks will just fail instead):
+PATCHRESOLVE = "noop"
+
+#
+# Disk Space Monitoring during the build
+#
+# Monitor the disk space during the build. If there is less that 1GB of space or less
+# than 100K inodes in any key build location (TMPDIR, DL_DIR, SSTATE_DIR), gracefully
+# shutdown the build. If there is less that 100MB or 1K inodes, perform a hard abort
+# of the build. The reason for this is that running completely out of space can corrupt
+# files and damages the build in ways which may not be easily recoverable.
+# It's necesary to monitor /tmp, if there is no space left the build will fail
+# with very exotic errors.
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+#
+# Shared-state files from other locations
+#
+# As mentioned above, shared state files are prebuilt cache data objects which can
+# used to accelerate build time. This variable can be used to configure the system
+# to search other mirror locations for these objects before it builds the data itself.
+#
+# This can be a filesystem directory, or a remote url such as http or ftp. These
+# would contain the sstate-cache results from previous builds (possibly from other
+# machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the
+# cache locations to check for the shared objects.
+# NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
+# at the end as shown in the examples below. This will be substituted with the
+# correct path within the directory structure.
+#SSTATE_MIRRORS ?= "\
+#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+#file://.* file:///some/local/dir/sstate/PATH"
+
+
+# Qemu configuration
+#
+# By default qemu will build with a builtin VNC server where graphical output can be
+# seen. The two lines below enable the SDL backend too. By default libsdl-native will
+# be built, if you want to use your host's libSDL instead of the minimal libsdl built
+# by libsdl-native then uncomment the ASSUME_PROVIDED line below.
+#PACKAGECONFIG_append_pn-qemu-native = " sdl"
+#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ASSUME_PROVIDED += "qemu-native libsdl-native"
+
+# CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+# track the version of this file when it was generated. This can safely be ignored if
+# this doesn't mean anything to you.
+CONF_VERSION = "1"
