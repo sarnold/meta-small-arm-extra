@@ -19,9 +19,14 @@ KERNEL_DEVICETREE_nitrogen6x = "imx6q-sabrelite.dtb \
                   imx6q-nitrogen6x.dtb imx6dl-nitrogen6x.dtb \
                   imx6q-nitrogen6_max.dtb imx6qp-nitrogen6_max.dtb"
 
+KERNEL_DEVICETREE_udooneo = "imx6sx-udoo-neo-full.dtb \
+                  imx6sx-udoo-neo-basic.dtb \
+                  imx6sx-udoo-neo-extended.dtb"
+
 KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
 
 COMPATIBLE_MACHINE_nitrogen6x = "nitrogen6x"
+COMPATIBLE_MACHINE_udooneo = "udooneo"
 
 S = "${WORKDIR}/git"
 
