@@ -1,0 +1,1 @@
+optargs=cma=16M uart_from_osc clk_ignore_unused console=tty0 console=tty1 net.ifnames=0 console=ttymxc0,115200 console=ttyGS0,115200
