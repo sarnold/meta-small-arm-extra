@@ -31,9 +31,10 @@ IMAGE_FEATURES += "splash ssh-server-openssh package-management x11 x11-base"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
-VCTLABS_DEFAULT_DISTRO_FEATURES = "alsa opengl pam udev x11"
+DISTRO_FEATURES_append = " alsa opengl pam udev x11"
+DISTRO_FEATURES_remove = " multiarch pulseaudio systemd"
 # or just DEFAULT_DISTRO_FEATURES for distroless...
-DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
+#DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
 
 MACHINE = "nitrogen6x"
 
@@ -393,9 +394,6 @@ LICENSE_FLAGS_WHITELIST = "\
 #  commercial_mpeg2dec \
 #  commercial_qmmp \
 #"
-
-DISTRO_FEATURES_append = " alsa opengl pam udev x11 "
-DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
 
 
 # Additional image features
