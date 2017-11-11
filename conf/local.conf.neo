@@ -4,8 +4,8 @@ SDKMACHINE = "x86_64"
 
 DISTRO ?= "poky"
 
-# adjust machine features from meta-ti to include keyboard
-MACHINE_FEATURES = "keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
+# adjust machine features 
+MACHINE_FEATURES_append_udooneo = " keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
 
 # this should pull in xuser-account package and start X correctly
 #BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
@@ -25,39 +25,49 @@ BBMASK .= "|.*meta-freescale/recipes-graphics/mesa/"
 BBMASK .= "|.*meta-freescale/recipes-multimedia/gstreamer/"
 BBMASK .= "|.*meta-freescale/recipes-multimedia/alsa/"
 BBMASK .= "|.*meta/recipes-support/nss/"
+# zram bbappend needs adjustment for systemd
+BBMASK .= "|.*meta-small-arm-extra/recipes-support/zram/"
 
 # choose pkgconfig option: openssl nettle gcrypt
 XORG_CRYPTO = "openssl"
 MESA_CRYPTO = "openssl"
 
+# use this for a desktop build
 #IMAGE_FEATURES += "splash ssh-server-openssh package-management x11 x11-base"
 IMAGE_FEATURES += "splash ssh-server-openssh package-management"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
-#VCTLABS_DEFAULT_DISTRO_FEATURES = "alsa opengl pam udev x11"
-# or just DEFAULT_DISTRO_FEATURES for distroless...
-DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
+IMAGE_LINGUAS = " "
+
+# use this for a desktop build
+#DISTRO_FEATURES_append = " alsa opengl pam udev x11"
+# we also need to override systemd vs sysvinit properly
+#DISTRO_FEATURES_append = " sysvinit"
+DISTRO_FEATURES_remove = " multiarch pulseaudio systemd"
+
+# these are distro poky/vctlabs defaults
+#VIRTUAL-RUNTIME_dev_manager = "udev"
+#VIRTUAL-RUNTIME_login_manager = "busybox"
+#VIRTUAL-RUNTIME_init_manager = "systemd"
+#VIRTUAL-RUNTIME_initscripts = "initscripts"
+#VIRTUAL-RUNTIME_keymaps = "keymaps"
 
 MACHINE = "udooneo"
 
-# for Neo USB ethernet/serial
+# for Neo uart and USB ethernet/serial
 SERIAL_CONSOLES = "115200;ttymxc0 115200;ttyGS0"
-KERNEL_MODULE_AUTOLOAD += " g_cdc"
+KERNEL_MODULE_AUTOLOAD_append = " g_cdc"
 
-# can't set this if layer uses UBOOT_CONFIG
-# fslc u-boot
-#UBOOT_MACHINE = "neo_defconfig"
+# meta-udoo override for mainline u-boot/kernel
 UBOOT_CONFIG[sd] = "udoo_neo_defconfig,sdcard"
-# Mainline u-boot
-#UBOOT_MACHINE = "udoo_neo_defconfig"
 
-#IMAGE_FSTYPES = "tar.bz2 ext4 sdcard"
-
+# these are set in armv7-mukti recipe
 #KERNEL_DEVICETREE_udooneo = "imx6sx-udoo-neo-basic.dtb \
 #			imx6sx-udoo-neo-extended.dtb \
 #			imx6sx-udoo-neo-full.dtb"
 
+# we use etnaviv and mesa
 MACHINE_HAS_VIVANTE_KERNEL_DRIVER_SUPPORT = "0"
 #NETWORK_MANAGER = "connman-gnome"
 
@@ -110,15 +120,10 @@ PACKAGECONFIG_pn-qtmultimedia += "alsa"
 PACKAGECONFIG_pn-imlib2 = "tiff bzip2 id3"
 PACKAGECONFIG_pn-openbox = "imlib2 xrandr xcursor startup-notification"
 PACKAGECONFIG_pn-libxfce4ui += "gladeui startup-notification"
-PACKAGECONFIG_pn-vim += "acl gtkgui x11"
+#PACKAGECONFIG_pn-vim += "acl gtkgui x11"
+PACKAGECONFIG_pn-vim += "acl"
 PACKAGECONFIG_pn-cantarell-fonts = "fontforge"
 PACKAGECONFIG_pn-pinentry += "gtk2"
-
-VIRTUAL-RUNTIME_dev_manager = "udev"
-VIRTUAL-RUNTIME_login_manager = "busybox"
-VIRTUAL-RUNTIME_init_manager = "sysvinit"
-VIRTUAL-RUNTIME_initscripts = "initscripts"
-VIRTUAL-RUNTIME_keymaps = "keymaps"
 
 CORE_IMAGE_EXTRA_INSTALL += "\
     kernel-modules \
@@ -178,8 +183,13 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     alsa-utils \
     alsa-utils-scripts \
     ${BRINGUP} \
+    ${UDOO} \
     ${DEV_TOOLS} \
     ${IMX_FW} \
+"
+
+UDOO = "\
+    resize-rootfs \
 "
 
 BRINGUP = " \
