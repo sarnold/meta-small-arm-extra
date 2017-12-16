@@ -23,6 +23,9 @@ KERNEL_DEVICETREE_udooneo = "imx6sx-udoo-neo-full.dtb \
                   imx6sx-udoo-neo-basic.dtb \
                   imx6sx-udoo-neo-extended.dtb"
 
+KERNEL_DEVICETREE_udooqdl = "imx6q-udoo.dtb \
+                  imx6dl-udoo.dtb"
+
 KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
 
 COMPATIBLE_MACHINE_nitrogen6x = "nitrogen6x"
