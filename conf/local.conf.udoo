@@ -5,7 +5,7 @@ SDKMACHINE = "x86_64"
 DISTRO ?= "poky"
 
 # adjust machine features 
-MACHINE_FEATURES_append_udooneo = " keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
+MACHINE_FEATURES_append_udooqdl = " keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
 
 # this should pull in xuser-account package and start X correctly
 #BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
@@ -17,6 +17,7 @@ ROOTLESS_X = "1"
 
 BBMASK = "meta-freescale/dynamic-layers/browser-layer/"
 BBMASK .= "|.*meta-freescale/dynamic-layers/qt5-layer/"
+BBMASK .= "|.*meta-freescale/recipes-bsp/firmware-imx/"
 #BBMASK .= "|.*meta-freescale/recipes-graphics/imx-gpu-viv/"
 #BBMASK .= "|.*meta-freescale/recipes-graphics/xorg-driver/"
 #BBMASK .= "|.*meta-freescale/recipes-graphics/xorg-xserver/"
@@ -27,9 +28,6 @@ BBMASK .= "|.*meta-freescale/recipes-multimedia/alsa/"
 BBMASK .= "|.*meta/recipes-support/nss/"
 # zram bbappend needs adjustment for systemd
 BBMASK .= "|.*meta-small-arm-extra/recipes-support/zram/"
-# mask out small-arm kernel/u-boot for meta-udoo test
-BBMASK .= "|.*meta-small-arm-extra/recipes-kernel/linux/"
-BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/u-boot/"
 
 # choose pkgconfig option: openssl nettle gcrypt
 XORG_CRYPTO = "openssl"
@@ -52,16 +50,20 @@ DISTRO_FEATURES_remove = " multiarch pulseaudio systemd"
 #VIRTUAL-RUNTIME_initscripts = "initscripts"
 #VIRTUAL-RUNTIME_keymaps = "keymaps"
 
-MACHINE = "udooneo"
+MACHINE = "udooqdl"
 
 # for Neo USB ethernet/serial
-SERIAL_CONSOLES = "115200;ttymxc0 115200;ttyGS0"
-KERNEL_MODULE_AUTOLOAD_append = " g_cdc"
+SERIAL_CONSOLES = "115200;ttymxc1"
+#KERNEL_MODULE_AUTOLOAD_append = " g_cdc"
+
+MACHINE_FIRMWARE_remove_udooqdl = "firmware-imx-vpu-imx6q \
+                                   firmware-imx-vpu-imx6d \
+                                   firmware-imx-epdc"
 
 # can't set this if layer uses UBOOT_CONFIG
 # fslc u-boot
 #UBOOT_MACHINE = "neo_defconfig"
-UBOOT_CONFIG[sd] = "udoo_neo_defconfig,sdcard"
+UBOOT_CONFIG[sd] = "udoo_defconfig,sdcard"
 # Mainline u-boot
 #UBOOT_MACHINE = "udoo_neo_defconfig"
 
@@ -80,13 +82,13 @@ PREFERRED_VERSION_linux-armv7multi = "4.14%"
 PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
 PREFERRED_VERSION_virtual/bootloader = "2017.11%"
 
-PREFERRED_PROVIDER_virtual/egl_udooneo = "mesa"
-PREFERRED_PROVIDER_virtual/libgles1_udooneo = "mesa"
-PREFERRED_PROVIDER_virtual/libgles2_udooneo = "mesa"
+PREFERRED_PROVIDER_virtual/egl_udooqdl = "mesa"
+PREFERRED_PROVIDER_virtual/libgles1_udooqdl = "mesa"
+PREFERRED_PROVIDER_virtual/libgles2_udooqdl = "mesa"
 ## note: mesa-gl provides only libgl and mesa virtuals
-PREFERRED_PROVIDER_virtual/libgl_udooneo = "mesa"
-PREFERRED_PROVIDER_virtual/mesa_udooneo = "mesa"
-PREFERRED_PROVIDER_virtual/libg2d_udooneo = "mesa"
+PREFERRED_PROVIDER_virtual/libgl_udooqdl = "mesa"
+PREFERRED_PROVIDER_virtual/mesa_udooqdl = "mesa"
+PREFERRED_PROVIDER_virtual/libg2d_udooqdl = "mesa"
 
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"
 VIRTUAL-RUNTIME_xserver_common = "xserver-common"
@@ -186,7 +188,6 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     ${BRINGUP} \
     ${UDOO} \
     ${DEV_TOOLS} \
-    ${IMX_FW} \
 "
 
 UDOO = "\
