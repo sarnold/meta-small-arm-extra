@@ -1,0 +1,33 @@
+From d13a3597e53204c110a9ffeea87127872308a5ed Mon Sep 17 00:00:00 2001
+From: Steve Arnold <stephen.arnold42@gmail.com>
+Date: Sat, 27 Aug 2016 12:26:37 -0700
+Subject: [PATCH] linux-libc-headers: add patch for missing define
+
+This is required for newer evdev/python-evdev to compile (note that
+python-evdev currently uses broken zip file instead of tarball).
+
+Signed-off-by: Steve Arnold <stephen.arnold42@gmail.com>
+---
+ .../0004-add-missing-define-to-input-h.patch           | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+ create mode 100644 meta/recipes-kernel/linux-libc-headers/linux-libc-headers/0004-add-missing-define-to-input-h.patch
+
+diff --git a/meta/recipes-kernel/linux-libc-headers/linux-libc-headers/0004-add-missing-define-to-input-h.patch b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers/0004-add-missing-define-to-input-h.patch
+new file mode 100644
+index 0000000000..0f0aefcc7f
+--- /dev/null
++++ b/meta/recipes-kernel/linux-libc-headers/linux-libc-headers/0004-add-missing-define-to-input-h.patch
+@@ -0,0 +1,10 @@
++--- a/include/uapi/linux/input.h	2016-07-01 11:59:02.000000000 -0700
+++++ b/include/uapi/linux/input.h	2016-06-23 14:49:39.481597369 -0700
++@@ -244,6 +244,7 @@
++ #define BUS_GSC			0x1A
++ #define BUS_ATARI		0x1B
++ #define BUS_SPI			0x1C
+++#define BUS_RMI			0x1D
++ 
++ /*
++  * MT_TOOL types
+-- 
+2.18.0
+
