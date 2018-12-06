@@ -1,15 +1,19 @@
 # custom oe-based kernel for upstream plus RCN kernel patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}/:"
 
 include linux-armv7multi.inc
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=http;branch=${KBRANCH};name=machine \
            https://rcn-ee.net/deb/xenial-armhf/${RELEASE_TAG}-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.xz;name=patch \
-           file://0002-ARM-drm-armada-add-fix-for-build-error-missing-heade.patch \
-           file://defconfig \
 "
 
-SRC_URI_append_nitrogen6x = "file://0001-imx6q-nitrogen6_max.dts-enable-spidev-on-ecspi5-disa.patch"
+SRC_URI_append_udooneo = "file://0002-ARM-drm-armada-add-fix-for-build-error-missing-heade.patch \
+                         file://defconfig \
+"
+
+SRC_URI_append_nitrogen6x = "file://0001-imx6q-nitrogen6_max.dts-enable-spidev-on-ecspi5-disa.patch \
+                             file://defconfig \
+"
 
 PATCHTOOL = "git"
 

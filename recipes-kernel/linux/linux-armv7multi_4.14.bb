@@ -5,11 +5,14 @@ include linux-armv7multi.inc
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=http;branch=${KBRANCH};name=machine \
            https://rcn-ee.net/deb/xenial-armhf/${RELEASE_TAG}-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.xz;name=patch \
-           file://defconfig \
+"
+
+SRC_URI_append_udooneo = "file://defconfig \
 "
 
 SRC_URI_append_udooqdl = "file://0003-ARM-DTS-imx6qdl-udoo-enable-uart4-serial-interface-f.patch \
                           file://0004-ARM-dts-driver-imx6-udooqdl-add-arduino-manager-driv.patch \
+                          file://defconfig \
 "
 
 PATCHTOOL = "git"

@@ -26,10 +26,16 @@ KERNEL_DEVICETREE_udooneo = "imx6sx-udoo-neo-full.dtb \
 KERNEL_DEVICETREE_udooqdl = "imx6q-udoo.dtb \
                   imx6dl-udoo.dtb"
 
+KERNEL_DEVICETREE = "imx6dl-cubox-i.dtb imx6q-cubox-i.dtb \
+                     imx6dl-hummingboard.dtb \
+                     imx6q-hummingboard.dtb"
+
 KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
 
 COMPATIBLE_MACHINE_nitrogen6x = "nitrogen6x"
 COMPATIBLE_MACHINE_udooneo = "udooneo"
+COMPATIBLE_MACHINE_udooqdl = "udooqdl"
+COMPATIBLE_MACHINE_cubox-i = "cubox-i"
 
 S = "${WORKDIR}/git"
 
