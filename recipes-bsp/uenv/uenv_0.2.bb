@@ -18,7 +18,15 @@ do_install () {
     install -d ${D}/boot
 }
 
-do_install_append_udooneo () {
+do_install_append_udooneo() {
+    install -m 0755 ${WORKDIR}/uEnv.txt ${D}/boot
+}
+
+do_install_append_udooqdl() {
+    install -m 0755 ${WORKDIR}/uEnv.txt ${D}/boot
+}
+
+do_install_append_cubox-i() {
     install -m 0755 ${WORKDIR}/uEnv.txt ${D}/boot
 }
 
