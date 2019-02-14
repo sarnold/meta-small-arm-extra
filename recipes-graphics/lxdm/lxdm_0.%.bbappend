@@ -26,7 +26,7 @@ PACKAGES =+ "lxdm-init"
 RDEPENDS_${PN}-init = " \
     ${VIRTUAL-RUNTIME_xserver_common} xinit lxdm lxrandr dbus-x11 \
     ${VIRTUAL-RUNTIME_initscripts} \
-    ${@base_conditional('ROOTLESS_X', '1', 'xuser-account', '', d)} \
+    ${@oe.utils.conditional('ROOTLESS_X', '1', 'xuser-account', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'pam', 'pam-plugin-env', '', d)} \
 "
 RREPLACES_${PN}-init = "xserver-nodm-init"
