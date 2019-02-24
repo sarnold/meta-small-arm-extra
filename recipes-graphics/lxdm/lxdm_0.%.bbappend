@@ -25,7 +25,7 @@ PACKAGES =+ "lxdm-init"
 RDEPENDS_${PN}-init = " \
     ${VIRTUAL-RUNTIME_xserver_common} xinit lxdm dbus-x11 \
     ${VIRTUAL-RUNTIME_initscripts} \
-    ${@base_conditional('ROOTLESS_X', '1', 'xuser-account', '', d)} \
+    ${@oe.utils.conditional('ROOTLESS_X', '1', 'xuser-account', '', d)} \
 "
 RREPLACES_${PN}-init = "xserver-nodm-init"
 RCONFLICTS_${PN}-init = "xserver-nodm-init"
