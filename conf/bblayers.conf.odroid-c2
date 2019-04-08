@@ -1,0 +1,15 @@
+# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+LCONF_VERSION = "7"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /home/sarnold/odroid-c2-bsp/oe-core/meta-odroid \
+  /home/sarnold/odroid-c2-bsp/oe-core/meta-small-arm-extra \
+  /home/sarnold/odroid-c2-bsp/oe-core/meta \
+  /home/sarnold/odroid-c2-bsp/oe-core/meta-openembedded/meta-oe \
+  /home/sarnold/odroid-c2-bsp/oe-core/meta-openembedded/meta-networking \
+  /home/sarnold/odroid-c2-bsp/oe-core/meta-openembedded/meta-python \
+"
