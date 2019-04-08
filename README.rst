@@ -5,7 +5,7 @@
 Custom small ARM device layer with extra packages and config/package tweaks,
 mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 
-New work on morty for testing imx6 etnaviv graphics; now includes custom 
+New work on morty/sumo for testing imx6 etnaviv graphics; now includes custom 
 kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine)
 and Udoo Neo. Note the older kernels are still available but should get
 updates soon.
@@ -13,7 +13,10 @@ updates soon.
 This work should also support cubox-i (pro), wandboard, and udoo imx6
 machines with minor changes; there are new/updated packages for etnaviv
 accelerated 2D/3D graphics and most of the build tweaks are currently
-captured in the local.conf.boundary example.
+captured in the local.conf.boundary/cubox examples.
+
+.. note:: For new branches (eg, thud or newer) use BBMASK as needed (see
+          the example local.conf files).
 
 See the `LinuxOnArm`_ wiki pages for `sabrelite`_ (the most similar to
 nitrogen6x wrt to u-boot flash config) and `wandboard`_ for more details.
