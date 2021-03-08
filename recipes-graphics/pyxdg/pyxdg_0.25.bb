@@ -9,7 +9,7 @@ PR = "r0"
 SRC_URI = "http://people.freedesktop.org/~takluyver/${P}.tar.gz \
 "
 
-inherit distutils
+inherit distutils3
 
 PACKAGE_ARCH = "all"
 

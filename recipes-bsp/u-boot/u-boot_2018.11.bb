@@ -1,5 +1,7 @@
 require recipes-bsp/u-boot/u-boot.inc
 
+LICENSE = "GPLv2+"
+
 DEPENDS += "dtc-native"
 
 # This revision corresponds to the tag "v2018.11"

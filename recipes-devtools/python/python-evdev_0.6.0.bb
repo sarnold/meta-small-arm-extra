@@ -11,7 +11,7 @@ SRC_URI = "https://github.com/gvalkov/python-evdev/archive/v${PV}.tar.gz;downloa
 SRC_URI[md5sum] = "963ea4bc961434ee355bfea6b697a4e3"
 SRC_URI[sha256sum] = "2a65a1c2657a7d9b989bb4557ddd27fd4be85c46e26f74362fe5c46939d4c857"
 
-DEPENDS_${PN} += "\
+DEPENDS += "\
     ${PYTHON_PN}-ctypes \
 "
 
