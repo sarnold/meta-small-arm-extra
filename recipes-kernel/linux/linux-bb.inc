@@ -2,7 +2,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 inherit kernel
-require recipes-kernel/linux/linux-dtb.inc
 require uenv-fw-hdrs.inc
 
 SUMMARY = "Linux kernel"
@@ -16,7 +15,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 INC_PR = "r2"
 
 DEPENDS += "xz-native bc-native"
-RDEPENDS_kernel-base += "kernel-devicetree"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-devicetree"
 
 KERNEL_DEVICETREE_beaglebone = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
 KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
