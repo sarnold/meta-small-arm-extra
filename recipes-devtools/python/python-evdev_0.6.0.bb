@@ -15,7 +15,7 @@ DEPENDS_${PN} += "\
     ${PYTHON_PN}-ctypes \
 "
 
-inherit setuptools
+inherit setuptools3
 
 RDEPENDS_${PN} += "\
     ${PYTHON_PN}-ctypes \

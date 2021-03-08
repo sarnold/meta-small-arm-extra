@@ -16,7 +16,7 @@ SRC_URI[fonts.sha256sum] = "fb1462ff6ce8efae58a0c496f0537c5ac16d4895c68f1640c297
 
 S = "${WORKDIR}/reportlab-${PV}"
 
-inherit pypi setuptools
+inherit pypi setuptools3
 
 DEPENDS = "python-pillow libart-lgpl freetype"
 

@@ -8,7 +8,7 @@ SRC_URI[md5sum] = "56c2f864d9a64cb5491410024d755229"
 SRC_URI[sha256sum] = "ae2fbb500c81100f7e374545d008019e6f90918386f620625c3b3b98faf88414"
 
 #inherit  distutils python-dir
-inherit setuptools python-dir
+inherit setuptools3 python-dir
 
 S = "${WORKDIR}/Pillow-${PV}"
 

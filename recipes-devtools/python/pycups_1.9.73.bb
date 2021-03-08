@@ -7,6 +7,6 @@ SRC_URI = "https://github.com/Distrotech/pycups/archive/${PV}.tar.gz;downloadfil
 SRC_URI[md5sum] = "0d151fc723e8596761cbc5913e380c2e"
 SRC_URI[sha256sum] = "5062106731b41f68e3a65ea1eccdb580ef6d95b11c07b4da64f09501348d238f"
 
-inherit setuptools
+inherit setuptools3
 
 RDEPENDS_${PN} = "cups"
