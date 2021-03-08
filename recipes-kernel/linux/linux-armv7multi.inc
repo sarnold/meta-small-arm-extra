@@ -2,7 +2,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 inherit kernel
-require recipes-kernel/linux/linux-dtb.inc
 
 SUMMARY = "Linux kernel"
 SECTION = "kernel"
