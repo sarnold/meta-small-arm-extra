@@ -2,7 +2,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 inherit kernel
-require recipes-kernel/linux/linux-dtb.inc
+require recipes-kernel/linux/linux-yocto.inc
 
 SUMMARY = "Linux kernel"
 SECTION = "kernel"
@@ -13,7 +13,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 INC_PR = "r1"
 
 DEPENDS += "xz-native bc-native"
-RDEPENDS_kernel-base += "kernel-devicetree"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-devicetree"
 
 KERNEL_DEVICETREE_nitrogen6x = "imx6q-sabrelite.dtb \
                   imx6q-nitrogen6x.dtb imx6dl-nitrogen6x.dtb \

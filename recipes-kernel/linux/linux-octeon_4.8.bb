@@ -26,7 +26,7 @@ RELEASE_TAG = "v${BRANCH_VERSION}-${RC_VERSION}"
 # version lags behind the actual kernel tag
 KERNEL_TAG = "${RELEASE_TAG}"
 
-RDEPENDS_kernel-base += "kernel-devicetree"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-devicetree"
 KERNEL_DEVICETREE_edgerouter = "cavium-octeon/octeon_3xxx.dtb cavium-octeon/ubnt_e100.dtb"
 
 SRCREV_edgerouter = "${KERNEL_TAG}"

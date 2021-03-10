@@ -21,9 +21,9 @@ KERNEL_TAG = "v${BRANCH_VERSION}.2"
 BB_VERSION = "bone3"
 LINUX_VERSION_EXTENSION = "-${BB_VERSION}"
 
-RDEPENDS_kernel-base += "kernel-devicetree"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-devicetree"
 KERNEL_DEVICETREE_beaglebone = "am335x-bone.dtb am335x-boneblack.dtb am335x-bonegreen.dtb"
-RDEPENDS_kernel-base_append_beaglebone = " kernel-firmware-am335x-pm"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base_append_beaglebone = " kernel-firmware-am335x-pm"
 
 SRCREV_beaglebone = "${KERNEL_TAG}"
 #SRCREV_beaglebone = "${AUTOREV}"

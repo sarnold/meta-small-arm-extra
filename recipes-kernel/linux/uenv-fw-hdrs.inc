@@ -3,8 +3,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI_append = " file://uEnv.txt  file://uEnv.txt.root"
 
-RDEPENDS_kernel-base += "kernel-uenv"
-RDEPENDS_kernel-base_append_beaglebone = " kernel-firmware-am335x-pm"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-uenv"
+RDEPENDS_${KERNEL_PACKAGE_NAME}-base_append_beaglebone = " kernel-firmware-am335x-pm"
 
 do_install_append() {
 	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
