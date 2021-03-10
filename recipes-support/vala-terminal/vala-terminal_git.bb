@@ -10,6 +10,8 @@ PR = "r1"
 
 inherit autotools perlnative vala
 
+FREESMARTPHONE_GIT ?= "https://github.com/freesmartphone"
+
 SRC_URI = "${FREESMARTPHONE_GIT}/vala-terminal.git;branch=master"
 S = "${WORKDIR}/git"
 B = "${S}"
