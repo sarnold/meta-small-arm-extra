@@ -1,0 +1,44 @@
+# /etc/network/interfaces -- configuration file for ifup(8), ifdown(8)
+# network config for Marvell espressobin
+# NOTE: eth0 is required to be UP but NOT configured
+# interfaces:
+#   lan1: left eth port (opposite corner from pwr connector)
+#   lan0: center eth port
+#   wan: right eth port
+
+# The loopback interface
+auto lo
+iface lo inet loopback
+    pre-up iptables-restore < /etc/iptables/iptables.rules
+
+# Eth0
+auto eth0
+iface eth0 inet manual
+    pre-up ifconfig eth0 up
+    post-down ifconfig eth0 down
+
+iface eth0 inet6 manual
+
+# internal interface (gateway, dncp/dns server, etc)
+auto lan1
+iface lan1 inet dhcp
+# above is for local checkout, below is for deployment
+#iface lan1 inet static
+#    address 10.0.0.1
+#    netmask 255.255.255.0
+#    broadcast 10.0.0.255
+#    network 10.0.0.0
+
+
+# other/internal/dmz interface
+#auto lan0
+#iface lan0 inet static
+#    address 192.168.1.1
+#    netmask 255.255.255.0
+#    broadcast 192.168.1.255
+#    network 192.168.1.0
+
+# external interface
+auto wan
+iface wan inet dhcp
+
