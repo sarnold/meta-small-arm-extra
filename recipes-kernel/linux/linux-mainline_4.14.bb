@@ -13,3 +13,5 @@ SRC_URI_append_espressobin = " \
     file://0001-ARM64-dts-marvell-espressobin-patch-rollup.patch \
     file://defconfig \
 "
+
+KERNEL_DEFCONFIG_espressobin = "${WORKDIR}/defconfig"

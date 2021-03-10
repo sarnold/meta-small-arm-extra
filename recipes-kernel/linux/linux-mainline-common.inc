@@ -1,5 +1,4 @@
-# custom oe-based kernel include for arm64multi
-#FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+# custom oe-based kernel include for linux-yocto
 
 DESCRIPTION = "Mainline Linux Kernel"
 SECTION = "kernel"
@@ -15,8 +14,6 @@ LINUX_VERSION_EXTENSION = ""
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
 #KCONFIG_MODE="--alldefconfig"
-
-KBUILD_DEFCONFIG_espressobin = "defconfig"
 
 COMPATIBLE_MACHINE = "(espressobin)"
 KERNEL_DEVICETREE_espressobin = "marvell/armada-3720-espressobin.dtb"
