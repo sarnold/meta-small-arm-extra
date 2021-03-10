@@ -4,7 +4,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 inherit kernel
 require uenv-fw-hdrs.inc
 
-SUMMARY = "Linux kernel"
+DESCRIPTION = "Mainline Linux Kernel with extra beaglebone stuff"
 SECTION = "kernel"
 LICENSE = "GPLv2"
 
