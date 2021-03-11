@@ -1,5 +1,7 @@
 DESCRIPTION = "espressobin router test image"
-LICENSE = "MIT"
+
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://COPYING;md5=2c1c00f9d3ed9e24fa69b932b7e7aff2"
 
 IMAGE_FEATURES += "ssh-server-openssh package-management"
 
