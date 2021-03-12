@@ -1,7 +1,7 @@
 require recipes-kernel/linux/linux-mainline-common.inc
 
-KERNEL_VERSION_SANITY_SKIP="1"
-BB_GIT_SHALLOW_DEPTH = "1"
+#KERNEL_VERSION_SANITY_SKIP="1"
+#BB_GIT_SHALLOW_DEPTH = "1"
 
 LINUX_VERSION = "4.14.224"
 LINUX_VERSION_EXTENSION = ""
