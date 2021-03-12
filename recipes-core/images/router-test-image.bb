@@ -36,6 +36,10 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     udev-extraconf \
 "
 
+USER_FOR_AUTH ?= "admin"
+PASS_FOR_AUTH ?= "admin"
+UID_FOR_AUTH ?= "1001"
+
 set_dtb_link () {
     cd ${IMAGE_ROOTFS}/boot
     ln -snf armada-3720-espressobin.dtb armada-3720-community.dtb
