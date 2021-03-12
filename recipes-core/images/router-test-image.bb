@@ -15,9 +15,7 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     ca-certificates \
     libcgroup \
     zram \
-    sudo \
     nano \
-    bash \
     screen \
     mtd-utils \
     devmem2 \
@@ -29,11 +27,9 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     cpufrequtils \
     gkrellmd \
     dnsmasq \
-    iptables \
-    openssl \
-    procps \
     rng-tools \
     udev-extraconf \
+    packagegroup-core-full-cmdline \
 "
 
 USER_FOR_AUTH ?= "admin"
