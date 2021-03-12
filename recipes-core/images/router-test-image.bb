@@ -13,6 +13,7 @@ IMAGE_FSTYPES += "wic.gz"
 CORE_IMAGE_EXTRA_INSTALL += "\
     kernel-modules \
     ca-certificates \
+    resize-rootfs \
     libcgroup \
     zram \
     nano \
