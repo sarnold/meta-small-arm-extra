@@ -7,6 +7,16 @@ IMAGE_FEATURES += "ssh-server-openssh package-management"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
+DISTRO_FEATURES_remove = " \
+    alsa \
+    directfb \
+    opengl \
+    pcmcia \
+    wayland \
+    x11 \
+    nfc \
+"
+
 inherit core-image extrausers
 
 IMAGE_OVERHEAD_FACTOR = "1.2"
@@ -38,13 +48,12 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     cpufrequtils \
     gkrellmd \
     sqlite3 \
-    python-sqlite3 \
-    python-modules \
-    python-misc \
-    python-pyyaml \
-    python-git \
-    python-evdev \
-    python-redis \
+    python3-modules \
+    python3-misc \
+    python3-pyyaml \
+    python3-git \
+    python3-evdev \
+    python3-redis \
     redis \
     lighttpd \
     lighttpd-module-cgi \
@@ -73,14 +82,12 @@ NET_TOOLS = " \
     iproute2 \
     dnsmasq \
     iputils \
-    netmap \
     bridge-utils \
     openvpn \
     bind \
     postfix \
-    firewall3 \
     ufw \
-    iwinfo \
+    iw \
 "
 
 HW_BRINGUP = " \
@@ -89,7 +96,7 @@ HW_BRINGUP = " \
     bonnie++ \
     hdparm \
     iozone3 \
-    iperf \
+    iperf3 \
     lmbench \
     rt-tests \
     evtest \
@@ -99,11 +106,9 @@ HW_BRINGUP = " \
 
 DEV_TOOLS = "\
     diffutils \
-    python-docutils \
-    python-pyserial \
-    python-pyusb \
-    python-pip \
-    guile \
+    python3-pyserial \
+    python3-pyusb \
+    python3-pip \
     bison \
     flex \
     yasm \

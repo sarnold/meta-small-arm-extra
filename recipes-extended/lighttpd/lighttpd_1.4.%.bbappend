@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = "file://${PN}.init \
+SRC_URI_append = "file://${BPN}.init \
 "
 
 INIT_DIR = "${D}${sysconfdir}/init.d"
