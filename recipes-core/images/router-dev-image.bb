@@ -17,6 +17,8 @@ DISTRO_FEATURES_remove = " \
     nfc \
 "
 
+DEFAULT_TEST_SUITES_remove = "connman"
+
 inherit core-image extrausers
 
 IMAGE_OVERHEAD_FACTOR = "1.2"
@@ -84,10 +86,9 @@ NET_TOOLS = " \
     iputils \
     bridge-utils \
     openvpn \
-    bind \
+    bind-utils \
     postfix \
     ufw \
-    iw \
 "
 
 HW_BRINGUP = " \

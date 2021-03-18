@@ -1,7 +1,7 @@
 require recipes-kernel/linux/linux-mainline-common.inc
 
-#KERNEL_VERSION_SANITY_SKIP="1"
-#BB_GIT_SHALLOW_DEPTH = "1"
+COMPATIBLE_MACHINE_espressobin = "espressobin"
+KERNEL_DEVICETREE_espressobin = "marvell/armada-3720-espressobin.dtb"
 
 LINUX_VERSION = "4.14.224"
 LINUX_VERSION_EXTENSION = ""

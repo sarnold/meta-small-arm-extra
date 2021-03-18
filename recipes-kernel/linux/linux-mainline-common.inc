@@ -1,5 +1,4 @@
 # custom oe-based kernel include for arm64multi
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 DESCRIPTION = "Mainline Linux Kernel"
 SECTION = "kernel"
@@ -11,9 +10,6 @@ inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
 PACKAGE_ARCHS[vardeps] = "MACHINE"
-
-COMPATIBLE_MACHINE = "(espressobin)"
-KERNEL_DEVICETREE_espressobin = "marvell/armada-3720-espressobin.dtb"
 
 KERNEL_FEATURES_remove = "features/debug/printk.scc"
 KERNEL_FEATURES_remove = "features/kernel-sample/kernel-sample.scc"
