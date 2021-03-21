@@ -1,6 +1,8 @@
 require recipes-kernel/linux/linux-mainline-common.inc
 
-COMPATIBLE_MACHINE_espressobin = "espressobin"
+PACKAGE_ARCHS[vardeps] = "MACHINE"
+
+
 KERNEL_DEVICETREE_espressobin = "marvell/armada-3720-espressobin.dtb"
 
 LINUX_VERSION = "4.14.224"
@@ -16,7 +18,7 @@ SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git;branch=${BRANCH} \
 "
 
-SRC_URI_append_espressobin = " \
+SRC_URI_append = " \
     file://0001-ARM64-dts-marvell-espressobin-patch-rollup.patch \
     file://defconfig \
 "

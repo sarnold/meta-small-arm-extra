@@ -9,8 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-PACKAGE_ARCHS[vardeps] = "MACHINE"
+COMPATIBLE_MACHINE_espressobin = "espressobin"
 
 KERNEL_FEATURES_remove = "features/debug/printk.scc"
 KERNEL_FEATURES_remove = "features/kernel-sample/kernel-sample.scc"
-
