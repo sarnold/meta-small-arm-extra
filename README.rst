@@ -173,6 +173,17 @@ and for local.conf::
   ...
 
 
+U-Boot
+======
+
+For amlogic S905-based machines, install the ``u-boot.bin`` to an sdcard
+device with ``dd``.  This depends somewhat on the board vendor's u-boot
+blob; for the nanopi-k2 the following command works::
+
+  $ DEV=/dev/your_sd_device
+  $ dd if=fip/u-boot.bin of=$DEV conv=fsync,notrunc bs=512 seek=1
+
+
 More to come...
 
 Enjoy!

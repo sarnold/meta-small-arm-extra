@@ -1,3 +1,5 @@
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+
 require recipes-kernel/linux/linux-mainline-common.inc
 
 PACKAGE_ARCHS[vardeps] = "MACHINE"
@@ -16,14 +18,16 @@ KERNEL_DEVICETREE_espressobin-ultra = " \
     marvell/armada-3720-espressobin-ultra.dtb \
 "
 
-LINUX_VERSION = "5.10.14"
+BRANCH_VERSION = "5.10"
+LINUX_VERSION = "${BRANCH_VERSION}.14"
 LINUX_VERSION_EXTENSION = ""
 
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
-BRANCH = "linux-5.10.y"
-#SRCREV = "${AUTOREV}"
+BRANCH = "linux-${BRANCH_VERSION}.y"
 SRCREV = "b0c8835fc649454c33371f4617111cb5d60463e1"
+
+LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git;branch=${BRANCH} \
