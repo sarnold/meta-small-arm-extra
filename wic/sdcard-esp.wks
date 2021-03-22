@@ -1,1 +1,6 @@
-part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs --align 4096
+# short-description: Create espressobin SD card image
+# long-description: Creates single-partition SD card image. Boot files
+# are located in /boot on the main partition.
+#
+
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --mkfs-extraopts "-O ^metadata_csum,^64bit" --label rootfs --align 4096

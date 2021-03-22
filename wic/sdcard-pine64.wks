@@ -1,0 +1,16 @@
+# short-description: Create Pine64 SD card image
+# long-description: Creates a partitioned SD card image. Boot files
+# are located in /boot on the first partition and raw bootloaders are
+# placed in the raw SD.
+#
+# The disk layout used is:
+#
+#    0           -> reserverd
+#    8 KiB       -> u-boot SPL and u-boot
+#    20480 KiB   -> rootfs
+#
+
+bootloader --ptable msdos
+
+part spl --offset 8 --ondisk mmcblk0 --no-table --source rawcopy --sourceparams="file=u-boot-sunxi-with-spl.bin"
+part / --offset 20480 --source rootfs --ondisk mmcblk --fstype=ext4 --mkfs-extraopts "-O ^metadata_csum,^64bit" --label rootfs --align 4096
