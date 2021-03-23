@@ -1,6 +1,5 @@
+require recipes-bsp/u-boot/u-boot-common.inc
 require recipes-bsp/u-boot/u-boot.inc
-
-LICENSE = "GPLv2+"
 
 DEPENDS += "dtc-native"
 
@@ -24,5 +23,3 @@ SRC_URI_append_udooneo = " \
 SRC_URI_append_cubox-i = " \
         file://0001-mx6cuboxi-uEnv.txt-bootz-n-fixes-single-partition-un.patch \
 "
-
-LIC_FILES_CHKSUM = "file://Licenses/README;md5=30503fd321432fc713238f582193b78e"
