@@ -50,12 +50,12 @@ set_sudoers_rules (){
 
 set_ssh_keys (){
     #!/bin/sh -e
-    if [ ! -s ${HOME}/.ssh/id_rsa_espressobin ]; then
+    if [ ! -s ${HOME}/.ssh/id_rsa_routerimage ]; then
         mkdir -p ${HOME}/.ssh/
-        /usr/bin/ssh-keygen -b 4048 -t rsa -C "Meta Nas!" -f ${HOME}/.ssh/id_rsa_espressobin
+        /usr/bin/ssh-keygen -b 4048 -t rsa -C "router admin" -f ${HOME}/.ssh/id_rsa_routerimage
     fi
     mkdir -p ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh
-    cp ${HOME}/.ssh/id_rsa_espressobin.pub  ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh/authorized_keys
+    cp ${HOME}/.ssh/id_rsa_routerimage.pub  ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh/authorized_keys
     chmod 700 ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh
     chmod 600 ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh/authorized_keys
     chown ${UID_FOR_AUTH}:${UID_FOR_AUTH} -R ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}
