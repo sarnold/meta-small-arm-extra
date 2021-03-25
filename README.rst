@@ -19,7 +19,8 @@ Newer work on rocko/dunfell branches supports mainly arm64 devices, including:
 * allwinner A64/H5/H6 (pine64, pine64-plus, etc)
 
 There is also some new machine support for espressobin (both legacy and
-new device trees) and pine64/pine64-plus on mainline.
+new device trees) and pine64/pine64-plus on mainline.  Some new "convenience"
+images for router devices (mainly edgerouter and espressobin) were also added.
 
 Previous work on morty for testing imx6 etnaviv graphics includes custom 
 kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
