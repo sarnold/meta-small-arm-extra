@@ -4,14 +4,30 @@
 
 Custom small ARM device layer with extra packages and config/package tweaks,
 mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
+where the emphasis is mainline support for kernel/u-boot/graphics, etc.
 
+<<<<<<< HEAD
 New work on morty for testing imx6 etnaviv graphics; now includes custom 
 kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine)
 and Udoo Neo. Note the older kernels are still available but should get
 updates soon.
+=======
+Newer work on rocko/dunfell branches supports mainly arm64 devices, including:
 
-This work should also support cubox-i (pro), wandboard, and udoo imx6
-machines with minor changes; there are new/updated packages for etnaviv
+* marvell espressobin v5/v7 variants
+* amlogic S905 (odroid-c2, nanopi-k2)
+* allwinner A64/H5/H6 (pine64, pine64-plus, etc)
+
+There is also some new machine support for espressobin (both legacy and
+new device trees) and pine64/pine64-plus on mainline.
+
+Previous work on morty for testing imx6 etnaviv graphics includes custom 
+kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
+Note the older kernels are still available but should get updates soon.
+>>>>>>> f6c43d7 (update readme with new device support)
+
+This layer also supports cubox-i (pro), wandboard, and udoo/udoo-neo imx6
+machines with minor changes; there are updated packages for etnaviv
 accelerated 2D/3D graphics and most of the build tweaks are currently
 captured in the local.conf.boundary example.
 
@@ -27,12 +43,13 @@ nitrogen6x wrt to u-boot flash config) and `wandboard`_ for more details.
 
 There are some generic and machine-specific recipes here that can be used
 with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
-and many freescale machines.  This layer also contains the minimal "machine"
-info required for beaglebone kernel and u-boot recipes to build properly
-against oe-core and meta-ti (but is not yet a stand-alone BSP).
+esprssobin, pine64, odroid-c2/nanopi-k2, and many freescale machines.  This layer also
+contains the minimal "machine" info required for beaglebone kernel and u-boot recipes
+to build properly against oe-core and meta-ti, as well as a "baswline" machine
+config for espressobin v5 (but is not yet a stand-alone BSP).
 
-The current machine-specific support is for Udoo Neo,  Nitrogen6, BeagleBone,
-and RaspberryPi, with additional support planned for the future.
+The older machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
+additional support planned for the future.
 
 To Use This Layer for Nitrogen6 Boards
 ======================================
