@@ -1,0 +1,19 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BSPDIR = "${HOME}/poky-nanopi-test"
+
+BBLAYERS ?= " \
+  ${BSPDIR}/poky/meta \
+  ${BSPDIR}/poky/meta-poky \
+  ${BSPDIR}/poky/meta-yocto-bsp \
+  ${BSPDIR}/poky/meta-meson \
+  ${BSPDIR}/poky/meta-small-arm-extra \
+  ${BSPDIR}/poky/meta-openembedded/meta-oe \
+  ${BSPDIR}/poky/meta-openembedded/meta-networking \
+  ${BSPDIR}/poky/meta-openembedded/meta-python \
+  "
