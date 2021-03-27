@@ -1,0 +1,166 @@
+MACHINE = "pine64-plus"
+COMPATIBLE_MACHINE_append_pine64-plus = "|a64"
+
+DISTRO ?= "poky"
+
+PACKAGE_CLASSES = "package_ipk"
+
+EXTRA_IMAGE_FEATURES = "debug-tweaks"
+
+IMAGE_FEATURES += "ssh-server-openssh package-management"
+
+# use this to override default bsp kernel
+#PREFERRED_PROVIDER_virtual/kernel ?= "linux-mainline"
+#PREFERRED_VERSION_linux-mainline ?= "5.10%"
+
+DL_DIR = "/home/user/shared/downloads"
+SSTATE_DIR = "/home/user/shared/poky/sstate-cache"
+
+INHERIT += "rm_work"
+INHERIT += "buildhistory"
+INHERIT += "toaster"
+
+BBMASK = "meta-small-arm-extra/recipes-qt/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-kernel/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/u-boot/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-efl/efl/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-graphics/"
+#BBMASK .= "|.*"
+
+
+#DISTRO_FEATURES_append = " opengl pam udev x11 "
+DISTRO_FEATURES_remove = " \
+    zeroconf \
+    directfb \
+    pcmcia \
+    wayland \
+    x11 \
+    nfc \
+"
+
+DISTRO_FEATURES_BACKFILL_CONSIDERED = "systemd"
+
+CORE_IMAGE_EXTRA_INSTALL = " \
+    linux-firmware \
+    libcgroup \
+    nano \
+    bash \
+    screen \
+    nfs-utils \
+    cpufrequtils \
+    haveged \
+    sysfsutils \
+    i2c-tools \
+    usbutils \
+    alsa-utils \
+    distro-feed-configs \
+    gkrellmd \
+"
+
+#
+# Additional image features
+#
+# The following is a list of additional classes to use when building images which
+# enable extra features. Some available options which can be included in this variable
+# are:
+#   - 'buildstats' collect build statistics
+#   - 'image-mklibs' to reduce shared library files size for an image
+#   - 'image-prelink' in order to prelink the filesystem image
+# NOTE: if listing mklibs & prelink both, then make sure mklibs is before prelink
+# NOTE: mklibs also needs to be explicitly enabled for a given image, see local.conf.extended
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+
+#
+# Runtime testing of images
+#
+# The build system can test booting virtual machine images under qemu (an emulator)
+# after any root filesystems are created and run tests against those images. It can also
+# run tests against any SDK that are built. To enable this uncomment these lines.
+# See classes/test{image,sdk}.bbclass for further details.
+#IMAGE_CLASSES += "testimage testsdk"
+#TESTIMAGE_AUTO_qemuall = "1"
+
+#
+# Interactive shell configuration
+#
+# Under certain circumstances the system may need input from you and to do this it
+# can launch an interactive shell. It needs to do this since the build is
+# multithreaded and needs to be able to handle the case where more than one parallel
+# process may require the user's attention. The default is iterate over the available
+# terminal types to find one that works.
+#
+# Examples of the occasions this may happen are when resolving patches which cannot
+# be applied, to use the devshell or the kernel menuconfig
+#
+# Supported values are auto, gnome, xfce, rxvt, screen, konsole (KDE 3.x only), none
+# Note: currently, Konsole support only works for KDE 3.x due to the way
+# newer Konsole versions behave
+#OE_TERMINAL = "auto"
+# By default disable interactive patch resolution (tasks will just fail instead):
+PATCHRESOLVE = "noop"
+
+#
+# Disk Space Monitoring during the build
+#
+# Monitor the disk space during the build. If there is less that 1GB of space or less
+# than 100K inodes in any key build location (TMPDIR, DL_DIR, SSTATE_DIR), gracefully
+# shutdown the build. If there is less that 100MB or 1K inodes, perform a hard abort
+# of the build. The reason for this is that running completely out of space can corrupt
+# files and damages the build in ways which may not be easily recoverable.
+# It's necesary to monitor /tmp, if there is no space left the build will fail
+# with very exotic errors.
+BB_DISKMON_DIRS ??= "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+#
+# Shared-state files from other locations
+#
+# As mentioned above, shared state files are prebuilt cache data objects which can
+# used to accelerate build time. This variable can be used to configure the system
+# to search other mirror locations for these objects before it builds the data itself.
+#
+# This can be a filesystem directory, or a remote url such as http or ftp. These
+# would contain the sstate-cache results from previous builds (possibly from other
+# machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the
+# cache locations to check for the shared objects.
+# NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
+# at the end as shown in the examples below. This will be substituted with the
+# correct path within the directory structure.
+#SSTATE_MIRRORS ?= "\
+#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+#file://.* file:///some/local/dir/sstate/PATH"
+
+#
+# Yocto Project SState Mirror
+#
+# The Yocto Project has prebuilt artefacts available for its releases, you can enable
+# use of these by uncommenting the following line. This will mean the build uses
+# the network to check for artefacts at the start of builds, which does slow it down
+# equally, it will also speed up the builds by not having to build things if they are
+# present in the cache. It assumes you can download something faster than you can build it
+# which will depend on your network.
+#
+#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/2.5/PATH;downloadfilename=PATH"
+
+#
+# Qemu configuration
+#
+# By default qemu will build with a builtin VNC server where graphical output can be
+# seen. The two lines below enable the SDL backend too. By default libsdl2-native will
+# be built, if you want to use your host's libSDL instead of the minimal libsdl built
+# by libsdl2-native then uncomment the ASSUME_PROVIDED line below.
+PACKAGECONFIG_append_pn-qemu-system-native = " sdl"
+#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+#ASSUME_PROVIDED += "libsdl2-native"
+
+# CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+# track the version of this file when it was generated. This can safely be ignored if
+# this doesn't mean anything to you.
+CONF_VERSION = "1"
