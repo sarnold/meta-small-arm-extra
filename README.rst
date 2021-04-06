@@ -6,12 +6,6 @@ Custom small ARM device layer with extra packages and config/package tweaks,
 mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 where the emphasis is mainline support for kernel/u-boot/graphics, etc.
 
-<<<<<<< HEAD
-New work on morty for testing imx6 etnaviv graphics; now includes custom 
-kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine)
-and Udoo Neo. Note the older kernels are still available but should get
-updates soon.
-=======
 Newer work on rocko/dunfell branches supports mainly arm64 devices, including:
 
 * marvell espressobin v5/v7 variants
@@ -25,7 +19,6 @@ images for router devices (mainly edgerouter and espressobin) were also added.
 Previous work on morty for testing imx6 etnaviv graphics includes custom 
 kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
 Note the older kernels are still available but should get updates soon.
->>>>>>> f6c43d7 (update readme with new device support)
 
 This layer also supports cubox-i (pro), wandboard, and udoo/udoo-neo imx6
 machines with minor changes; there are updated packages for etnaviv
@@ -46,7 +39,7 @@ There are some generic and machine-specific recipes here that can be used
 with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
 esprssobin, pine64, odroid-c2/nanopi-k2, and many freescale machines.  This layer also
 contains the minimal "machine" info required for beaglebone kernel and u-boot recipes
-to build properly against oe-core and meta-ti, as well as a "baswline" machine
+to build properly against oe-core and meta-ti, as well as a "baseline" machine
 config for espressobin v5 (but is not yet a stand-alone BSP).
 
 The older machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
