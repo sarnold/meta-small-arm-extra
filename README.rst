@@ -191,16 +191,27 @@ and for local.conf::
   ...
 
 
-U-Boot
-======
+ARM64 U-Boot
+============
 
 For amlogic S905-based machines, install the ``u-boot.bin`` to an sdcard
 device with ``dd``.  This depends somewhat on the board vendor's u-boot
-blob; for the nanopi-k2 the following command works::
+blob(s); for the nanopi-k2 the following command works::
 
   $ DEV=/dev/your_sd_device
-  $ dd if=fip/u-boot.bin of=$DEV conv=fsync,notrunc bs=512 seek=1
+  $ dd if=u-boot.bin of=$DEV conv=fsync,notrunc bs=512 seek=1
 
+The odroid-c2 is even more "special"::
+
+  $ DEV=/dev/your_sd_device
+  $ BL1=bl1.bin.hardkernel
+  $ dd if=$BL1 of=$DEV conv=fsync bs=1 count=442
+  $ dd if=$BL1 of=$DEV conv=fsync bs=512 skip=1 seek=1
+  $ dd if=u-boot.img of=$DEV conv=fsync bs=512 seek=97
+
+
+.. note:: The above filenames are produced via ``bitbake virtual/bootloader``
+          and can be found in the image deploy directory after building.
 
 More to come...
 
