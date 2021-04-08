@@ -6,7 +6,8 @@ Custom small ARM device layer with extra packages and config/package tweaks,
 mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 where the emphasis is mainline support for kernel/u-boot/graphics, etc.
 
-Newer work on rocko/dunfell branches supports mainly arm64 devices, including:
+Newer work on rocko/dunfell branches supports mainly arm64 devices,
+including:
 
 * marvell espressobin v5/v7 variants
 * amlogic S905 (odroid-c2, nanopi-k2)
