@@ -17,6 +17,8 @@ There is also some new machine support for espressobin (both legacy and
 new device trees) and pine64/pine64-plus on mainline.  Some new "convenience"
 images for router devices (mainly edgerouter and espressobin) were also added.
 
+The latest branches also include support for riscv machines.
+
 Previous work on morty for testing imx6 etnaviv graphics includes custom 
 kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
 Note the older kernels are still available but should get updates soon.
