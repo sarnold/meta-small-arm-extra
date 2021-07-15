@@ -5,7 +5,7 @@ LCONF_VERSION = "7"
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
-OEROOT = "/home/sarnold/beagleboard-python-test/oe-core"
+OEROOT = "${HOME}/beagleboard-python-test/oe-core"
 
 BBLAYERS ?= " \
   ${OEROOT}/meta \

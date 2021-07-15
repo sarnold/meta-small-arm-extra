@@ -5,7 +5,7 @@ POKY_BBLAYERS_CONF_VERSION = "2"
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
-POKYROOT = "/home/sarnold/edgerouter-bsp/poky"
+POKYROOT = "${HOME}/edgerouter-bsp/poky"
 
 BBLAYERS ?= " \
   ${POKYROOT}/meta \

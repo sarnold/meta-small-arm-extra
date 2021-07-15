@@ -7,8 +7,8 @@ BBFILES ?= ""
 BSPDIR := "${@os.path.abspath(os.path.dirname(d.getVar('FILE', True)) + '/../..')}"
 
 BBLAYERS ?= " \
-  /home/sarnold/android/cubox-imx6-bsp/poky/meta \
-  /home/sarnold/android/cubox-imx6-bsp/poky/meta-poky \
+  ${HOME}/cubox-imx6-bsp/poky/meta \
+  ${HOME}/cubox-imx6-bsp/poky/meta-poky \
   \
   ${BSPDIR}/meta-small-arm-extra \
   ${BSPDIR}/meta-qt5 \
