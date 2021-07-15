@@ -48,9 +48,9 @@ IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX} MLO"
 SERIAL_CONSOLES_beaglebone = "115200;ttyS0"
 IMAGE_FSTYPES = "tar.bz2"
 
-DL_DIR = "/home/sarnold/shared/downloads"
-SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
-PERSISTENT_DIR = "/home/sarnold/shared/oe-core"
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe-core"
 
 INHERIT += "rm_work"
 INHERIT += "toaster"

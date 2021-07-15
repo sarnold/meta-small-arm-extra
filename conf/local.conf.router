@@ -136,9 +136,9 @@ PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
 PACKAGECONFIG_pn-vim = "acl"
 
-DL_DIR = "/home/sarnold/shared/downloads"
-SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
-PERSISTENT_DIR = "/home/sarnold/shared/oe-core"
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe-core"
 
 INHERIT += "rm_work"
 INHERIT += "toaster"

@@ -5,7 +5,7 @@ LCONF_VERSION = "7"
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
-OEROOT = "/home/sarnold/android/espressobin-bsp-test/oe-core"
+OEROOT = "${HOME}/espressobin-bsp-test/oe-core"
 
 BBLAYERS ?= " \
   ${OEROOT}/meta \

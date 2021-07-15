@@ -45,9 +45,9 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 # this is the only type set in meta-espressobin
 IMAGE_FSTYPES = "tar.bz2"
 
-DL_DIR = "/home/sarnold/shared/downloads"
-SSTATE_DIR = "/home/sarnold/shared/oe/sstate-cache"
-PERSISTENT_DIR = "/home/sarnold/shared/oe-core"
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe-core"
 
 INHERIT += "rm_work"
 INHERIT += "toaster"
