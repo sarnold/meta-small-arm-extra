@@ -12,11 +12,11 @@ IMAGE_FEATURES += "ssh-server-openssh package-management"
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-mainline"
 PREFERRED_VERSION_linux-mainline ?= "5.10%"
 
-DL_DIR = "/home/user/shared/downloads"
+DL_DIR = "${HOME}/shared/downloads"
 
 # Where to place shared-state files
 
-SSTATE_DIR = "/home/user/shared/poky/sstate-cache"
+SSTATE_DIR = "${HOME}/shared/poky/sstate-cache"
 
 INHERIT += "rm_work"
 INHERIT += "buildhistory"
