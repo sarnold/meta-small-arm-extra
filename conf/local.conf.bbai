@@ -1,0 +1,108 @@
+DISTRO = "arago"
+# set for amsdk cfg
+#ARAGO_BRAND = "amsdk"
+
+# might to limit bb_threads/parallel make on jumbo TI sdk image
+BB_NUMBER_THREADS ?= "3"
+PARALLEL_MAKE = "-j 2"
+
+# set this for internal/built toolchain for arago
+TOOLCHAIN_TYPE = "internal"
+
+# this includes beagleboneai and beagleboard-x15
+MACHINE ?= "am57xx-evm"
+
+SDKMACHINE ?= "x86_64"
+
+# use debug kernel: linux-ti-staging-systest
+#PREFERRED_PROVIDER_virtual/kernel ?= "linux-ti-staging-systest"
+
+# work around nothing provides error
+VIRTUAL-RUNTIME_initramfs ?= "sysvinit-initramfs"
+
+# We default to ipk:
+PACKAGE_CLASSES ?= "package_ipk"
+
+# mesa.inc error on missing pythonnative bblcass on dunfell
+BBMASK = "meta-small-arm-extra/recipes-qt/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/trusted-firmware-a/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/u-boot/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-efl/efl/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-graphics/"
+#BBMASK .= "|.*"
+
+CORE_IMAGE_EXTRA_INSTALL += "\
+    kernel-modules \
+    libcgroup \
+    nano \
+    bash \
+    screen \
+    devmem2 \
+    sysfsutils \
+    spitools \
+    i2c-tools \
+    usbutils \
+    cpufrequtils \
+    gkrellmd \
+"
+
+# conflicts with arago pkg-groups
+#IMAGE_FEATURES += "splash ssh-server-openssh package-management"
+
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+
+# this is needed if not using yocto bsp beaglebone machine config
+# see also extra u-boot settings in bbappend
+#IMAGE_BOOT_FILES = "u-boot.${UBOOT_SUFFIX} MLO"
+
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe-core"
+
+INHERIT += "rm_work"
+INHERIT += "toaster"
+
+# enable the PR service
+PRSERV_HOST = "localhost:0"
+INHERIT += "buildhistory"
+BUILDHISTORY_COMMIT = "1"
+
+LICENSE_FLAGS_WHITELIST = "\
+  commercial_gst-fluendo-mp3 \
+  commercial_gst-openmax \
+  commercial_gst-plugins-ugly \
+  commercial \
+  commercial_lame \
+  commercial_libmad \
+  commercial_libomxil \
+  commercial_mpeg2dec \
+  commercial_qmmp \
+  non-commercial \
+"
+
+
+#DISTRO_FEATURES_append = " pam sysvinit udev opengl "
+#DISTRO_FEATURES_BACKFILL_CONSIDERED = "systemd"
+
+USER_CLASSES ?= "buildstats image-mklibs image-prelink"
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+
+PACKAGECONFIG_append_pn-qemu-system-native = " sdl"
+#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+#ASSUME_PROVIDED += "libsdl2-native"
+
+# CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+# track the version of this file when it was generated. This can safely be ignored if
+# this doesn't mean anything to you.
+CONF_VERSION = "1"
