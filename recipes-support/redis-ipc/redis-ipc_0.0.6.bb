@@ -1,8 +1,8 @@
 SUMMARY = "A convenience library for using redis server and JSON as IPC mechanism"
 
 HOMEPAGE = "https://github.com/VCTLabs/redis-ipc"
-SECTION = "Development/Libraries"
-LICENSE = "openssl"
+SECTION = "libs"
+LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 DEPENDS = "hiredis json-c"
