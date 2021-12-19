@@ -1,28 +1,23 @@
-SUMMARY = "Minimalistic C client library for the Redis database"
-
-HOMEPAGE = "https://github.com/redis/hiredis"
-SECTION = "Development/Libraries"
-LICENSE = "BSD"
-LIC_FILES_CHKSUM = "file://COPYING;md5=d84d659a35c666d23233e54503aaea51"
-
+DESCRIPTION = "Minimalistic C client library for Redis"
+HOMEPAGE = "http://github.com/redis/hiredis"
+LICENSE = "BSD-3-Clause"
+SECTION = "libs"
 DEPENDS = "redis"
 
-SRCREV = "685030652cd98c5414ce554ff5b356dfe8437870"
-SRC_URI = "git://github.com/redis/hiredis;protocol=git \
+LIC_FILES_CHKSUM = "file://COPYING;md5=d84d659a35c666d23233e54503aaea51"
+SRCREV = "f9717aed445547c8ab11a3a4117f648c06e62b56"
+SRC_URI = "git://github.com/redis/hiredis;protocol=https;branch=staging \
            file://0001-Makefile-remove-hardcoding-of-CC.patch"
 
 S = "${WORKDIR}/git"
 
-inherit pkgconfig
+inherit autotools-brokensep pkgconfig
 
-CPPFLAGS_APPEND = " -D_GNU_SOURCE"
-EXTRA_OEMAKE = "AR='${AR}' CC='${CC}' PREFIX=${prefix} LIBRARY_PATH=${baselib}"
+EXTRA_OEMAKE = "PREFIX=${prefix} LIBRARY_PATH=${baselib}"
 
-do_compile() {
-    oe_runmake dynamic static hiredis.pc
-}
-
+# By default INSTALL variable in Makefile is equal to 'cp -a', which preserves
+# ownership and causes host-user-contamination QA issue.
+# And PREFIX defaults to /usr/local.
 do_install_prepend() {
     export INSTALL='cp -r'
 }
-
