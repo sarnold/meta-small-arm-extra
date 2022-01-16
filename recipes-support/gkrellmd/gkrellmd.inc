@@ -12,9 +12,8 @@ SRC_URI += " \
 
 inherit pkgconfig update-rc.d gettext
 
-INITSCRIPT_PACKAGES = "${PN}"
-INITSCRIPT_NAME_${PN} = "gkrellmd"
-INITSCRIPT_PARAMS_${PN} = "defaults 26"
+INITSCRIPT_NAME = "gkrellmd"
+INITSCRIPT_PARAMS = "defaults"
 
 DEPENDS = "glib-2.0"
 
@@ -25,7 +24,7 @@ S = "${WORKDIR}/gkrellm-${PV}"
 export LINK_FLAGS = "${LDFLAGS}"
 export SMC_LIBS = "-lgmodule-2.0 -lm"
 
-do_configure_prepend() {
+do_configure:prepend() {
 	sed -i -e "s|getline|gkrellm_getline|" ${S}/src/client.c
 
 	sed -e 's:-O2 ::' \

@@ -1,11 +1,11 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = "file://${BPN}.init \
+SRC_URI:append = "file://${BPN}.init \
 "
 
 INIT_DIR = "${D}${sysconfdir}/init.d"
 
-do_install_append() {
+do_install:append() {
     install -d ${INIT_DIR}
     install -m 0755 ${WORKDIR}/${PN}.init ${INIT_DIR}/${PN}
 }

@@ -18,7 +18,7 @@ BBCLASSEXTEND = "native"
 PACKAGES += "python3-sip"
 PROVIDES += "python3-sip python3-sip-native"
 
-do_configure_prepend_class-target() {
+do_configure:prepend:class-target() {
     echo "py_platform = linux" > sip.cfg
     echo "py_inc_dir = %(sysroot)/${includedir}/python%(py_major).%(py_minor)m" >> sip.cfg
     echo "sip_bin_dir = ${D}/${bindir}" >> sip.cfg
@@ -28,7 +28,7 @@ do_configure_prepend_class-target() {
     python3 configure.py --configuration sip.cfg --sysroot ${STAGING_DIR_HOST} CC="${CC}" CXX="${CXX}" LINK="${CXX}" STRIP="" LINK_SHLIB="${CXX}" CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LFLAGS="${LDFLAGS}"
 }
 
-do_configure_prepend_class-native() {
+do_configure:prepend:class-native() {
     echo "py_platform = linux" > sip.cfg
     echo "py_inc_dir = ${includedir}/python%(py_major).%(py_minor)m" >> sip.cfg
     echo "sip_bin_dir = ${D}/${bindir}" >> sip.cfg

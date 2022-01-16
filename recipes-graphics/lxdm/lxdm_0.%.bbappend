@@ -1,13 +1,13 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = " file://xserver-lxdm"
+SRC_URI:append = " file://xserver-lxdm"
 
 inherit update-rc.d
 
 INITSCRIPT_NAME = "xserver-lxdm"
 INITSCRIPT_PARAMS_${PN}-init = "defaults 40"
 
-do_install_append_arm() {
+do_install:append:arm() {
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${WORKDIR}/xserver-lxdm ${D}${sysconfdir}/init.d/
 
@@ -16,7 +16,7 @@ do_install_append_arm() {
         ${D}${sysconfdir}/lxdm/lxdm.conf
 }
 
-do_install_append_raspberrypi() {
+do_install:append:raspberrypi() {
     sed -i -e '/# bg=/a bg=/usr/share/backgrounds/rpi/fancy-pi.jpg' \
         ${D}${sysconfdir}/lxdm/lxdm.conf
 }

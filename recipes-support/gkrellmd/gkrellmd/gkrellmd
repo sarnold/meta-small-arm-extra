@@ -1,12 +1,9 @@
 #!/bin/sh
-### BEGIN INIT INFO
-# Provides:          gkrellmd
-# Required-Start:    $remote_fs
-# Required-Stop:     $remote_fs
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: System monitoring daemon
-### END INIT INFO
+#
+# This is an init script for openembedded
+# Copy it to @SYSCONFDIR@/init.d/gkrellmd and type
+# > update-rc.d gkrellmd defaults 60
+#
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 

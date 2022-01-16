@@ -26,7 +26,7 @@ DISTUTILS_INSTALL_ARGS += "--skip-build"
 CFLAGS += "-fno-strict-aliasing -I${STAGING_INCDIR} -I${STAGING_INCDIR}/freetype2"
 LDFLAGS += "-L${STAGING_LIBDIR} -L${STAGING_BASELIBDIR}"
 
-do_compile_prepend() {
+do_compile:prepend() {
     sed -i -e s:/usr/include:${STAGING_INCDIR}: \
         -e s:/usr/local/include:${STAGING_INCDIR}: \
         -e s:/usr/local/lib64:${STAGING_LIBDIR}: \

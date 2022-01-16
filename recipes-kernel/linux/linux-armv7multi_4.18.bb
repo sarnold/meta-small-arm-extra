@@ -1,5 +1,5 @@
 # custom oe-based kernel for upstream plus RCN kernel patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 include linux-armv7multi.inc
 
@@ -8,7 +8,7 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
            https://rcn-ee.net/deb/xenial-armhf/${RELEASE_TAG}-${BB_VERSION}/defconfig \
 "
 
-#SRC_URI_append_udooqdl = "file://0003-ARM-DTS-imx6qdl-udoo-enable-uart4-serial-interface-f.patch \
+#SRC_URI:append:udooqdl = "file://0003-ARM-DTS-imx6qdl-udoo-enable-uart4-serial-interface-f.patch \
 #                          file://0004-ARM-dts-driver-imx6-udooqdl-add-arduino-manager-driv.patch \
 #"
 

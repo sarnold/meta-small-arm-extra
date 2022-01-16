@@ -1,5 +1,5 @@
 # custom oe-based kernel for upstream plus RCN bb-kernel giant patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 include linux-bb.inc
 

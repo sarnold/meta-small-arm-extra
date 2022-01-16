@@ -30,7 +30,7 @@ CACHED_CONFIGUREVARS = " \
     lt_cv_shlibpath_overrides_runpath=yes \
 "
 
-do_configure_append() {
+do_configure:append() {
     sed -i -e "s|I\$(includedir)|I${STAGING_INCDIR}|" \
         "${B}"/src/Makefile
 }
@@ -43,7 +43,7 @@ DEBIAN_NOAUTONAME_${PN}-staticdev = "1"
 
 RRECOMMENDS_${PN} = "redis"
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${datadir}/doc/${BPN}/ 
     install -m 0644 ${S}/README.rst ${D}${datadir}/doc/${BPN}/
 }

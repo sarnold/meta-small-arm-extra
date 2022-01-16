@@ -1,12 +1,12 @@
 # custom kernel include for beagle kernels
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI_append = " file://uEnv.txt  file://uEnv.txt.root"
 
 RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-uenv"
 RDEPENDS_${KERNEL_PACKAGE_NAME}-base_append_beaglebone = " kernel-firmware-am335x-pm"
 
-do_install_append() {
+do_install:append() {
 	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
 
 	echo "uname_r=${LINUX_VERSION}${LINUX_VERSION_EXTENSION}" >> ${WORKDIR}/uEnv.txt
@@ -23,7 +23,7 @@ do_install_append() {
 	rm -f ${D}${KERNEL_SRC_PATH}/arch/*/vdso/vdso*.so
 }
 
-do_deploy_append() {
+do_deploy:append() {
 	install -m 0644 -t ${DEPLOYDIR} ${WORKDIR}/uEnv.txt ${WORKDIR}/uEnv.txt.root
 }
 

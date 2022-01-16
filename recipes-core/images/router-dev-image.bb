@@ -7,7 +7,7 @@ IMAGE_FEATURES += "ssh-server-openssh package-management"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
-DISTRO_FEATURES_remove = " \
+DISTRO_FEATURES:remove = " \
     alsa \
     directfb \
     opengl \
@@ -17,7 +17,7 @@ DISTRO_FEATURES_remove = " \
     nfc \
 "
 
-DEFAULT_TEST_SUITES_remove = "connman"
+DEFAULT_TEST_SUITES:remove = "connman"
 
 inherit core-image extrausers
 

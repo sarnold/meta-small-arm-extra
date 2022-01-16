@@ -1,8 +1,8 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += "file://init file://defaults file://cpufreq-init.sh"
 
-do_install_append() {
+do_install:append() {
     if ! ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
         install -d ${D}${sbindir}
         install -d ${D}${sysconfdir}/init.d

@@ -13,7 +13,7 @@ SRC_URI = "http://openprinting.org/download/cups-filters/cups-filters-${PV}.tar.
 
 inherit autotools-brokensep gettext pkgconfig
 
-EXTRA_OECONF_append = " --enable-ghostscript --disable-ijs --disable-ldap \
+EXTRA_OECONF:append = " --enable-ghostscript --disable-ijs --disable-ldap \
                        --with-pdftops=hybrid --enable-imagefilters \
                        --enable-ghostscript --with-gs-path=${bindir}/gs \
                        --with-pdftops-path=${bindir}/gs \
@@ -23,7 +23,7 @@ EXTRA_OECONF_append = " --enable-ghostscript --disable-ijs --disable-ldap \
                        --with-rcdir=no \
                        --without-php"
 
-EXTRA_OECONF_append_class-native = " --with-pdftops=pdftops \
+EXTRA_OECONF:append_class-native = " --with-pdftops=pdftops \
                                     --disable-avahi --disable-ghostscript \
                                     --disable-ijs --disable-ldap \
                                     --with-png --without-jpeg --without-tiff"
@@ -70,7 +70,7 @@ FILES_${PN} += "\
         /usr/share/ppd/cupsfilters \
         "
 
-do_install_append() {
+do_install:append() {
 	# remove banners, braille dirs
 	rm -rf ${D}/usr/share/cups/{banners,braille}
 

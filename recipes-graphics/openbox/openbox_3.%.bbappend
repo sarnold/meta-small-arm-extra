@@ -1,20 +1,20 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = "file://openbox-gnome-session-3.4.9.patch \
+SRC_URI:append = "file://openbox-gnome-session-3.4.9.patch \
                   file://mini_x.session \
                   file://menu.xml \
 "
 
-SRC_URI_append_raspberrypi = "http://www.gentoogeek.org/files/rpi-backgrounds.tar.gz;name=backgrounds"
+SRC_URI:append:raspberrypi = "http://www.gentoogeek.org/files/rpi-backgrounds.tar.gz;name=backgrounds"
 
 EXTRA_OECONF += "--disable-rpath"
 
-#do_configure_prepend() {
+#do_configure:prepend() {
 #    autopoint || touch config.rpath
 #    autoreconf -Wcross --verbose --install --force || bbnote "failed to autoreconf"
 #}
 
-do_install_append_arm() {
+do_install:append:arm() {
 	# normally installs as /etc/mini_x/session 
 	install -d ${D}${sysconfdir}/mini_x
 	install -T -m 0755 ${WORKDIR}/mini_x.session ${D}${sysconfdir}/mini_x/session
@@ -23,7 +23,7 @@ do_install_append_arm() {
 	cp -f ${WORKDIR}/menu.xml ${D}/${sysconfdir}/xdg/openbox/
 }
 
-do_install_append_raspberrypi() {
+do_install:append:raspberrypi() {
     # add some rpi images (creative commons share-able)
     install -d ${D}/usr/share/backgrounds/rpi
     install ${S}/rpi-backgrounds/* ${D}/usr/share/backgrounds/rpi/

@@ -1,5 +1,5 @@
 # custom oe-based kernel for upstream plus RCN kernel patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 include linux-bb.inc
 
@@ -26,7 +26,7 @@ KBRANCH_beaglebone = "linux-${BRANCH_VERSION}.y"
 
 PV = "${LINUX_VERSION}${LINUX_VERSION_EXTENSION}+git${SRCPV}"
 
-do_install_append() {
+do_install:append() {
 	cd ${WORKDIR}
 	install -m 0644 -t ${D}/lib/firmware am335x-pru0-fw am335x-pru1-fw
 }

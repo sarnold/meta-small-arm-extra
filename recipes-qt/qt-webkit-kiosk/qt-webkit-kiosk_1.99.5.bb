@@ -22,7 +22,7 @@ EXTRA_QMAKEVARS_PRE = "\
 
 EXTRA_OEMAKE += "INSTALL_ROOT=${D}"
 
-do_compile_prepend() {
+do_compile:prepend() {
     export PKG_CONFIG_PATH=$(qmake -query QT_INSTALL_LIBS)/pkconfig
 }
 

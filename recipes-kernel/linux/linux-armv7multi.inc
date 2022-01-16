@@ -1,5 +1,5 @@
 # custom oe-based kernel include for rcn armv7multi
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 inherit kernel
 
@@ -42,6 +42,6 @@ S = "${WORKDIR}/git"
 MACHINE_KERNEL_PR_append = "x"
 PR = "${MACHINE_KERNEL_PR}"
 
-do_configure_append() {
+do_configure:append() {
 	echo "CONFIG_LOCALVERSION="\"${LINUX_VERSION_EXTENSION}\" >> ${B}/.config
 }
