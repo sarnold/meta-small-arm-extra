@@ -39,7 +39,9 @@ UID_FOR_AUTH ?= "1001"
 
 set_dtb_link () {
     cd ${IMAGE_ROOTFS}/boot
-    ln -snf armada-3720-espressobin.dtb armada-3720-community.dtb
+    if [ -f armada-3720-espressobin.dtb ]; then
+        ln -snf armada-3720-espressobin.dtb armada-3720-community.dtb
+    fi
 }
 
 set_sudoers_rules (){
@@ -52,7 +54,7 @@ set_ssh_keys (){
     #!/bin/sh -e
     if [ ! -s ${HOME}/.ssh/id_rsa_routerimage ]; then
         mkdir -p ${HOME}/.ssh/
-        /usr/bin/ssh-keygen -b 4048 -t rsa -C "router admin" -f ${HOME}/.ssh/id_rsa_routerimage
+        /usr/bin/ssh-keygen -b 4096 -t rsa -C "router admin" -f ${HOME}/.ssh/id_rsa_routerimage
     fi
     mkdir -p ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh
     cp ${HOME}/.ssh/id_rsa_routerimage.pub  ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}/.ssh/authorized_keys
