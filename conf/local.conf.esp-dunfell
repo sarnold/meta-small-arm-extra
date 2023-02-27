@@ -1,0 +1,56 @@
+
+MACHINE = "espressobin"
+#COMPATIBLE_MACHINE_espressobin-v5 = "(espressobin|espressobin-v5)"
+
+BBMASK = "meta-small-arm-extra/recipes-qt/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-kernel/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-efl/"
+BBMASK .= "|.*meta-small-arm-extra/recipes-graphics/"
+
+# We default to ipk:
+PACKAGE_CLASSES ?= "package_ipk"
+
+# extra (base) router image packages now in image recipe
+# see recipes-core/images/router-test-image.bb
+
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe-core"
+
+INHERIT += "rm_work"
+INHERIT += "toaster"
+
+# enable the PR service
+PRSERV_HOST = "localhost:0"
+INHERIT += "buildhistory"
+BUILDHISTORY_COMMIT = "1"
+
+#DISTRO_FEATURES_append = " pam sysvinit udev "
+#DISTRO_FEATURES_BACKFILL_CONSIDERED = "multiarch pulseaudio systemd"
+
+USER_CLASSES ?= "buildstats image-mklibs"
+PATCHRESOLVE = "noop"
+
+BB_DISKMON_DIRS = "\
+    STOPTASKS,${TMPDIR},1G,100K \
+    STOPTASKS,${DL_DIR},1G,100K \
+    STOPTASKS,${SSTATE_DIR},1G,100K \
+    STOPTASKS,/tmp,100M,100K \
+    ABORT,${TMPDIR},100M,1K \
+    ABORT,${DL_DIR},100M,1K \
+    ABORT,${SSTATE_DIR},100M,1K \
+    ABORT,/tmp,10M,1K"
+
+
+PACKAGECONFIG_append_pn-qemu-native = " sdl"
+PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+ASSUME_PROVIDED += "libsdl-native"
+
+# CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
+# track the version of this file when it was generated. This can safely be ignored if
+# this doesn't mean anything to you.
+CONF_VERSION = "1"
+
