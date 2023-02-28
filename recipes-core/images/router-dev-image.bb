@@ -3,7 +3,10 @@ DESCRIPTION = "embedded router test image (eg, edgerouter or espressobin)"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=2c1c00f9d3ed9e24fa69b932b7e7aff2"
 
-IMAGE_FEATURES += "ssh-server-openssh package-management"
+IMAGE_FEATURES_append = " \
+    ssh-server-openssh \
+    package-management \
+"
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
@@ -24,7 +27,7 @@ inherit core-image extrausers
 IMAGE_OVERHEAD_FACTOR = "1.2"
 IMAGE_FSTYPES += "wic.gz"
 
-CORE_IMAGE_EXTRA_INSTALL += "\
+CORE_IMAGE_EXTRA_INSTALL_append = " \
     kernel-modules \
     libcgroup \
     zram \
