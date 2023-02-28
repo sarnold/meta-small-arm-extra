@@ -22,8 +22,7 @@ BRANCH_VERSION = "5.16"
 LINUX_VERSION = "${BRANCH_VERSION}.20"
 LINUX_VERSION_EXTENSION = ""
 
-#PV = "${LINUX_VERSION}+git${SRCPV}"
-PV = "${LINUX_VERSION}"
+PV = "${LINUX_VERSION}+git${SRCPV}"
 
 BRANCH = "linux-${BRANCH_VERSION}.y"
 SRCREV = "c19a885e12f114b799b5d0d877219f0695e0d4de"
@@ -31,7 +30,7 @@ SRCREV = "c19a885e12f114b799b5d0d877219f0695e0d4de"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 SRC_URI = " \
-    git://kernel.googlesource.com/pub/scm/linux/kernel/git/stable/linux;protocol=https;tag=v${PV};nobranch=1 \
+    git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git;branch=${BRANCH} \
 "
 
 SRC_URI_append = " \
