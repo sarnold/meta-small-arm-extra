@@ -72,7 +72,6 @@ NET_TOOLS = " \
     bridge-utils \
     openvpn \
     bind \
-    postfix \
     firewall3 \
     ufw \
     iwinfo \
