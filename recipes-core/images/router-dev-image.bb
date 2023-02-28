@@ -87,7 +87,6 @@ NET_TOOLS = " \
     bridge-utils \
     openvpn \
     bind-utils \
-    postfix \
     ufw \
 "
 
