@@ -3,6 +3,8 @@ DESCRIPTION = "embedded router test image (eg, edgerouter or espressobin)"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=2c1c00f9d3ed9e24fa69b932b7e7aff2"
 
+IMAGE_LINGUAS = " "
+
 IMAGE_FEATURES_append = " \
     ssh-server-openssh \
     package-management \
