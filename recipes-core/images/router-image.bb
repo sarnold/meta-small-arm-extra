@@ -3,17 +3,10 @@ DESCRIPTION = "embedded router test image (eg, edgerouter or espressobin)"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=2c1c00f9d3ed9e24fa69b932b7e7aff2"
 
-IMAGE_LINGUAS = " "
-
 IMAGE_FEATURES_append = " \
     ssh-server-openssh \
     package-management \
 "
-
-inherit core-image extrausers
-
-IMAGE_OVERHEAD_FACTOR = "1.2"
-IMAGE_FSTYPES += "wic.gz"
 
 CORE_IMAGE_EXTRA_INSTALL_append = " \
     kernel-modules \
@@ -37,6 +30,15 @@ CORE_IMAGE_EXTRA_INSTALL_append = " \
     udev-extraconf \
     packagegroup-core-full-cmdline \
 "
+
+IMAGE_INSTALL = "packagegroup-core-boot ${CORE_IMAGE_EXTRA_INSTALL}"
+
+IMAGE_LINGUAS = " "
+
+inherit core-image extrausers
+
+IMAGE_OVERHEAD_FACTOR = "1.2"
+IMAGE_FSTYPES_append = " wic.gz"
 
 USER_FOR_AUTH ?= "admin"
 PASS_FOR_AUTH ?= "admin"
