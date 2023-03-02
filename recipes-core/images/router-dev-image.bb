@@ -35,6 +35,7 @@ CORE_IMAGE_EXTRA_INSTALL_append = " \
     distro-feed-configs \
     cpufrequtils \
     gkrellmd \
+    haveged \
     sqlite3 \
     python3-modules \
     python3-misc \
