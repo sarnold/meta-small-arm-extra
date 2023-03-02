@@ -26,7 +26,7 @@ CORE_IMAGE_EXTRA_INSTALL_append = " \
     cpufrequtils \
     gkrellmd \
     dnsmasq \
-    rng-tools \
+    haveged \
     udev-extraconf \
     packagegroup-core-full-cmdline \
 "
