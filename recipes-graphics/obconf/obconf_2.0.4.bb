@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 
 SRC_URI = "http://openbox.org/dist/obconf/${P}.tar.gz"
 
-DEPENDS = "openbox gtk+ libglade virtual/gettext libxml2"
+DEPENDS = "gtk+3 glib-2.0 startup-notification openbox"
 RDEPENDS_${PN} = "openbox gtk+"
 
 #S = "${WORKDIR}"

@@ -25,18 +25,12 @@ WINDOW_MANAGER = " \
     openbox-theme-bear2 \
     openbox-theme-clearlooks \
     openbox-theme-onyx \
-    openbox-backgrounds \
     libcanberra-gtk2 \
     gdk-pixbuf-loader-ico \
     gdk-pixbuf-loader-bmp \
     gdk-pixbuf-loader-ani \
     gdk-pixbuf-xlib \
-    gtk-theme-clearlooks \
-    gtk-theme-crux \
-    gtk-theme-mist \
-    clearlooks-theme-enable \
     gnome-icon-theme \
-    gnome-icon-theme-enable \
     hicolor-icon-theme \
     xcursor-transparent-theme \
     pyxdg \

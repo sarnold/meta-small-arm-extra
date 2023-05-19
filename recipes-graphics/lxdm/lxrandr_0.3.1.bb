@@ -11,7 +11,7 @@ SRC_URI[sha256sum] = "6d98338485a90d9e47f6d08184df77ca0d9715517f8a45a914e8617505
 
 PE = "1"
 
-DEPENDS = "virtual/libintl intltool-native gtk+ virtual/libx11 libxrandr randrproto"
+DEPENDS = "glib-2.0-native intltool-native virtual/libintl xrandr"
 
 inherit autotools pkgconfig gettext
 # depends on virtual/libx11

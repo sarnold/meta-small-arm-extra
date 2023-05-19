@@ -1,0 +1,76 @@
+diff -Naur scrot-0.8.orig/Makefile.am scrot-0.8/Makefile.am
+--- scrot-0.8.orig/Makefile.am	2000-10-29 02:44:22.000000000 +0200
++++ scrot-0.8/Makefile.am	2013-04-24 23:31:31.501090024 +0200
+@@ -5,9 +5,8 @@
+ # A list of all the files in the current directory which can be regenerated
+ MAINTAINERCLEANFILES = Makefile.in scrot.spec
+ 
+-LDFLAGS           = -L/usr/X11R6/lib -L/usr/lib -L/usr/local/lib
+-INCLUDES          = -I/usr/X11R6/include \
+-$(X_CFLAGS) -I$(prefix)/include -I$(includedir) -I.
++LDFLAGS           = 
++INCLUDES          = $(X_CFLAGS) -I.
+ 
+ man_MANS = scrot.1
+ 
+diff -Naur scrot-0.8.orig/Makefile.in scrot-0.8/Makefile.in
+--- scrot-0.8.orig/Makefile.in	2003-06-23 14:13:33.000000000 +0200
++++ scrot-0.8/Makefile.in	2013-04-24 23:32:41.582090775 +0200
+@@ -30,7 +30,7 @@
+ infodir = @infodir@
+ mandir = @mandir@
+ includedir = @includedir@
+-oldincludedir = /usr/include
++oldincludedir = 
+ 
+ DESTDIR =
+ 
+@@ -75,8 +75,8 @@
+ # A list of all the files in the current directory which can be regenerated
+ MAINTAINERCLEANFILES = Makefile.in scrot.spec
+ 
+-LDFLAGS = -L/usr/X11R6/lib -L/usr/lib -L/usr/local/lib
+-INCLUDES = -I/usr/X11R6/include $(X_CFLAGS) -I$(prefix)/include -I$(includedir) -I.
++LDFLAGS = 
++INCLUDES = $(X_CFLAGS) -I.
+ 
+ 
+ man_MANS = scrot.1
+diff -Naur scrot-0.8.orig/src/Makefile.am scrot-0.8/src/Makefile.am
+--- scrot-0.8.orig/src/Makefile.am	2001-08-29 20:55:04.000000000 +0200
++++ scrot-0.8/src/Makefile.am	2013-04-24 23:35:08.237092341 +0200
+@@ -1,9 +1,8 @@
+ # A list of all the files in the current directory which can be regenerated
+ MAINTAINERCLEANFILES = Makefile.in				
+ 
+-LDFLAGS           = -L/usr/X11R6/lib
+-INCLUDES          = -g -O3 -Wall -I/usr/X11R6/include \
+-$(X_CFLAGS) -I$(prefix)/include -I$(includedir) -I. \
++LDFLAGS           = 
++INCLUDES          = -g -O3 -Wall $(X_CFLAGS) -I. \
+ -DPREFIX=\""$(prefix)"\" @GIBLIB_CFLAGS@
+ LIBOBJS = @LIBOBJS@
+ 
+diff -Naur scrot-0.8.orig/src/Makefile.in scrot-0.8/src/Makefile.in
+--- scrot-0.8.orig/src/Makefile.in	2003-06-23 14:13:34.000000000 +0200
++++ scrot-0.8/src/Makefile.in	2013-04-24 23:34:43.070092077 +0200
+@@ -32,7 +32,7 @@
+ infodir = @infodir@
+ mandir = @mandir@
+ includedir = @includedir@
+-oldincludedir = /usr/include
++oldincludedir = 
+ 
+ DESTDIR =
+ 
+@@ -73,8 +73,8 @@
+ 
+ MAINTAINERCLEANFILES = Makefile.in				
+ 
+-LDFLAGS = -L/usr/X11R6/lib
+-INCLUDES = -g -O3 -Wall -I/usr/X11R6/include $(X_CFLAGS) -I$(prefix)/include -I$(includedir) -I. -DPREFIX=\""$(prefix)"\" @GIBLIB_CFLAGS@
++LDFLAGS = 
++INCLUDES = -g -O3 -Wall $(X_CFLAGS) -I. -DPREFIX=\""$(prefix)"\" @GIBLIB_CFLAGS@
+ 
+ LIBOBJS = @LIBOBJS@
+ 
