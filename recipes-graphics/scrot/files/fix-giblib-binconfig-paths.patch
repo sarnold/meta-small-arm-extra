@@ -1,0 +1,15 @@
+--- giblib-1.2.4/giblib-config.in~	2004-09-04 16:40:40.000000000 +0200
++++ giblib-1.2.4/giblib-config.in	2013-04-24 23:15:55.972080028 +0200
+@@ -42,10 +42,10 @@
+       if test @includedir@ != /usr/include ; then
+         includes=-I@includedir@
+       fi
+-      echo $includes -I$prefix/include/giblib @IMLIB_CFLAGS@
++      echo @IMLIB_CFLAGS@
+       ;;
+     --libs)
+-      libdirs=-L@libdir@
++      libdirs=
+       echo $libdirs -lgiblib @LDFLAGS@ @IMLIB_LIBS@
+       ;;
+     *)

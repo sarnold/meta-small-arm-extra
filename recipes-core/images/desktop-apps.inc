@@ -1,15 +1,11 @@
 DESKTOP_APPS = " \
     imagemagick \
-    gkrellm \
     vala-terminal \
-    leafpad \
-    leafpad-stock-icons \
+    l3afpad \
     pcmanfm \
-    xfmpc \
     geany \
+    geany-plugins \
     gnuplot-x11 \
-    gst-meta-video \
-    gst-meta-audio \
 "
 
 DEJAVU_FONTS = " \
