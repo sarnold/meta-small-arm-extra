@@ -1,13 +1,13 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append = " file://xserver-lxdm"
+SRC_URI += "file://xserver-lxdm"
 
 inherit update-rc.d
 
 INITSCRIPT_NAME = "xserver-lxdm"
 INITSCRIPT_PARAMS_${PN}-init = "defaults 40"
 
-do_install_append() {
+do_install_append_class-target() {
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${WORKDIR}/xserver-lxdm ${D}${sysconfdir}/init.d/
 
@@ -35,9 +35,8 @@ RCONFLICTS_${PN}-init = "xserver-nodm-init"
 
 FILES_${PN}-init = "${sysconfdir}/init.d"
 
-pkg_postinst_${PN}-init () {
 # Register lxdm as default DM
-mkdir -p $D${sysconfdir}/X11/
-echo "${sbindir}/lxdm" > $D${sysconfdir}/X11/default-display-manager
+pkg_postinst_ontarget_${PN}-init () {
+    mkdir -p ${sysconfdir}/X11/
+    echo "${sbindir}/lxdm" > ${sysconfdir}/X11/default-display-manager
 }
-
