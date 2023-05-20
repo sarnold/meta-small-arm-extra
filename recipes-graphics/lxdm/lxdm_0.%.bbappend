@@ -1,13 +1,13 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = " file://xserver-lxdm"
+SRC_URI:append = " file://xserver-lxdm"
 
 inherit update-rc.d
 
 INITSCRIPT_NAME = "xserver-lxdm"
 INITSCRIPT_PARAMS_${PN}-init = "defaults 40"
 
-do_install_append_arm() {
+do_install_append() {
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${WORKDIR}/xserver-lxdm ${D}${sysconfdir}/init.d/
 
@@ -24,6 +24,7 @@ do_install_append_raspberrypi() {
 PACKAGES =+ "lxdm-init"
 
 RDEPENDS_${PN}-init = " \
+    bash \
     ${VIRTUAL-RUNTIME_xserver_common} xinit lxdm lxrandr dbus-x11 \
     ${VIRTUAL-RUNTIME_initscripts} \
     ${@oe.utils.conditional('ROOTLESS_X', '1', 'xuser-account', '', d)} \
