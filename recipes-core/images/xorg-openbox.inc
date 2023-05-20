@@ -1,7 +1,4 @@
 XSERVER = " \
-    packagegroup-core-x11 \
-    packagegroup-core-x11-utils \
-    packagegroup-fonts-truetype-core \
     localedef \
     libx11-locale \
     libxi \

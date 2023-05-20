@@ -1,6 +1,6 @@
 DESKTOP_APPS = " \
+    vte \
     imagemagick \
-    vala-terminal \
     l3afpad \
     pcmanfm \
     geany \
