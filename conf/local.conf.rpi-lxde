@@ -1,0 +1,71 @@
+# NOTE append this to default oe conf file version 1
+
+MACHINE = "raspberrypi3-64"
+# 5.10+ is on all the later branches, dunfell is on 5.4, but
+# if we use linux-raspberrypi-dev we get 5.10 on dunfell
+PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi-dev"
+IMAGE_FSTYPES += "wic.xz"
+
+#ROOTLESS_X = "1"
+#IMAGE_INSTALL += "sudo"
+
+CORE_IMAGE_EXTRA_INSTALL += "\
+    xterm \
+    vte-term \
+"
+
+# choose pkgconfig option: openssl nettle gcrypt
+XORG_CRYPTO = "openssl"
+MESA_CRYPTO = "openssl"
+
+# we need to override systemd vs sysvinit properly
+DISTRO_FEATURES_append = " sysvinit"
+DISTRO_FEATURES_remove = " multiarch systemd"
+
+# We default to ipk:
+PACKAGE_CLASSES ?= "package_ipk"
+
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+
+# lxde image needs a bunch of layers plus
+DISTRO_FEATURES_append = " x11 polkit gobject-introspection-data"
+DISTRO_FEATURES_append = " initscripts ipv6 ipv4"
+
+# rpi is failing to install core-x11-xserver pkgs ??
+DISTRO_FEATURES += "opengl"
+MACHINE_FEATURES += "vc4graphics"
+
+# we need to set this for pkg group core-x11 and lxdm
+VIRTUAL-RUNTIME_xserver_common = "xserver-common"
+# otherwise lxdm bbappend should be in BBMASK below
+VIRTUAL-RUNTIME_graphical_init_manager = "lxdm-init"
+
+DL_DIR = "${HOME}/shared/downloads"
+SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
+PERSISTENT_DIR = "${HOME}/shared/oe-core"
+
+INHERIT += "rm_work"
+INHERIT += "toaster"
+
+# some of these are old/custom/missing and cause errors on newer branches
+# or the wrong arch - use as needed
+#BBMASK = "meta-small-arm-extra/recipes-qt/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-efl/efl/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-graphics/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/u-boot/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-bsp/trusted-firmware-a/"
+#BBMASK .= "|.*meta-small-arm-extra/recipes-support/hiredis/"
+
+# look at prsrv and build_history
+
+LICENSE_FLAGS_WHITELIST = "\
+  commercial_gst-fluendo-mp3 \
+  commercial_gst-openmax \
+  commercial_gst-plugins-ugly \
+  commercial \
+  commercial_lame \
+  commercial_libmad \
+  commercial_libomxil \
+  commercial_mpeg2dec \
+  commercial_qmmp \
+"

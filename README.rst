@@ -45,6 +45,45 @@ config for espressobin v5 (but is not yet a stand-alone BSP).
 The older machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
 additional support planned for the future.
 
+To Use This Layer for (fruit/nano) Pi Boards
+============================================
+
+Use the `vct FOSS clonepi bsp manifest`_ to clone the layers; current support
+is mainly on the oe-dunfell branch, but will migrate to a newer branch soon.
+
+Follow the "repo init, repo sync" process on the `manifest page`_ for the dunfell
+branch and cd into the oe-core directory, then source the oe-init-build-env
+file to create the build directory.
+
+Before you edit the default conf files, make sure to review the examples in
+the ``conf/`` folder.  The latest example config files are for building the
+base LXDE image for a raspberrypi3-64bit machine. To use those examples,
+perform the following:
+
+* in meta-small-arm-extra/conf, copy ``conf/bblayers.conf.rpi-lxde``
+  to your fresh build-dir/conf directory as bblayers.conf
+* review your new local.conf and append the bits you need to the end
+  of your fresh ``local.conf`` file.
+* use ``bitbake lxde-dev-image`` to build an sdcard image
+
+See also the upstream `git repo for meta-lxde`_
+
+.. _vct FOSS clonepi bsp manifest: https://github.com/VCTLabs/vct-clonepi-bsp-platform
+.. _git repo for meta-lxde: https://git.toradex.com/cgit/meta-lxde.git/git
+
+
+If the download fails for the LXDE icon theme, please edit the recipe to use
+the newer URL. Change to the ``meta-lxde`` folder and open the recipe file
+``recipes-art/lxde-icon-theme/lxde-icon-theme_0.5.1.bb`` in your preferred
+editor, then change the ``SRC_URI`` line to look like the following:
+
+::
+
+  #SRC_URI = "${SOURCEFORGE_MIRROR}/lxde/lxde-icon-theme-${PV}.tar.xz"
+  SRC_URI = "http://downloads.sourceforge.net/project/lxde/LXDE%20Icon%20Theme/lxde-icon-theme-0.5.1/lxde-icon-theme-0.5.1.tar.xz"
+
+
+
 To Use This Layer for Nitrogen6 Boards
 ======================================
 
