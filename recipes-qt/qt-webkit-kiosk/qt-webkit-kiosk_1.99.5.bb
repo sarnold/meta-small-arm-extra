@@ -1,7 +1,7 @@
 SUMMARY = "QT5 Qtwebkit Kiosk"
 DESCRIPTION = "This is an example web kiosk using Qt5 and Qtwebkit"
 HOMEPAGE = "https://github.com/VCTLabs/qt-webkit-kiosk"
-LICENSE = "LGPLv3"
+LICENSE = "LGPL-3.0-only"
 LIC_FILES_CHKSUM = "file://doc/lgpl.html;md5=8bc8c892efca25740ff051514126b2f6"
 
 inherit qmake5 qmake5_paths
@@ -22,11 +22,11 @@ EXTRA_QMAKEVARS_PRE = "\
 
 EXTRA_OEMAKE += "INSTALL_ROOT=${D}"
 
-do_compile_prepend() {
+do_compile:prepend() {
     export PKG_CONFIG_PATH=$(qmake -query QT_INSTALL_LIBS)/pkconfig
 }
 
-FILES_${PN}-dbg += "${datadir}/${P}/.debug"
-FILES_${PN} += "${datadir}"
+FILES:${PN}-dbg += "${datadir}/${P}/.debug"
+FILES:${PN} += "${datadir}"
 
-RDEPENDS_${PN} = "libx11-xcb qtdeclarative-qmlplugins qtgraphicaleffects-qmlplugins"
+RDEPENDS:${PN} = "libx11-xcb qtdeclarative-qmlplugins qtgraphicaleffects-qmlplugins"

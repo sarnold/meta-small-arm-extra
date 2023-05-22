@@ -2,7 +2,7 @@ SUMMARY = "A convenience library for using redis server and JSON as IPC mechanis
 
 HOMEPAGE = "https://github.com/VCTLabs/redis-ipc"
 SECTION = "Development/Libraries"
-LICENSE = "openssl"
+LICENSE = "OpenSSL"
 LIC_FILES_CHKSUM = "file://COPYING;md5=3bf50002aefd002f49e7bb854063f7e7"
 
 DEPENDS = "hiredis json-c"
@@ -30,20 +30,20 @@ CACHED_CONFIGUREVARS = " \
     lt_cv_shlibpath_overrides_runpath=yes \
 "
 
-do_configure_append() {
+do_configure:append() {
     sed -i -e "s|I\$(includedir)|I${STAGING_INCDIR}|" \
         "${B}"/src/Makefile
 }
 
-DEBIAN_NOAUTONAME_${PN} = "1"
-DEBIAN_NOAUTONAME_${PN}-dbg = "1"
-DEBIAN_NOAUTONAME_${PN}-dev = "1"
-DEBIAN_NOAUTONAME_${PN}-doc = "1"
-DEBIAN_NOAUTONAME_${PN}-staticdev = "1"
+DEBIAN_NOAUTONAME:${PN} = "1"
+DEBIAN_NOAUTONAME:${PN}-dbg = "1"
+DEBIAN_NOAUTONAME:${PN}-dev = "1"
+DEBIAN_NOAUTONAME:${PN}-doc = "1"
+DEBIAN_NOAUTONAME:${PN}-staticdev = "1"
 
-RRECOMMENDS_${PN} = "redis"
+RRECOMMENDS:${PN} = "redis"
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${datadir}/doc/${BPN}/ 
     install -m 0644 ${S}/README.rst ${D}${datadir}/doc/${BPN}/
 }

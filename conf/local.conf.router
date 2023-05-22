@@ -106,7 +106,7 @@ DEV_TOOLS = "\
     packagegroup-core-device-devel \
 "
 
-DEFAULT_TEST_SUITES_remove = "connman"
+DEFAULT_TEST_SUITES:remove = "connman"
 
 IMAGE_FEATURES += "ssh-server-openssh package-management"
 
@@ -114,9 +114,9 @@ EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-test
 
 MACHINE = "edgerouter"
 
-#COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+#COMPATIBLE_MACHINE:edgerouter = "edgerouter"
 
-SERIAL_CONSOLES_edgerouter = "115200;ttyS0"
+SERIAL_CONSOLES:edgerouter = "115200;ttyS0"
 #IMAGE_FSTYPES = "tar.bz2"
 
 PREFERRED_VERSION_linux-octeon-kernel = "4.8%"
@@ -133,7 +133,7 @@ VIRTUAL-RUNTIME_keymaps = "keymaps"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
-PACKAGECONFIG_pn-vim = "acl"
+PACKAGECONFIG:pn-vim = "acl"
 
 DL_DIR = "${HOME}/shared/downloads"
 SSTATE_DIR = "${HOME}/shared/oe/sstate-cache"
@@ -156,11 +156,11 @@ CUSTOM_FEED_CONFIG = "internal"
 # set internal feed URL
 CUSTOM_FEED_URL = "ptolemy"
 
-LICENSE_FLAGS_WHITELIST = "\
+LICENSE_FLAGS_ACCEPTED = "\
   commercial \
   commercial_qmmp"
 
-DISTRO_FEATURES_append = " pam sysvinit udev "
+DISTRO_FEATURES:append = " pam sysvinit udev "
 
 DISTRO_FEATURES_BACKFILL_CONSIDERED = "pulseaudio systemd"
 
@@ -174,17 +174,17 @@ BB_DISKMON_DIRS = "\
     STOPTASKS,${DL_DIR},1G,100K \
     STOPTASKS,${SSTATE_DIR},1G,100K \
     STOPTASKS,/tmp,100M,100K \
-    ABORT,${TMPDIR},100M,1K \
-    ABORT,${DL_DIR},100M,1K \
-    ABORT,${SSTATE_DIR},100M,1K \
-    ABORT,/tmp,10M,1K"
+    HALT,${TMPDIR},100M,1K \
+    HALT,${DL_DIR},100M,1K \
+    HALT,${SSTATE_DIR},100M,1K \
+    HALT,/tmp,10M,1K"
 
 #SSTATE_MIRRORS ?= "\
 #file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
 #file://.* file:///some/local/dir/sstate/PATH"
 
-#PACKAGECONFIG_append_pn-qemu-native = " sdl"
-#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+#PACKAGECONFIG:append:pn-qemu-native = " sdl"
+#PACKAGECONFIG:append:pn-nativesdk-qemu = " sdl"
 ASSUME_PROVIDED += "qemu-native libsdl-native"
 
 CONF_VERSION = "1"

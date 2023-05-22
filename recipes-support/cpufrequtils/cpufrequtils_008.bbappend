@@ -1,8 +1,8 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += "file://init file://defaults file://cpufreq-init.sh"
 
-do_install_append() {
+do_install:append() {
     if ! ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
         install -d ${D}${sbindir}
         install -d ${D}${sysconfdir}/init.d
@@ -14,12 +14,12 @@ do_install_append() {
 }
 
 INITSCRIPT_NAME = "cpufrequtils"
-INITSCRIPT_PARAMS_${PN}-init = "defaults 50"
+INITSCRIPT_PARAMS:${PN}-init = "defaults 50"
 
 PACKAGES =+ "cpufrequtils-init"
 
-RDEPENDS_${PN}-init += "cpufrequtils"
+RDEPENDS:${PN}-init += "cpufrequtils"
 
-FILES_${PN} += "${sbindir}/cpufreq-init.sh"
-FILES_${PN}-init = "${sysconfdir}/init.d/* ${sysconfdir}/default/*"
+FILES:${PN} += "${sbindir}/cpufreq-init.sh"
+FILES:${PN}-init = "${sysconfdir}/init.d/* ${sysconfdir}/default/*"
 

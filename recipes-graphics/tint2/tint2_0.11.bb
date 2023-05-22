@@ -2,7 +2,7 @@ DESCRIPTION = "A lightweight panel/taskbar"
 SECTION = "x11"
 DEPENDS = "cmake-native cairo pango virtual/imlib2 glib-2.0 gdk-pixbuf gtk+ \
            virtual/libx11 libxrandr libxcomposite libxinerama libxdamage"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=94d55d512a9ba36caa9b7df079bae19f"
 HOMEPAGE = "http://code.google.com/p/tint2/"
 
@@ -21,6 +21,6 @@ EXTRA_OECMAKE = " \
     -DWITH_TINT2CONF=ON \
 "
 
-FILES_${PN} += "${sysconfdir} /usr/share/*"
-CONFFILES_${PN} = "${sysconfdir}/xdg/tint2/tint2rc"
+FILES:${PN} += "${sysconfdir} /usr/share/*"
+CONFFILES:${PN} = "${sysconfdir}/xdg/tint2/tint2rc"
 

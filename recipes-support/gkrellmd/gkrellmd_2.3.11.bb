@@ -1,7 +1,7 @@
 DESCRIPTION = "The stand-alone daemon portion of GKrellm desktop monitor."
 HOMEPAGE="http://www.gkrellm.net/"
 SECTION = "net/misc"
-LICENSE = "GPLv3"
+LICENSE = "GPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6aa4c0c48b808b45244efd507765e2b8"
 
 SRC_URI = "http://gkrellm.srcbox.net/gkrellm-${PV}.tar.bz2 \

@@ -1,5 +1,5 @@
 SUMMARY = "APSW stands for Another Python SQLite Wrapper."
-LICENSE = "LGPLv2"
+LICENSE = "LGPL-2.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=830db1ec625f8ee8996c4a07c6b8150c"
 
 SRC_URI = "https://github.com/rogerbinns/apsw/archive/${PV}-r1.tar.gz;downloadfilename=apsw-${PV}-r1.tar.gz"

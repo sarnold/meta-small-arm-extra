@@ -2,7 +2,7 @@ SUMMARY = "A convenience library for using redis server and JSON as IPC mechanis
 
 HOMEPAGE = "https://github.com/VCTLabs/redis-ipc"
 SECTION = "libs"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 DEPENDS = "hiredis json-c"
@@ -21,15 +21,15 @@ EXTRA_OECMAKE += " \
 
 inherit cmake pkgconfig
 
-DEBIAN_NOAUTONAME_${PN} = "1"
-DEBIAN_NOAUTONAME_${PN}-dbg = "1"
-DEBIAN_NOAUTONAME_${PN}-dev = "1"
-DEBIAN_NOAUTONAME_${PN}-doc = "1"
-DEBIAN_NOAUTONAME_${PN}-staticdev = "1"
+DEBIAN_NOAUTONAME:${PN} = "1"
+DEBIAN_NOAUTONAME:${PN}-dbg = "1"
+DEBIAN_NOAUTONAME:${PN}-dev = "1"
+DEBIAN_NOAUTONAME:${PN}-doc = "1"
+DEBIAN_NOAUTONAME:${PN}-staticdev = "1"
 
-RRECOMMENDS_${PN} = "redis"
+RRECOMMENDS:${PN} = "redis"
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${datadir}/doc/${BPN}/
     install -m 0644 ${S}/README.rst ${D}${datadir}/doc/${BPN}/
 }

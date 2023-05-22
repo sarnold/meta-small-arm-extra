@@ -9,7 +9,7 @@ crypto modules."
 
 HOMEPAGE = "https://github.com/sarnold/af_alg"
 SECTION = "Development/Libraries"
-LICENSE = "openssl"
+LICENSE = "OpenSSL"
 LIC_FILES_CHKSUM = "file://COPYING;md5=a9f8132572ec3b99cdb8e0e12afeac58"
 
 DEPENDS = "openssl"
@@ -36,13 +36,13 @@ CACHED_CONFIGUREVARS = " \
     lt_cv_shlibpath_overrides_runpath=yes \
 "
 
-do_configure_prepend() {
+do_configure:prepend() {
     sed -i \
         -e "s|ssl/engines|openssl/engines|" \
         "${S}"/configure.ac
 }
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${datadir}/doc/${BPN}/
     install -m 0644 ${S}/README.rst ${D}${datadir}/doc/${BPN}/
 }
@@ -52,7 +52,7 @@ EXTRA_OEMAKE = "'LIBTOOL=${LIBTOOL}'"
 TARGET_CC_ARCH += "${LDFLAGS}"
 PARALLEL_MAKE = ""
 
-FILES_${PN} += "${libdir}/openssl/engines/libaf_alg.so"
-FILES_${PN}-dbg += "${libdir}/openssl/engines/.debug/*"
+FILES:${PN} += "${libdir}/openssl/engines/libaf_alg.so"
+FILES:${PN}-dbg += "${libdir}/openssl/engines/.debug/*"
 
 PACKAGES = "${PN}-doc ${PN} ${PN}-dbg"

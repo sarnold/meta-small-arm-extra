@@ -1,16 +1,16 @@
 DESCRIPTION = "embedded router test image (eg, edgerouter or espressobin)"
 
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=2c1c00f9d3ed9e24fa69b932b7e7aff2"
 
-IMAGE_FEATURES_append = " \
+IMAGE_FEATURES:append = " \
     ssh-server-openssh \
     package-management \
 "
 
 EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
 
-CORE_IMAGE_EXTRA_INSTALL_append = " \
+CORE_IMAGE_EXTRA_INSTALL:append = " \
     kernel-modules \
     libcgroup \
     zram \
@@ -111,7 +111,7 @@ IMAGE_LINGUAS = " "
 inherit core-image extrausers
 
 IMAGE_OVERHEAD_FACTOR = "1.2"
-IMAGE_FSTYPES_append = " wic.gz"
+IMAGE_FSTYPES:append = " wic.gz"
 
 USER_FOR_AUTH ?= "admin"
 PASS_FOR_AUTH ?= "admin"
@@ -143,7 +143,7 @@ set_ssh_keys (){
     chown ${UID_FOR_AUTH}:${UID_FOR_AUTH} -R ${IMAGE_ROOTFS}/home/${USER_FOR_AUTH}
 }
 
-ROOTFS_POSTPROCESS_COMMAND_edgerouter += "set_sudoers_rules; set_ssh_keys;"
+ROOTFS_POSTPROCESS_COMMAND:edgerouter += "set_sudoers_rules; set_ssh_keys;"
 ROOTFS_POSTPROCESS_COMMAND_espressobin += "set_dtb_link; set_sudoers_rules; set_ssh_keys;"
 
 EXTRA_USERS_PARAMS = "groupadd sudo; useradd -u ${UID_FOR_AUTH} -P '${PASS_FOR_AUTH}' -G sudo ${USER_FOR_AUTH};"

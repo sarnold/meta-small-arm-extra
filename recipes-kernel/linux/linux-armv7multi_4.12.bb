@@ -1,5 +1,5 @@
 # custom oe-based kernel for upstream plus RCN kernel patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 include linux-armv7multi.inc
 
@@ -7,10 +7,10 @@ SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
            https://rcn-ee.net/deb/xenial-armhf/${RELEASE_TAG}-${BB_VERSION}/patch-${LINUX_VERSION}-${BB_VERSION}.diff.xz;name=patch \
 "
 
-SRC_URI_append_udooneo = "file://defconfig \
+SRC_URI:append_udooneo = "file://defconfig \
 "
 
-SRC_URI_append_udooqdl = "0008-ARM-DTS-imx6qdl-udoo-enable-uart4-for-communication-.patch \
+SRC_URI:append_udooqdl = "0008-ARM-DTS-imx6qdl-udoo-enable-uart4-for-communication-.patch \
                           file://defconfig \
 "
 

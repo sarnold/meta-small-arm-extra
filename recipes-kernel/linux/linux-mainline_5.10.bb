@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 require recipes-kernel/linux/linux-mainline-common.inc
 
@@ -33,7 +33,7 @@ SRC_URI = " \
     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git;branch=${BRANCH} \
 "
 
-SRC_URI_append = " \
+SRC_URI:append = " \
     file://0001-arm64-dts-marvell-add-DT-for-ESPRESSObin-Ultra.patch \
     file://defconfig \
 "

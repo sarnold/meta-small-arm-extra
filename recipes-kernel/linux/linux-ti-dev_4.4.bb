@@ -1,5 +1,5 @@
 # custom oe-based kernel for upstream plus RCN kernel patch
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}-${BRANCH_VERSION}:"
 
 include linux-bb.inc
 
@@ -26,16 +26,16 @@ KBRANCH_beaglebone = "linux-${BRANCH_VERSION}.y"
 
 PV = "${LINUX_VERSION}${LINUX_VERSION_EXTENSION}+git${SRCPV}"
 
-do_install_append() {
+do_install:append() {
 	cd ${WORKDIR}
 	install -m 0644 -t ${D}/lib/firmware am335x-pru0-fw am335x-pru1-fw
 }
 
-RDEPENDS_${KERNEL_PACKAGE_NAME}-base_append_beaglebone = " kernel-firmware-am335x-pru"
+RDEPENDS:${KERNEL_PACKAGE_NAME}-base:append_beaglebone = " kernel-firmware-am335x-pru"
 PACKAGES =+ "kernel-firmware-am335x-pru"
-FILES_kernel-firmware-am335x-pru = "/lib/firmware/am335x-pru*"
+FILES:kernel-firmware-am335x-pru = "/lib/firmware/am335x-pru*"
 
 SRC_URI[patch.md5sum] = "a916db5a77d62177cd97d0e18c92c47e"
 SRC_URI[patch.sha256sum] = "2754512e83cfa13c5203351aa9cd7961d11cf822a2bb61c1ccedc8d77c5269e6"
 
-INSANE_SKIP_kernel-firmware-am335x-pru = "arch"
+INSANE_SKIP:kernel-firmware-am335x-pru = "arch"

@@ -7,7 +7,7 @@ LICENSE = "CLOSED"
 DEPENDS = "qtbase qtwebkit"
 
 SRCREV = "57ac373f948498810c3f276fe712e67f5ec0d4aa"
-SRC_URI = "git://github.com/VCTLabs/qtbrowser;branch=qt5"
+SRC_URI = "git://github.com/VCTLabs/qtbrowser;branch=qt5;protocol=https"
 
 S = "${WORKDIR}/git"
 
@@ -19,6 +19,6 @@ do_install() {
     make install
 }
 
-FILES_${PN} = " \
+FILES:${PN} = " \
 	/usr/bin/* \
 "

@@ -11,7 +11,7 @@ PV = "0.0.1"
 PR = "r16"
 BRANCH = "devel"
 
-SRC_URI = "git://github.com/VCTLabs/xf86-video-armada;branch=${BRANCH}"
+SRC_URI = "git://github.com/VCTLabs/xf86-video-armada;branch=${BRANCH};protocol=https"
 
 S = "${WORKDIR}/git"
 SRCREV = "a5cdb15c7e2552327de4a79be86044d18b4cdad8"

@@ -1,6 +1,6 @@
 require recipes-bsp/u-boot/u-boot.inc
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 
 DEPENDS += "dtc-native"
 
@@ -16,7 +16,7 @@ SPL_BINARY = "SPL"
 
 COMPATIBLE_MACHINE = "udooneo"
 
-SRC_URI_append_udooneo = " \
+SRC_URI:append_udooneo = " \
         file://0001-ARM-udoo-neo-uEnv.txt-bootz-single-partition-config-v2017.11-rc4.patch \
         file://0002-udoo_neo.h-add-fallback-option-to-load-kernel-dtb-wi.patch \
 "
