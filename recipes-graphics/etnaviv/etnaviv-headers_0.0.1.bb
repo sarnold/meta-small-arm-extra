@@ -2,7 +2,7 @@ SUMMARY = "FOSS driver headers for the Vivante GCxxx series of embedded GPUs"
 HOMEPAGE = "https://github.com/laanwj/etna_viv"
 BUGTRACKER = "https://github.com/laanwj/etna_viv/issues"
 SECTION = "x11/drivers"
-LICENSE = "MIT-X"
+LICENSE = "MIT"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=9d4853905d85f044ed013e75def30a76"
 
@@ -16,7 +16,7 @@ SRCREV = "2e0e0e681becb9d092e4f3d601a540736d0b0350"
 
 DEPENDS = "virtual/xserver libdrm"
 
-SRC_URI = "git://github.com/laanwj/etna_viv;branch=${BRANCH}"
+SRC_URI = "git://github.com/laanwj/etna_viv;branch=${BRANCH};protocol=https"
 
 S = "${WORKDIR}/git"
 
@@ -28,4 +28,4 @@ do_install() {
     install -t ${D}/usr/include/etnaviv "${S}"/attic/etnaviv/*.h
 }
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"

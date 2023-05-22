@@ -4,10 +4,10 @@ DESCRIPTION = "scrot (SCReen shOT) is a simple commandline screen capture utilit
 HOMEPAGE = "http://linuxbrit.co.uk/software/"
 LICENSE = "BSD"
 
-RDEPENDS_${PN} = "imlib2-loaders"
+RDEPENDS:${PN} = "imlib2-loaders"
 DEPENDS = "imlib2 giblib"
 
-MIRRORS_prepend () {
+MIRRORS:prepend () {
 }
 
 SRC_URI = " \
@@ -20,7 +20,7 @@ SRC_URI[sha256sum] = "613d1cf524c2b62ce3c65f1232ea4f05c7daf248d5e82ff2a6892c9809
 
 PR = "r0"
 
-FILES_${PN}-doc += "/usr/doc"
+FILES:${PN}-doc += "/usr/doc"
 
 inherit autotools
 

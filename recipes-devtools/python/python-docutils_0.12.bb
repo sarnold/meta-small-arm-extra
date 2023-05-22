@@ -1,7 +1,7 @@
 SUMMARY = "Text processing system for documentation"
 HOMEPAGE = "http://docutils.sourceforge.net"
 SECTION = "devel/python"
-LICENSE = "PSF & BSD-2-Clause & GPLv3"
+LICENSE = "PSF-2.0 & BSD-2-Clause & GPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING.txt;md5=a722fbdc20347db7b69223594dd54574"
 
 DEPENDS = "python"

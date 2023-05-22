@@ -9,7 +9,7 @@ crypto modules."
 
 HOMEPAGE = "https://github.com/sarnold/af_alg"
 SECTION = "Development/Libraries"
-LICENSE = "openssl"
+LICENSE = "OpenSSL"
 LIC_FILES_CHKSUM = "file://COPYING;md5=a9f8132572ec3b99cdb8e0e12afeac58"
 
 DEPENDS = "openssl"
@@ -52,7 +52,7 @@ EXTRA_OEMAKE = "'LIBTOOL=${LIBTOOL}'"
 TARGET_CC_ARCH += "${LDFLAGS}"
 PARALLEL_MAKE = ""
 
-FILES_${PN} += "${libdir}/openssl/engines/libaf_alg.so"
-FILES_${PN}-dbg += "${libdir}/openssl/engines/.debug/*"
+FILES:${PN} += "${libdir}/openssl/engines/libaf_alg.so"
+FILES:${PN}-dbg += "${libdir}/openssl/engines/.debug/*"
 
 PACKAGES = "${PN}-doc ${PN} ${PN}-dbg"

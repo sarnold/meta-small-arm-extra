@@ -1,7 +1,7 @@
 SUMMARY = "SIP is a C++/Python Wrapper Generator"
 HOMEPAGE = "http://www.riverbankcomputing.co.uk/sip"
 SECTION = "devel"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://LICENSE-GPL2;md5=e91355d8a6f8bd8f7c699d62863c7303"
 
 inherit python3-dir
@@ -42,5 +42,5 @@ do_install() {
     oe_runmake install
 }
 
-FILES_python3-sip = "${libdir}/${PYTHON_DIR}/site-packages/"
-FILES_${PN}-dbg += "${libdir}/${PYTHON_DIR}/site-packages/.debug"
+FILES:python3-sip = "${libdir}/${PYTHON_DIR}/site-packages/"
+FILES:${PN}-dbg += "${libdir}/${PYTHON_DIR}/site-packages/.debug"

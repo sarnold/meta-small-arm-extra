@@ -5,7 +5,7 @@ LICENSE = "BSD"
 
 DEPENDS = "imlib2"
 
-MIRRORS_prepend () {
+MIRRORS:prepend () {
 }
 
 SRC_URI = " \
@@ -18,14 +18,14 @@ SRC_URI[sha256sum] = "176611c4d88d742ea4013991ad54c2f9d2feefbc97a28434c0f48922eb
 
 PR = "r0"
 
-do_compile_prepend () {
+do_compile:prepend () {
     #remove linkerpath to host libraries
     sed -i -e 's:-L/usr/lib\s::' Makefile
     sed -i -e 's:-L/usr/lib\s::' giblib/Makefile
     export DESTDIR=${D}
 }
 
-do_compile_append () {
+do_compile:append () {
     for i in $(find ${B} -name "*?.pc") ; do
         sed -i -e s:${STAGING_DIR_TARGET}::g \
                -e s:/${TARGET_SYS}::g \
@@ -33,7 +33,7 @@ do_compile_append () {
     done
 }
 
-FILES_${PN}-doc = "/usr/doc"
+FILES:${PN}-doc = "/usr/doc"
 
 inherit autotools-brokensep binconfig pkgconfig
 

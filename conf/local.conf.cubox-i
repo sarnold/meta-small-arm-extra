@@ -5,7 +5,7 @@ SDKMACHINE = "x86_64"
 DISTRO ?= "poky"
 
 # adjust machine features 
-MACHINE_FEATURES_append_cubox-i = " keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
+MACHINE_FEATURES:append_cubox-i = " keyboard apm usbgadget usbhost vfat rtc ext2 screen alsa ethernet"
 
 # this should pull in xuser-account package and start X correctly
 #BBMASK ?= ".*/meta-oe/recipes-graphics/xserver-nodm-init/"
@@ -13,7 +13,7 @@ MACHINE_FEATURES_append_cubox-i = " keyboard apm usbgadget usbhost vfat rtc ext2
 
 ROOTLESS_X = "1"
 
-#DEFAULT_TEST_SUITES_remove = "connman"
+#DEFAULT_TEST_SUITES:remove = "connman"
 
 BBMASK = "meta-freescale/dynamic-layers/browser-layer/"
 BBMASK .= "|.*meta-freescale/dynamic-layers/qt5-layer/"
@@ -41,8 +41,8 @@ EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-test
 IMAGE_LINGUAS = " "
 
 # we need to override systemd vs sysvinit properly
-DISTRO_FEATURES_append = " sysvinit"
-DISTRO_FEATURES_remove = " multiarch pulseaudio systemd"
+DISTRO_FEATURES:append = " sysvinit"
+DISTRO_FEATURES:remove = " multiarch pulseaudio systemd"
 
 #VIRTUAL-RUNTIME_dev_manager = "udev"
 #VIRTUAL-RUNTIME_login_manager = "busybox"
@@ -54,14 +54,14 @@ MACHINE = "cubox-i"
 
 # for Neo USB ethernet/serial
 #SERIAL_CONSOLES = "115200;ttymxc1"
-#KERNEL_MODULE_AUTOLOAD_append = " g_cdc"
+#KERNEL_MODULE_AUTOLOAD:append = " g_cdc"
 
-MACHINE_FIRMWARE_remove_cubox-i = "firmware-imx-vpu-imx6q \
+MACHINE_FIRMWARE:remove_cubox-i = "firmware-imx-vpu-imx6q \
                                    firmware-imx-vpu-imx6d \
                                    firmware-imx-epdc"
 
 # work-around for hard-coded fsl u-boot depend
-MACHINE_ESSENTIAL_EXTRA_RDEPENDS_remove_cubox-i = " \
+MACHINE_ESSENTIAL_EXTRA_RDEPENDS:remove_cubox-i = " \
     u-boot-fslc \
 "
 
@@ -74,7 +74,7 @@ UBOOT_CONFIG[sd] = "mx6cuboxi_defconfig,sdcard"
 
 # needed for udoo image recipes
 #ENABLE_MAINLINE = "1"
-MACHINE_EXTRA_RRECOMMENDS_remove = "imx-alsa-plugins"
+MACHINE_EXTRA_RRECOMMENDS:remove = "imx-alsa-plugins"
 
 MACHINE_HAS_VIVANTE_KERNEL_DRIVER_SUPPORT = "0"
 #NETWORK_MANAGER = "connman-gnome"
@@ -108,31 +108,31 @@ VIRTUAL-RUNTIME_graphical_init_manager = "lxdm-init"
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
 
-PACKAGECONFIG_pn-coreutils += "acl xattr"
-PACKAGECONFIG_pn-rsync += "acl attr"
-PACKAGECONFIG_pn-tar += "acl"
-PACKAGECONFIG_pn-libarchive += "acl xattr"
-PACKAGECONFIG_pn-logrotate += "acl"
-PACKAGECONFIG_pn-mtd-utils += "xattr"
-PACKAGECONFIG_pn-shadow += "acl attr"
-PACKAGECONFIG_pn-patch += "xattr"
-PACKAGECONFIG_pn-libevent += "attr"
-PACKAGECONFIG_pn-libtdb += "attr"
-PACKAGECONFIG_pn-libtalloc += "attr"
+PACKAGECONFIG:pn-coreutils += "acl xattr"
+PACKAGECONFIG:pn-rsync += "acl attr"
+PACKAGECONFIG:pn-tar += "acl"
+PACKAGECONFIG:pn-libarchive += "acl xattr"
+PACKAGECONFIG:pn-logrotate += "acl"
+PACKAGECONFIG:pn-mtd-utils += "xattr"
+PACKAGECONFIG:pn-shadow += "acl attr"
+PACKAGECONFIG:pn-patch += "xattr"
+PACKAGECONFIG:pn-libevent += "attr"
+PACKAGECONFIG:pn-libtdb += "attr"
+PACKAGECONFIG:pn-libtalloc += "attr"
 
-PACKAGECONFIG_pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
-PACKAGECONFIG_pn-xserver-xorg += "dri2 dri3 udev glamor xshmfence"
-PACKAGECONFIG_pn-qtbase += "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
-#PACKAGECONFIG_pn-qtbase = "accessibility dbus udev"
-PACKAGECONFIG_pn-qtmultimedia += "alsa"
+PACKAGECONFIG:pn-mesa += "gbm egl gles dri dri3 gallium wayland x11"
+PACKAGECONFIG:pn-xserver-xorg += "dri2 dri3 udev glamor xshmfence"
+PACKAGECONFIG:pn-qtbase += "accessibility dbus glib gl freetype fontconfig tslib kms icu udev openssl alsa widgets xcb xsync xshape xrender xrandr xfixes xinput2 xcursor xkb evdev"
+#PACKAGECONFIG:pn-qtbase = "accessibility dbus udev"
+PACKAGECONFIG:pn-qtmultimedia += "alsa"
 
-PACKAGECONFIG_pn-imlib2 = "tiff bzip2 id3"
-PACKAGECONFIG_pn-openbox = "imlib2 xrandr xcursor startup-notification"
-PACKAGECONFIG_pn-libxfce4ui += "gladeui startup-notification"
-#PACKAGECONFIG_pn-vim += "acl gtkgui x11"
-PACKAGECONFIG_pn-vim += "acl"
-PACKAGECONFIG_pn-cantarell-fonts = "fontforge"
-PACKAGECONFIG_pn-pinentry += "gtk2"
+PACKAGECONFIG:pn-imlib2 = "tiff bzip2 id3"
+PACKAGECONFIG:pn-openbox = "imlib2 xrandr xcursor startup-notification"
+PACKAGECONFIG:pn-libxfce4ui += "gladeui startup-notification"
+#PACKAGECONFIG:pn-vim += "acl gtkgui x11"
+PACKAGECONFIG:pn-vim += "acl"
+PACKAGECONFIG:pn-cantarell-fonts = "fontforge"
+PACKAGECONFIG:pn-pinentry += "gtk2"
 
 CORE_IMAGE_EXTRA_INSTALL += "\
     kernel-modules \
@@ -388,14 +388,14 @@ CUSTOM_FEED_CONFIG = "internal"
 # set internal feed URL
 CUSTOM_FEED_URL = "localhost"
 
-LICENSE_FLAGS_WHITELIST = "\
+LICENSE_FLAGS_ACCEPTED = "\
   commercial \
   commercial_lame \
   commercial_libmad \
   commercial_mpeg2dec \
   commercial_gst-plugins-ugly \
 "
-#LICENSE_FLAGS_WHITELIST = "\
+#LICENSE_FLAGS_ACCEPTED = "\
 #  commercial \
 #  commercial_gst-plugins-ugly \
 #  commercial_gst-fluendo-mp3 \
@@ -467,10 +467,10 @@ BB_DISKMON_DIRS = "\
     STOPTASKS,${DL_DIR},1G,100K \
     STOPTASKS,${SSTATE_DIR},1G,100K \
     STOPTASKS,/tmp,100M,100K \
-    ABORT,${TMPDIR},100M,1K \
-    ABORT,${DL_DIR},100M,1K \
-    ABORT,${SSTATE_DIR},100M,1K \
-    ABORT,/tmp,10M,1K"
+    HALT,${TMPDIR},100M,1K \
+    HALT,${DL_DIR},100M,1K \
+    HALT,${SSTATE_DIR},100M,1K \
+    HALT,/tmp,10M,1K"
 
 #
 # Shared-state files from other locations
@@ -497,8 +497,8 @@ BB_DISKMON_DIRS = "\
 # seen. The two lines below enable the SDL backend too. By default libsdl-native will
 # be built, if you want to use your host's libSDL instead of the minimal libsdl built
 # by libsdl-native then uncomment the ASSUME_PROVIDED line below.
-#PACKAGECONFIG_append_pn-qemu-native = " sdl"
-#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+#PACKAGECONFIG:append:pn-qemu-native = " sdl"
+#PACKAGECONFIG:append:pn-nativesdk-qemu = " sdl"
 ASSUME_PROVIDED += "qemu-native libsdl-native"
 
 # CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to

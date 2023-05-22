@@ -1,8 +1,8 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 DESCRIPTION = "Useful boot scripts for router images"
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
 DEPENDS = "u-boot-mkimage-native"
@@ -14,7 +14,7 @@ S = "${WORKDIR}/"
 inherit deploy
 
 BOOTSCRIPT = "${S}/boot.cmd"
-FILES_${PN} = "/boot"
+FILES:${PN} = "/boot"
 
 do_mkimage () {
     uboot-mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
@@ -43,7 +43,7 @@ addtask deploy after do_install before do_build
 
 do_compile[noexec] = "1"
 
-RPROVIDES_${PN} += "u-boot-script"
+RPROVIDES:${PN} += "u-boot-script"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(espressobin|espressobin-v7|espressobin-ultra)"

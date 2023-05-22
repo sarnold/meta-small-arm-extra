@@ -17,7 +17,7 @@ EXTRA_OECONF = "--without-random \
                 --disable-static \
                 "
 
-EXTRA_OEMAKE_class-target = "LIBTOOL=${STAGING_BINDIR_CROSS}/${HOST_SYS}-libtool"
+EXTRA_OEMAKE:class-target = "LIBTOOL=${STAGING_BINDIR_CROSS}/${HOST_SYS}-libtool"
 
 S="${WORKDIR}/${PN}-release-${PN}-${PV}"
 
@@ -25,9 +25,9 @@ do_configure:prepend() {
 	sed -i "/docdir/d" "${S}"/make/libtool.mk
 }
 
-DEBIAN_NOAUTONAME_libqpdf = "1"
+DEBIAN_NOAUTONAME:libqpdf = "1"
 
 PACKAGES =+ "libqpdf"
-FILES_libqpdf = "${libdir}/libqpdf.so.*"
+FILES:libqpdf = "${libdir}/libqpdf.so.*"
 
 RDEPEND_${PN} = "libqpdf"

@@ -14,12 +14,12 @@ do_install:append() {
 }
 
 INITSCRIPT_NAME = "cpufrequtils"
-INITSCRIPT_PARAMS_${PN}-init = "defaults 50"
+INITSCRIPT_PARAMS:${PN}-init = "defaults 50"
 
 PACKAGES =+ "cpufrequtils-init"
 
-RDEPENDS_${PN}-init += "cpufrequtils"
+RDEPENDS:${PN}-init += "cpufrequtils"
 
-FILES_${PN} += "${sbindir}/cpufreq-init.sh"
-FILES_${PN}-init = "${sysconfdir}/init.d/* ${sysconfdir}/default/*"
+FILES:${PN} += "${sbindir}/cpufreq-init.sh"
+FILES:${PN}-init = "${sysconfdir}/init.d/* ${sysconfdir}/default/*"
 

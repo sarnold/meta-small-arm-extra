@@ -2,7 +2,7 @@ SUMMARY = "Allwinner Composite Video Configuration Tool"
 
 HOMEPAGE = "https://projects.nwrk.biz/projects/allwinner-tvout"
 SECTION = "console/utils"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://README;beginline=20;endline=32;md5=6f252a421b65bcecf624382ba3c899da"
 
 COMPATIBLE_MACHINE = "(sun4i|sun5i|sun7i|sun8i)"

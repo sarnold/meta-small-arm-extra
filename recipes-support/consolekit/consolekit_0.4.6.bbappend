@@ -12,5 +12,5 @@ do_install:append() {
     install -m 0755 ${WORKDIR}/${INITSCRIPT_NAME} ${D}${sysconfdir}/init.d/
 }
 
-FILES_${PN} += "${sysconfdir}/init.d"
+FILES:${PN} += "${sysconfdir}/init.d"
 

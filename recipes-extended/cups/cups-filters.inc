@@ -1,13 +1,13 @@
 DESCRIPTION = "CUPS backends, filters, and other software"
 HOMEPAGE = "http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters"
 
-LICENSE = "GPLv2 & LGPLv2 & MIT & GPLv2+ & GPLv3"
+LICENSE = "GPL-2.0-only & LGPL-2.0-only & MIT & GPL-2.0-or-later & GPL-3.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d420e185486344da6176553848350932"
 
 SECTION = "console/utils"
 
 DEPENDS = "cups glib-2.0 dbus dbus-glib lcms ghostscript poppler qpdf libpng"
-DEPENDS_class-native = "poppler-native glib-2.0-native dbus-native pkgconfig-native gettext-native libpng-native"
+DEPENDS:class-native = "poppler-native glib-2.0-native dbus-native pkgconfig-native gettext-native libpng-native"
 
 SRC_URI = "http://openprinting.org/download/cups-filters/cups-filters-${PV}.tar.gz"
 
@@ -23,7 +23,7 @@ EXTRA_OECONF:append = " --enable-ghostscript --disable-ijs --disable-ldap \
                        --with-rcdir=no \
                        --without-php"
 
-EXTRA_OECONF:append_class-native = " --with-pdftops=pdftops \
+EXTRA_OECONF:append:class-native = " --with-pdftops=pdftops \
                                     --disable-avahi --disable-ghostscript \
                                     --disable-ijs --disable-ldap \
                                     --with-png --without-jpeg --without-tiff"
@@ -46,21 +46,21 @@ PACKAGES =+ "\
         ${PN}-data \
         "
 
-FILES_${PN}-gst = "\
+FILES:${PN}-gst = "\
 	${libdir}/cups/filter/gstopxl \
 	${libdir}/cups/filter/gstoraster \
 	"
 
-FILES_${PN}-data = "\
+FILES:${PN}-data = "\
 	/usr/share/cups/data \
 	"
 
-FILES_${PN}-dbg += "\
+FILES:${PN}-dbg += "\
 	${libdir}/cups/filter/.debug \
 	${libdir}/cups/backend/.debug \
 	"
 
-FILES_${PN} += "\
+FILES:${PN} += "\
         ${libdir}/cups/filter \
         ${libdir}/cups/backend \
         /usr/share/cups/charsets \
@@ -78,4 +78,4 @@ do_install:append() {
 	rm -f ${D}/usr/share/cups/data/testprint
 }
 
-RDEPENDS_${PN} += "bash"
+RDEPENDS:${PN} += "bash"

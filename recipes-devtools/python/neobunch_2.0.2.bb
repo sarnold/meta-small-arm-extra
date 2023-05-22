@@ -9,4 +9,4 @@ SRC_URI[sha256sum] = "f5a3eac5ba1413efd3754b4d21c1137653d33d67240f00edfb2e169db7
 
 inherit setuptools3
 
-RDEPENDS_${PN} = "python-six"
+RDEPENDS:${PN} = "python-six"

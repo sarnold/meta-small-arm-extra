@@ -19,8 +19,8 @@ XORG_CRYPTO = "openssl"
 MESA_CRYPTO = "openssl"
 
 # we need to override systemd vs sysvinit properly
-DISTRO_FEATURES_append = " sysvinit"
-DISTRO_FEATURES_remove = " multiarch systemd"
+DISTRO_FEATURES:append = " sysvinit"
+DISTRO_FEATURES:remove = " multiarch systemd"
 
 # We default to ipk:
 PACKAGE_CLASSES ?= "package_ipk"
@@ -28,8 +28,8 @@ PACKAGE_CLASSES ?= "package_ipk"
 EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 
 # lxde image needs a bunch of layers plus
-DISTRO_FEATURES_append = " x11 polkit gobject-introspection-data"
-DISTRO_FEATURES_append = " initscripts ipv6 ipv4"
+DISTRO_FEATURES:append = " x11 polkit gobject-introspection-data"
+DISTRO_FEATURES:append = " initscripts ipv6 ipv4"
 
 # rpi is failing to install core-x11-xserver pkgs ??
 DISTRO_FEATURES += "opengl"
@@ -58,7 +58,7 @@ INHERIT += "toaster"
 
 # look at prsrv and build_history
 
-LICENSE_FLAGS_WHITELIST = "\
+LICENSE_FLAGS_ACCEPTED = "\
   commercial_gst-fluendo-mp3 \
   commercial_gst-openmax \
   commercial_gst-plugins-ugly \

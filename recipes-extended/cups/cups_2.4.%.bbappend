@@ -24,6 +24,6 @@ do_install:append() {
     install -m 0755 ${WORKDIR}/${PN}.ldm.init ${INIT_DIR}/${PN}d
 }
 
-FILES_${PN} += "${datadir}/cups/ \
+FILES:${PN} += "${datadir}/cups/ \
                 ${datadir}/icons/ \
                "

@@ -2,11 +2,11 @@
 # we also like gnutls for the terminal
 PACKAGECONFIG ?= "gnutls vala"
 
-do_compile_append() {
+do_compile:append() {
     ninja -v ${PARALLEL_MAKE} all
 }
 
-do_install_append() {
+do_install:append() {
     #install -d ${D}${sysconfdir}/profile.d
     #install -m 0755 src/vte.sh ${D}${sysconfdir}/profile.d/
     mv ${D}${bindir}/vte-2.91 ${D}${bindir}/vte-term
@@ -14,6 +14,6 @@ do_install_append() {
 
 PACKAGES =+ "vte-term"
 
-RDEPENDS_${PN}-term = "libvte"
+RDEPENDS:${PN}-term = "libvte"
 
-FILES_${PN}-term = "${bindir}/vte-term ${sysconfdir}/*"
+FILES:${PN}-term = "${bindir}/vte-term ${sysconfdir}/*"

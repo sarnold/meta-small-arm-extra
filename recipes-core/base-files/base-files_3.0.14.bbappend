@@ -1,7 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append:raspberrypi = " file://modules "
-SRC_URI:append:beaglebone = " file://modules "
+SRC_URI:append_raspberrypi = " file://modules "
+SRC_URI:append_beaglebone = " file://modules "
 
 conffiles += " ${sysconfdir}/modules"
 

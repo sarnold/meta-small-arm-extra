@@ -1,10 +1,10 @@
 # custom kernel include for beagle kernels
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI_append = " file://uEnv.txt  file://uEnv.txt.root"
+SRC_URI:append = " file://uEnv.txt  file://uEnv.txt.root"
 
-RDEPENDS_${KERNEL_PACKAGE_NAME}-base += "kernel-uenv"
-RDEPENDS_${KERNEL_PACKAGE_NAME}-base_append_beaglebone = " kernel-firmware-am335x-pm"
+RDEPENDS:${KERNEL_PACKAGE_NAME}-base += "kernel-uenv"
+RDEPENDS:${KERNEL_PACKAGE_NAME}-base:append_beaglebone = " kernel-firmware-am335x-pm"
 
 do_install:append() {
 	oe_runmake headers_install INSTALL_HDR_PATH=${D}${exec_prefix}/src/linux-${KERNEL_VERSION} ARCH=$ARCH
@@ -28,7 +28,7 @@ do_deploy:append() {
 }
 
 PACKAGES =+ "kernel-firmware-am335x-pm kernel-uenv kernel-headers"
-FILES_kernel-uenv = "/boot/uEnv.txt /uEnv.txt"
-FILES_kernel-headers = "${exec_prefix}/src/linux*"
-FILES_kernel-firmware-am335x-pm = "/lib/firmware/am335x-pm-firmware.bin /lib/firmware/am335x-pm-firmware.elf /lib/firmware/am335x-bone-scale-data.bin"
+FILES:kernel-uenv = "/boot/uEnv.txt /uEnv.txt"
+FILES:kernel-headers = "${exec_prefix}/src/linux*"
+FILES:kernel-firmware-am335x-pm = "/lib/firmware/am335x-pm-firmware.bin /lib/firmware/am335x-pm-firmware.elf /lib/firmware/am335x-bone-scale-data.bin"
 

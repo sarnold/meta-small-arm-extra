@@ -10,4 +10,4 @@ do_install () {
     echo "FACTOR=70" > ${D}${sysconfdir}/default/zram
 }
 
-FILES_${PN} += "${sysconfdir}/default/"
+FILES:${PN} += "${sysconfdir}/default/"

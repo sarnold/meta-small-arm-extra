@@ -1,6 +1,6 @@
 require recipes-bsp/u-boot/u-boot.inc
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 
 DEPENDS += "dtc-native"
 

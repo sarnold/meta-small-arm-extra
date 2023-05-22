@@ -1,7 +1,7 @@
 ##require recipes-bsp/u-boot/u-boot.inc
 
 DESCRIPTION = "u-boot for Boundary Devices boards."
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://Licenses/README;md5=a2c678cfd4a4d97135585cad908541c6"
 COMPATIBLE_MACHINE = "(imx6qsabrelite|nitrogen6x|nitrogen6x-lite|nitrogen6sx|nitrogen7|imx6-acl)"
 
@@ -12,7 +12,7 @@ PV = "v2017.01-nitro"
 
 SRCREV = "7d3bb1b0b5ca4416e3bf4a00645a09025c8469ff"
 BRANCH = "v2017.01-nitro"
-SRC_URI = "git://github.com/VCTLabs/u-boot.git;branch=${BRANCH}"
+SRC_URI = "git://github.com/VCTLabs/u-boot.git;branch=${BRANCH};protocol=https"
 
 S = "${WORKDIR}/git"
 
@@ -82,7 +82,7 @@ do_deploy() {
 
 addtask deploy after do_install before do_package
 
-FILES_${PN} = "/boot/*"
+FILES:${PN} = "/boot/*"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 

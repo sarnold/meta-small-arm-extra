@@ -1,6 +1,6 @@
 SECTION = "x11/utils"
 DESCRIPTION = "GKrellM is a GTK-based stacked monitor program."
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=6aa4c0c48b808b45244efd507765e2b8"
 
 INC_PR = "r2"
@@ -12,8 +12,9 @@ SRC_URI += " \
 
 inherit pkgconfig update-rc.d gettext
 
-INITSCRIPT_NAME = "gkrellmd"
-INITSCRIPT_PARAMS = "defaults"
+INITSCRIPT_PACKAGES = "${PN}"
+INITSCRIPT_NAME:${PN} = "gkrellmd"
+INITSCRIPT_PARAMS:${PN} = "defaults 26"
 
 DEPENDS = "glib-2.0"
 
@@ -47,14 +48,13 @@ do_install() {
 	install -m 0755 server/gkrellmd ${D}${sbindir}/
 }
 
-#PROVIDES += "gkrellm-daemon"
-RCONFLICTS_${PN} = "gkrellm-daemon"
+RCONFLICTS:${PN} = "gkrellm-daemon"
 PACKAGES = "gkrellmd-dbg gkrellmd"
 
-FILES_${PN}-dbg = "${sbindir}/.debug ${prefix}/src"
-FILES_${PN} = "${sysconfdir}/gkrellmd.conf ${sbindir} \
+FILES:${PN}-dbg = "${sbindir}/.debug ${prefix}/src"
+FILES:${PN} = "${sysconfdir}/gkrellmd.conf ${sbindir} \
   ${sysconfdir}/init.d/gkrellmd \
 "
 
-CONFFILES_${PN} = "${sysconfdir}/gkrellmd.conf"
+CONFFILES:${PN} = "${sysconfdir}/gkrellmd.conf"
 

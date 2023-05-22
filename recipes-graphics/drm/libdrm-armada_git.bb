@@ -1,6 +1,6 @@
 SUMMARY = "Armada libdrm buffer object management module"
 
-LICENSE = "GPL-2"
+LICENSE = "GPL-2.0-only"
 
 LIC_FILES_CHKSUM = "file://${S}/armada_ioctl.h;beginline=5;endline=7;md5=5f5464f9b3e981ca574e65b00e438561"
 
