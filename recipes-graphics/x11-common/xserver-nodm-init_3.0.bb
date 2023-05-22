@@ -22,6 +22,11 @@ inherit update-rc.d systemd features_check
 
 REQUIRED_DISTRO_FEATURES = "x11 ${@oe.utils.conditional('ROOTLESS_X', '1', 'pam', '', d)}"
 
+# typically a distro or local.conf override, but using it in DEPENDS needs
+# to have a default for new builds/no distro; valid values include
+#  "x11-common"  or  "xserver-common"
+VIRTUAL-RUNTIME_xserver_common ??= "xserver-common"
+
 PACKAGECONFIG ??= "blank"
 # dpms and screen saver will be on only if 'blank' is in PACKAGECONFIG
 PACKAGECONFIG[blank] = ""

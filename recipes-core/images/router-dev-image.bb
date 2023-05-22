@@ -101,7 +101,6 @@ DEV_TOOLS = "\
     yasm \
     gdb \
     gdbserver \
-    packagegroup-core-device-devel \
 "
 
 IMAGE_INSTALL = "packagegroup-core-boot ${CORE_IMAGE_EXTRA_INSTALL}"
