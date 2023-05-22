@@ -22,9 +22,9 @@
 </menu>
 
 <menu id="apps-term-menu" label="Terminals">
-  <item label="Vala Terminal">
+  <item label="VTE Terminal">
     <action name="Execute">
-      <command>vala-terminal -fs 9 -g 80 24</command>
+      <command>vte-term</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>

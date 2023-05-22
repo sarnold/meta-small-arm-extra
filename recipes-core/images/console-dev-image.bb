@@ -3,14 +3,12 @@ DESCRIPTION = "embedded device console test image"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=2c1c00f9d3ed9e24fa69b932b7e7aff2"
 
-IMAGE_FEATURES:append = " \
+IMAGE_FEATURES += " \
     ssh-server-openssh \
     package-management \
 "
 
-EXTRA_IMAGE_FEATURES = "debug-tweaks ptest-pkgs tools-sdk tools-debug tools-testapps"
-
-CORE_IMAGE_EXTRA_INSTALL:append = " \
+CORE_IMAGE_EXTRA_INSTALL += " \
     kernel-modules \
     libcgroup \
     zram \
@@ -42,7 +40,7 @@ CORE_IMAGE_EXTRA_INSTALL:append = " \
     python3-git \
     python3-evdev \
     python3-redis \
-    redis \
+    redis-ipc \
     lighttpd \
     lighttpd-module-cgi \
     lighttpd-module-alias \

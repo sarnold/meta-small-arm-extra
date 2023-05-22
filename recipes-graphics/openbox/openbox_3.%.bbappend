@@ -1,11 +1,11 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append = "file://openbox-gnome-session-3.4.9.patch \
-                  file://mini_x.session \
-                  file://menu.xml \
+SRC_URI += "file://openbox-gnome-session-3.4.9.patch \
+            file://mini_x.session \
+            file://menu.xml \
 "
 
-#SRC_URI_append:raspberrypi = "http://www.gentoogeek.org/files/rpi-backgrounds.tar.gz;name=backgrounds"
+#SRC_URI_append_rpi = "http://www.gentoogeek.org/files/rpi-backgrounds.tar.gz;name=backgrounds"
 
 EXTRA_OECONF += "--disable-rpath"
 
@@ -14,22 +14,22 @@ EXTRA_OECONF += "--disable-rpath"
 #    autoreconf -Wcross --verbose --install --force || bbnote "failed to autoreconf"
 #}
 
-do_install_append_arm() {
-	# normally installs as /etc/mini_x/session 
-	install -d ${D}${sysconfdir}/mini_x
-	install -T -m 0755 ${WORKDIR}/mini_x.session ${D}${sysconfdir}/mini_x/session
+do_install_append_class-target() {
+    # normally installs as /etc/mini_x/session 
+    install -d ${D}${sysconfdir}/mini_x
+    install -T -m 0755 ${WORKDIR}/mini_x.session ${D}${sysconfdir}/mini_x/session
 
-	# add default menu
-	cp -f ${WORKDIR}/menu.xml ${D}/${sysconfdir}/xdg/openbox/
+    # add default menu
+    cp -f ${WORKDIR}/menu.xml ${D}/${sysconfdir}/xdg/openbox/
 }
 
-#do_install_append:raspberrypi() {
+#do_install_append_rpi() {
 #    # add some rpi images (creative commons share-able)
 #    install -d ${D}/usr/share/backgrounds/rpi
 #    install ${S}/rpi-backgrounds/* ${D}/usr/share/backgrounds/rpi/
 #}
 
-#PACKAGES_prepend_raspberrypi = "openbox-backgrounds "
+#PACKAGES_prepend_rpi = "openbox-backgrounds "
 
 FILES_${PN}-gnome += "${datadir}/gnome/ ${datadir}/gnome-session"
 #FILES_${PN}-backgrounds = "/usr/share/backgrounds/*"
