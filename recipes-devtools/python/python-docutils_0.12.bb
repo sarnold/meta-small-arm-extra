@@ -12,7 +12,7 @@ SRC_URI[sha256sum] = "c7db717810ab6965f66c8cf0398a98c9d8df982da39b4cd7f162911eb8
 
 S = "${WORKDIR}/docutils-${PV}"
 
-inherit distutils3
+inherit setuptools3
 
 BBCLASSEXTEND = "native"
 

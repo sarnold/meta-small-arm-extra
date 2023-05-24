@@ -9,7 +9,7 @@ DEPENDS = "u-boot-mkimage-native"
 
 SRC_URI = "file://boot.cmd"
 
-S = "${WORKDIR}/"
+S = "${WORKDIR}"
 
 inherit deploy
 

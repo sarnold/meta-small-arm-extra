@@ -13,7 +13,7 @@ SRC_URI = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.
 SRC_URI[md5sum] = "6fc5731e7425125fa84a2add5cef4bff"
 SRC_URI[sha256sum] = "fe106e6a6057d2631abddde9f82d3fd4fb1985c4fb93f10d3886417a9e22471d"
 
-inherit distutils3 cmake gettext
+inherit setuptools3 cmake gettext
 
 EXTRA_OECMAKE = " \
     -DWITH_BATTERY=OFF \
