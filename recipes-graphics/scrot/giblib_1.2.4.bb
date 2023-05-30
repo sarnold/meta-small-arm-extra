@@ -1,7 +1,7 @@
 SECTION = "graphic/utils"
 SUMMARY = "giblib is a simple library which wraps imlib2"
-HOMEPAGE = "http://linuxbrit.co.uk/software/"
-LICENSE = "BSD"
+HOMEPAGE = "http://www.linuxbrit.co.uk/giblib/"
+LICENSE = "BSD-3-Clause"
 
 DEPENDS = "imlib2"
 
@@ -9,14 +9,14 @@ MIRRORS:prepend () {
 }
 
 SRC_URI = " \
-    http://pkgs.fedoraproject.org/repo/pkgs/giblib/giblib-${PV}.tar.gz/c810ef5389baf24882a1caca2954385e/giblib-${PV}.tar.gz \
-    file://fix-giblib-binconfig-paths.patch \
+    http://www.linuxbrit.co.uk/downloads/${BPN}-${PV}.tar.gz \
+    file://giblib-fix-build-system.patch \
+    file://giblib-use-pkgconfig-for-imlib2.patch \
 "
 LIC_FILES_CHKSUM = "file://COPYING;md5=dd3cb8d7a69f3d0b2a52a46c92389011"
-SRC_URI[md5sum] = "c810ef5389baf24882a1caca2954385e"
 SRC_URI[sha256sum] = "176611c4d88d742ea4013991ad54c2f9d2feefbc97a28434c0f48922ebaa8bac"
 
-PR = "r0"
+PR = "r1"
 
 do_compile:prepend () {
     #remove linkerpath to host libraries
@@ -33,7 +33,7 @@ do_compile:append () {
     done
 }
 
-FILES:${PN}-doc = "/usr/doc"
+FILES:${PN}-doc = "/usr/share/doc"
 
 inherit autotools-brokensep binconfig pkgconfig
 
