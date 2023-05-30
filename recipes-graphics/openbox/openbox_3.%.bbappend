@@ -1,6 +1,14 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI += "file://openbox-gnome-session-3.4.9.patch \
+inherit update-alternatives
+
+ALTERNATIVE:${PN} = "x-session-manager"
+ALTERNATIVE_TARGET[x-session-manager] = "${bindir}/openbox-session"
+ALTERNATIVE_PRIORITY = "150"
+
+
+SRC_URI += "file://openbox-action-keys-gmrun.patch \
+            file://openbox-gnome-session-3.4.9.patch \
             file://mini_x.session \
             file://menu.xml \
 "
@@ -21,6 +29,11 @@ do_install:append:class-target() {
 
     # add default menu
     cp -f ${WORKDIR}/menu.xml ${D}/${sysconfdir}/xdg/openbox/
+
+    # for now, add tint2 to xdg autostart file
+    echo "" >> ${D}/${sysconfdir}/xdg/openbox/autostart
+    echo "( sleep 2; tint2 -c /etc/xdg/tint2/tint2rc ) &" >> ${D}/${sysconfdir}/xdg/openbox/autostart
+
 }
 
 #do_install:append_rpi() {
