@@ -25,7 +25,7 @@ PACKAGES =+ "lxdm-init"
 
 RDEPENDS:${PN}-init = " \
     bash \
-    ${VIRTUAL-RUNTIME_xserver_common} xinit lxdm lxrandr dbus-x11 \
+    xinit lxdm dbus-x11 \
     ${VIRTUAL-RUNTIME_initscripts} \
     ${@oe.utils.conditional('ROOTLESS_X', '1', 'xuser-account', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'pam', 'pam-plugin-env', '', d)} \

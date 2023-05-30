@@ -1,0 +1,19 @@
+--- a/data/rc.xml	2023-05-29 17:27:05.763853026 -0700
++++ b/data/rc.xml	2023-05-29 17:27:25.862659410 -0700
+@@ -308,6 +308,16 @@
+       <command>kfmclient openProfile filemanagement</command>
+     </action>
+   </keybind>
++  <keybind key="W-r">
++    <action name="Execute">
++      <command>gmrun</command>
++    </action>
++  </keybind>
++  <keybind key="A-F2">
++    <action name="Execute">
++      <command>gmrun</command>
++    </action>
++  </keybind>
+ </keyboard>
+ 
+ <mouse>

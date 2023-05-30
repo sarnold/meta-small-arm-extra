@@ -2,25 +2,26 @@ SUMMARY = "A graphic library for file loading, saving, rendering, and manipulati
 LICENSE = "BSD-3-Clause & MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=344895f253c32f38e182dcaf30fe8a35"
 
-DEPENDS = "freetype libpng jpeg virtual/libx11 libxext"
+DEPENDS = "freetype libpng jpeg virtual/libx11 libxext librsvg"
 PROVIDES = "virtual/imlib2"
-PV = "1.4.6+gitr${SRCPV}"
-SRCREV = "560a58e61778d84953944f744a025af6ce986334"
+PV = "1.11.1+gitr${SRCPV}"
+SRCREV = "5d73c5364043c9b11e9d6e9c417de887d9aee9b1"
 
 inherit autotools binconfig pkgconfig
-SRC_URI = "git://git.enlightenment.org/legacy/${BPN}.git;branch=master"
+SRC_URI = "git://git.enlightenment.org/old/legacy-${BPN}.git;branch=master"
 S = "${WORKDIR}/git"
 
 # autotools-brokensep
 B = "${S}"
 
-PACKAGECONFIG ??= ""
+PACKAGECONFIG ??= "gif bzip2"
 PACKAGECONFIG[gif] = "--with-gif,--without-gif,giflib"
 PACKAGECONFIG[tiff] = "--with-tiff,--without-tiff,tiff"
-PACKAGECONFIG[bzip2] = "--with-bzip2,--without-bzip2,bzip2"
+PACKAGECONFIG[bzip2] = "--with-bz2,--without-bz2,bzip2"
 PACKAGECONFIG[id3] = "--with-id3,--without-id3,libid3tag"
 
-EXTRA_OECONF = "--with-x \
+EXTRA_OECONF = "--with-svg \
+                --with-x \
                 --x-includes=${STAGING_INCDIR} \
                 --x-libraries=${STAGING_LIBDIR} "
 
@@ -41,7 +42,9 @@ FILES:imlib2-loaders-dbg += "${libdir}/imlib2/loaders/.debug"
 FILES:imlib2-filters-dbg += "${libdir}/imlib2/filters/.debug"
 
 # png.so jpeg.so id3.so are also provided by lightmediascanner
-PRIVATE_LIBS:imlib2-loaders = "pnm.so lbm.so argb.so tiff.so zlib.so bmp.so tga.so gif.so xpm.so bz2.so"
+PRIVATE_LIBS:imlib2-loaders = "\
+    png.so jpeg.so svg.so pnm.so lbm.so argb.so zlib.so bmp.so tga.so gif.so xpm.so bz2.so \
+"
 
 PRIVATE_LIBS:imlib2-filters = "bumpmap.so colormod.so testfilter.so"
 
@@ -53,4 +56,8 @@ do_install:prepend () {
     for i in `find ${B}/ -name "*.pc" -type f` ; do \
         sed -i -e 's:-L${STAGING_LIBDIR}:-L\$\{libdir\}:g' -e 's:-I${STAGING_LIBDIR}:-I\$\{libdir\}:g' -e 's:-I${STAGING_INCDIR}:-I\$\{includedir\}:g' $i
     done
+}
+
+do_install:append() {
+    rm -rf ${D}/${datadir}
 }

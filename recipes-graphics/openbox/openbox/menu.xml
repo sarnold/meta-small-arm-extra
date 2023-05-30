@@ -24,7 +24,7 @@
 <menu id="apps-term-menu" label="Terminals">
   <item label="VTE Terminal">
     <action name="Execute">
-      <command>vte-term</command>
+      <command>vte-2.91</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
