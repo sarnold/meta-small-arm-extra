@@ -1,7 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = "file://${PN}.ldm.conf \
-                  file://${PN}.ldm.init \
+SRC_URI_append = "file://${BPN}.ldm.conf \
+                  file://${BPN}.ldm.init \
 "
 
 inherit update-rc.d

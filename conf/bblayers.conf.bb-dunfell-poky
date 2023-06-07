@@ -1,0 +1,21 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+POKYROOT = "/public/beaglebone-yocto/poky"
+
+BBLAYERS ?= " \
+  ${POKYROOT}/meta \
+  ${POKYROOT}/meta-poky \
+  ${POKYROOT}/meta-yocto-bsp \
+  ${POKYROOT}/meta-openembedded/meta-oe \
+  ${POKYROOT}/meta-openembedded/meta-networking \
+  ${POKYROOT}/meta-openembedded/meta-perl \
+  ${POKYROOT}/meta-openembedded/meta-python \
+  ${POKYROOT}/meta-printing \
+  ${POKYROOT}/meta-security \
+  ${POKYROOT}/meta-small-arm-extra \
+  "

@@ -1,0 +1,20 @@
+# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+LCONF_VERSION = "7"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+OEROOT = "/public/beaglebone-build/oe-core"
+
+BBLAYERS ?= " \
+  ${OEROOT}/meta \
+  ${OEROOT}/meta-ti \
+  ${OEROOT}/meta-arm/meta-arm \
+  ${OEROOT}/meta-arm/meta-arm-toolchain \
+  ${OEROOT}/meta-openembedded/meta-oe \
+  ${OEROOT}/meta-openembedded/meta-networking \
+  ${OEROOT}/meta-openembedded/meta-perl \
+  ${OEROOT}/meta-openembedded/meta-python \
+  ${OEROOT}/meta-security \
+  "
