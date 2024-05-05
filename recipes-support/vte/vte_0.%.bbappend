@@ -1,5 +1,5 @@
 # we want to build and install the vte terminal app
-# we also like gnutls for the terminal
+# we also like gnutls for the terminal (vala needs gir patch)
 PACKAGECONFIG ?= "gnutls"
 
 do_compile:append() {
@@ -7,8 +7,6 @@ do_compile:append() {
 }
 
 do_install:append() {
-    #install -d ${D}${sysconfdir}/profile.d
-    #install -m 0755 src/vte.sh ${D}${sysconfdir}/profile.d/
     mv ${D}${bindir}/vte-2.91 ${D}${bindir}/vte-term
 }
 
