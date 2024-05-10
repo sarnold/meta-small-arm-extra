@@ -34,3 +34,5 @@ RREPLACES:${PN}-init = "xserver-nodm-init"
 RCONFLICTS:${PN}-init = "xserver-nodm-init"
 
 FILES:${PN}-init = "${sysconfdir}/init.d/"
+
+# Register lxdm as default DM => lxde-dev-image

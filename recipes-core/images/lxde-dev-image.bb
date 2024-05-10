@@ -33,4 +33,3 @@ set_default_dm () {
 }
 
 ROOTFS_POSTPROCESS_COMMAND += "set_default_dm;"
-
