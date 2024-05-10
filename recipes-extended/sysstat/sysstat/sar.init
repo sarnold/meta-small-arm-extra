@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# start/stop activity monitor
+
+if ! [ -x /usr/bin/sar.sh ]; then
+	exit 1
+fi
+
+. /etc/init.d/functions || exit 1
+
+# Read configuration variable file if it is present
+[ -r /etc/default/sar ] && . /etc/default/sar
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+export PATH SLEEP
+
+case "$1" in
+    start)
+	echo -n "Starting activity monitor:"
+	killall sar.sh >& /dev/null
+	start-stop-daemon -S -b -x /usr/bin/sar.sh -- $DATA_DIR $INTERVAL $COUNT
+	echo "."
+	;;
+    stop)
+	echo -n "Stopping activity monitor:"
+	killall sar.sh
+	echo "."
+	;;
+    *)
+	echo "Usage: $0 {start|stop}"
+	exit 1
+	;;
+esac
+
+exit 0
