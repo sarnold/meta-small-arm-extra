@@ -33,10 +33,4 @@ RDEPENDS:${PN}-init = " \
 RREPLACES:${PN}-init = "xserver-nodm-init"
 RCONFLICTS:${PN}-init = "xserver-nodm-init"
 
-FILES:${PN}-init = "${sysconfdir}/init.d"
-
-# Register lxdm as default DM
-pkg_postinst_ontarget:${PN}-init () {
-    mkdir -p ${sysconfdir}/X11/
-    echo "${sbindir}/lxdm" > ${sysconfdir}/X11/default-display-manager
-}
+FILES:${PN}-init = "${sysconfdir}/init.d/"

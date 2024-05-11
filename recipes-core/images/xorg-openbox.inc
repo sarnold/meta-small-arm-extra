@@ -34,7 +34,6 @@ WINDOW_MANAGER = " \
     xdg-utils \
     obconf \
     tint2 \
-    lxdm-init \
     x11vnc \
 "
 
@@ -42,4 +41,3 @@ IMAGE_INSTALL += "\
     ${XSERVER} \
     ${WINDOW_MANAGER} \
 "
-

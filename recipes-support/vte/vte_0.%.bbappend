@@ -1,6 +1,6 @@
 # we want to build and install the vte terminal app
 # we also like gnutls for the terminal
-PACKAGECONFIG ?= "gnutls vala"
+PACKAGECONFIG ?= "gnutls"
 
 do_compile:append() {
     ninja -v ${PARALLEL_MAKE} all

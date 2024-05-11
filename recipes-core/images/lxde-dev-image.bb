@@ -16,7 +16,7 @@ IMAGE_INSTALL += " \
     packagegroup-lxde-extended \
     kernel-modules \
     \
-    lxdm \
+    lxdm-init \
     \
     openbox \
     openbox-theme-clearlooks \
@@ -24,3 +24,13 @@ IMAGE_INSTALL += " \
     obconf \
     hicolor-icon-theme \
 "
+
+# Register lxdm as default DM
+set_default_dm () {
+    #!/bin/sh -e
+    mkdir -p ${IMAGE_ROOTFS}/etc/X11/
+    echo "/usr/sbin/lxdm" > ${IMAGE_ROOTFS}/etc/X11/default-display-manager
+}
+
+ROOTFS_POSTPROCESS_COMMAND += "set_default_dm;"
+
