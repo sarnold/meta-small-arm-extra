@@ -1,0 +1,37 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          swclock
+# Required-Start:
+# Required-Stop:     $local_fs
+# Default-Start:     S
+# Default-Stop:      0 6
+# Short-Description: Set system time
+# Description:       Set time via busybox date based on file timestamp
+#
+### END INIT INFO
+
+[ -f /etc/default/rcS ] && . /etc/default/rcS
+
+# Read configuration variable file if it is present
+[ -r /etc/default/swclock ] && . /etc/default/swclock
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+export PATH
+
+case "$1" in
+    start)
+	echo -n "Setting system time: "
+	date -s `date -r /lost+found +%Y-%m-%dT%H:%M:%S`
+	;;
+    stop)
+	echo -n "Nothing to stop.."
+	# touch /some/file
+	echo "."
+	;;
+    *)
+	echo "Usage: $0 {start|stop}"
+	exit 1
+	;;
+esac
+
+exit 0
