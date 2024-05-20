@@ -45,6 +45,20 @@ config for espressobin v5 (but is not yet a stand-alone BSP).
 The older machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
 additional support planned for the future.
 
+X11 Image Notes
+===============
+
+* legacy-ish X11 build options mostly stil work with poky, less so with OE core
+* at least on kirkstone, poky metadata should still support the following when
+  using systemd:
+
+  + xuser-account and xserver-nodm packages with ROOTLESS_X in local.conf
+  + even so, this still needs passwd image support for xuser
+
+* otherwise use a custom image append to create dev/admin user and/or passwd/keys
+  with a sudo config suitable for the target user role
+
+
 To Use This Layer for (fruit/nano) Pi Boards
 ============================================
 
