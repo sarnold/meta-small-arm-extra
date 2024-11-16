@@ -1,0 +1,9 @@
+header:
+  version: 9
+  includes:
+    - base.yaml
+
+local_conf_header:
+  sysvinit: |
+        DISTRO_FEATURES:remove = " systemd"
+        VIRTUAL-RUNTIME_init_manager = "sysvinit"

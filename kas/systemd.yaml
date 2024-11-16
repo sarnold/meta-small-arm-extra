@@ -1,0 +1,12 @@
+header:
+  version: 9
+  includes:
+    - base.yaml
+
+local_conf_header:
+  systemd: |
+    CORE_IMAGE_EXTRA_INSTALL:append = " systemd-analyze"
+    DISTRO_FEATURES:append = " systemd"
+    VIRTUAL-RUNTIME_init_manager = "systemd"
+    DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
+    VIRTUAL-RUNTIME_initscripts = ""
