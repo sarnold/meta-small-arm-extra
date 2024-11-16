@@ -1,0 +1,40 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          haveged
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: System entropy daemon
+### END INIT INFO
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+case "$1" in
+    start)
+	echo -n "Starting system entropy daemon: "
+	start-stop-daemon -S -x /usr/sbin/haveged
+	if [ $? = 0 ]; then
+	    echo "haveged."
+	else
+	    echo "(failed.)"
+	fi
+	;;
+    stop)
+	echo -n "Stopping system entropy daemon: "
+	start-stop-daemon -K \
+		-x /usr/sbin/haveged
+	echo "haveged."
+	;;
+    restart|force-reload)
+	$0 stop
+	$0 start
+	exit
+	;;
+    *)
+	echo "Usage: /etc/init.d/haveged {start|stop|restart|force-reload}"
+	exit 1
+	;;
+esac
+
+exit 0
