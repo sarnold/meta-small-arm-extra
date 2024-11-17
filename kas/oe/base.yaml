@@ -1,0 +1,73 @@
+header:
+    version: 9
+
+# make the default rpi3
+machine: raspberrypi3-64
+
+distro: nodistro
+
+target: xorg-dev-image
+
+env:
+    DL_DIR: "${HOME}/shared/downloads"
+    SSTATE_DIR: "${HOME}/shared/oe/sstate-cache"
+    PERSISTENT_DIR: "${HOME}/shared/oe-core"
+
+repos:
+    meta-small-arm-extra:
+        #url: "https://github.com/sarnold/meta-small-arm-extra.git"
+        path: "layers/meta-small-arm-extra"
+        branch: kirkstone
+        layers:
+            .:
+
+    meta-raspberrypi:
+        url: "https://github.com/agherzan/meta-raspberrypi"
+        branch: kirkstone
+        path: "layers/meta-raspberrypi"
+
+    bitbake:
+        url: "https://git.openembedded.org/bitbake"
+        tag: 2022-04.22-kirkstone
+        path: "layers/bitbake"
+        layers:
+            .: excluded
+
+    openembedded-core:
+        url: "https://git.openembedded.org/openembedded-core"
+        tag: 2022-04.22-kirkstone
+        path: "layers/openembedded-core"
+        layers:
+            meta:
+
+    meta-openembedded:
+        url: http://git.openembedded.org/meta-openembedded
+        branch: kirkstone
+        path: "layers/meta-openembedded"
+        layers:
+            meta-oe:
+            meta-python:
+            meta-networking:
+            meta-perl:
+
+local_conf_header:
+    base: |
+        BBMASK = "meta-small-arm-extra/recipes-qt/"
+        PACKAGE_CLASSES ?= "package_ipk"
+        PATCHRESOLVE = "noop"
+        IMAGE_FSTYPES:append = " wic.xz"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano haveged"
+        EXTRA_IMAGE_FEATURES:append = " ssh-server-openssh"
+        EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
+        require conf/distro/include/no-static-libs.inc
+        require conf/distro/include/yocto-uninative.inc
+        require conf/distro/include/security_flags.inc
+        INHERIT:append = " uninative rm_work toaster"
+        DISTRO_FEATURES:append = " largefile"
+    rpi-specific: |
+        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi-dev"
+        ENABLE_I2C = "1"
+        RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
+        RPI_USE_U_BOOT = "1"
+        DISPMANX_OFFLINE = "1"
+        ENABLE_UART = "1"
