@@ -1,0 +1,71 @@
+From 20944415b6b41a4c8f9e0ba87f118f20039a5b83 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Sun, 17 Nov 2024 15:07:03 -0800
+Subject: [PATCH] fix doc install path in makefile and pkgconfig inputs
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ Makefile.am  | 2 +-
+ Makefile.in  | 6 +++---
+ giblib.pc.in | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index a66d7a0..2130f6c 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -3,7 +3,7 @@
+ SUBDIRS = giblib
+ 
+ docs_DATA = README AUTHORS ChangeLog TODO
+-docsdir = $(prefix)/doc/giblib
++docsdir = $(datadir)/doc/giblib
+ 
+ EXTRA_DIST= $(docs_DATA) giblib.pc.in
+ 
+diff --git a/Makefile.in b/Makefile.in
+index f35f724..765a6ef 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -95,7 +95,7 @@ VERSION = @VERSION@
+ SUBDIRS = giblib
+ 
+ docs_DATA = README AUTHORS ChangeLog TODO
+-docsdir = $(prefix)/doc/giblib
++docsdir = $(datadir)/doc/giblib
+ 
+ EXTRA_DIST = $(docs_DATA) giblib.pc.in
+ 
+@@ -124,7 +124,7 @@ TAR = tar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.ac $(ACLOCAL_M4) 
++$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.ac $(ACLOCAL_M4)
+ 	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps Makefile
+ 
+ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
+@@ -154,7 +154,7 @@ $(srcdir)/giblib/giblib_config.h.in: @MAINTAINER_MODE_TRUE@$(srcdir)/giblib/stam
+ 		rm -f $(srcdir)/giblib/stamp-h.in; \
+ 		$(MAKE) $(srcdir)/giblib/stamp-h.in; \
+ 	else :; fi
+-$(srcdir)/giblib/stamp-h.in: $(top_srcdir)/configure.ac $(ACLOCAL_M4) 
++$(srcdir)/giblib/stamp-h.in: $(top_srcdir)/configure.ac $(ACLOCAL_M4)
+ 	cd $(top_srcdir) && $(AUTOHEADER)
+ 	@echo timestamp > $(srcdir)/giblib/stamp-h.in 2> /dev/null
+ 
+diff --git a/giblib.pc.in b/giblib.pc.in
+index df520ae..3049603 100644
+--- a/giblib.pc.in
++++ b/giblib.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: giblib
+ Description: wrapper library for imlib2, and other stuff
+ Version: @VERSION@
+-Libs: -L${libdir} -lgiblib @LDFLAGS@ @IMLIB_LIBS@
++Libs: -L${libdir} -lgiblib @IMLIB_LIBS@
+ Cflags: -I${includedir} -I${includedir}/giblib @IMLIB_CFLAGS@
+ 
+-- 
+2.47.0
+

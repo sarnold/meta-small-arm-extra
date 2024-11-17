@@ -8,13 +8,20 @@ DEPENDS = "imlib2"
 MIRRORS:prepend () {
 }
 
+SRC_NAME = "${BPN}-debian-${PV}-13"
+
 SRC_URI = " \
-    https://salsa.debian.org/eric/${BPN}/-/archive/debian/${PV}-13/${BPN}-debian-${PV}-13.tar.gz \
-    file://giblib-fix-build-system.patch \
-    file://giblib-use-pkgconfig-for-imlib2.patch \
-"
+    https://salsa.debian.org/eric/${BPN}/-/archive/debian/${PV}-13/${SRC_NAME}.tar.gz \
+    file://refresh-giblib-use-pkgconfig-for-imlib2.patch \
+    file://fix-doc-install-path-in-makefile-inputs.patch \
+    "
+
+S = "${WORKDIR}/${SRC_NAME}"
+
+inherit autotools-brokensep binconfig pkgconfig
+
 LIC_FILES_CHKSUM = "file://COPYING;md5=dd3cb8d7a69f3d0b2a52a46c92389011"
-SRC_URI[sha256sum] = "6ac9ebba9097168f2507e71eae926d23218b5c947d09020a24d20526c5ff7753"
+SRC_URI[sha256sum] = "47374ad248ee233bbfb54f8677c9cf6e6cda63e85ac7e0c89cb362cb72080906"
 
 PR = "r13"
 
@@ -30,7 +37,9 @@ do_compile:append () {
     done
 }
 
-FILES:${PN}-doc = "/usr/share/doc"
+do_install:append () {
+    rm -rf $D/user/doc
+}
 
-inherit autotools-brokensep binconfig pkgconfig
+FILES:${PN}-doc = "/usr/share/doc"
 
