@@ -56,6 +56,7 @@ local_conf_header:
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative rm_work toaster"
         DISTRO_FEATURES:append = " largefile"
+        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi-dev"
         RPI_USE_U_BOOT = "1"
         DISPMANX_OFFLINE = "1"
         ENABLE_UART = "1"

@@ -1,7 +1,7 @@
 header:
   version: 9
   includes:
-    - kas/base.yaml
+    - kas/poky/base.yaml
 
 local_conf_header:
   systemd: |

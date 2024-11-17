@@ -9,19 +9,16 @@ MIRRORS:prepend () {
 }
 
 SRC_URI = " \
-    http://www.linuxbrit.co.uk/downloads/${BPN}-${PV}.tar.gz \
+    https://salsa.debian.org/eric/${BPN}/-/archive/debian/${PV}-13/${BPN}-debian-${PV}-13.tar.gz \
     file://giblib-fix-build-system.patch \
     file://giblib-use-pkgconfig-for-imlib2.patch \
 "
 LIC_FILES_CHKSUM = "file://COPYING;md5=dd3cb8d7a69f3d0b2a52a46c92389011"
-SRC_URI[sha256sum] = "176611c4d88d742ea4013991ad54c2f9d2feefbc97a28434c0f48922ebaa8bac"
+SRC_URI[sha256sum] = "6ac9ebba9097168f2507e71eae926d23218b5c947d09020a24d20526c5ff7753"
 
-PR = "r1"
+PR = "r13"
 
 do_compile:prepend () {
-    #remove linkerpath to host libraries
-    sed -i -e 's:-L/usr/lib\s::' Makefile
-    sed -i -e 's:-L/usr/lib\s::' giblib/Makefile
     export DESTDIR=${D}
 }
 
