@@ -50,9 +50,11 @@ local_conf_header:
         BBMASK = "meta-small-arm-extra/recipes-qt/"
         PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
+        ROOTLESS_X = "1"
+        VIRTUAL-RUNTIME_graphical_init_manager = "xserver-nodm-init"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano haveged"
-        DISTRO_FEATURES:append = " opengl"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
+        DISTRO_FEATURES:append = " opengl pam"
         IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc

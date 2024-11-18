@@ -51,7 +51,7 @@ local_conf_header:
         PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano haveged"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
         EXTRA_IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative rm_work toaster"

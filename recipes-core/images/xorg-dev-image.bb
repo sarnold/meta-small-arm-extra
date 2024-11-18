@@ -8,10 +8,16 @@ IMAGE_FEATURES += "splash x11 x11-base hwcodecs"
 
 inherit features_check
 
-REQUIRED_DISTRO_FEATURES = "x11 opengl"
+# ROOTLESS_X requires pam feature and the following
+#  VIRTUAL-RUNTIME_graphical_init_manager = "xserver-nodm-init"
+# plus fbset for X startup script
+# rpi graphics needs opengl
+REQUIRED_DISTRO_FEATURES = "x11 opengl pam"
 
 CORE_IMAGE_BASE_INSTALL += "\
     sudo \
+    fbset \
+    haveged \
     libcap \
     libcap-bin \
     kernel-modules \
