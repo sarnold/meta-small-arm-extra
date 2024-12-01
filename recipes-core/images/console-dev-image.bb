@@ -8,6 +8,10 @@ IMAGE_FEATURES += " \
     package-management \
 "
 
+DISABLE_ROOT ?= "False"
+
+require dev-user.inc
+
 CORE_IMAGE_EXTRA_INSTALL += " \
     kernel-modules \
     libcgroup \

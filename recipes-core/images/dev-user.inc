@@ -3,7 +3,7 @@ inherit extrausers
 
 # plain text input => temppwd
 # generated with openssl passwd
-DIGEST_PASSWD ?= "\$1\$mXvzp4dT\$JUw5RNZODE9wkxXmTk0Mf."
+DIGEST_PASSWD ?= "\$5\$7gouZk3ag8XK0IBN\$0C.HE6IvqANEKOvtg5KkmBxAp0OC6m5X5xfIaciAGR5"
 
 ROOT_DEFAULT_PASSWORD ?= "${DIGEST_PASSWD}"
 DEFAULT_ADMIN_ACCOUNT ?= "devel"

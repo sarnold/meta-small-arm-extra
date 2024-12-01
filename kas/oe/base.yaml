@@ -6,7 +6,7 @@ machine: raspberrypi3-64
 
 distro: nodistro
 
-target: xorg-dev-image
+target: console-dev-image
 
 repos:
     meta-small-arm-extra:
@@ -20,6 +20,16 @@ repos:
         url: "https://github.com/agherzan/meta-raspberrypi"
         branch: kirkstone
         path: "layers/meta-raspberrypi"
+
+    meta-security-backports:
+        url: "https://github.com/VCTLabs/meta-security-backports"
+        branch: kirkstone
+        path: "layers/meta-security-backports"
+
+    meta-security:
+        url: "https://git.yoctoproject.org/meta-security"
+        branch: kirkstone
+        path: "layers/meta-security"
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
@@ -48,25 +58,20 @@ repos:
 local_conf_header:
     base: |
         BBMASK = "meta-small-arm-extra/recipes-qt/"
-        PACKAGE_CLASSES ?= "package_ipk"
+        PACKAGE_CLASSES = "package_ipk"
         PATCHRESOLVE = "noop"
-        ROOTLESS_X = "1"
-        VIRTUAL-RUNTIME_graphical_init_manager = "xserver-nodm-init"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
-        DISTRO_FEATURES:append = " opengl pam"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano scap-security-guide"
         IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative rm_work toaster"
-        DISTRO_FEATURES:append = " largefile"
+        DISTRO_FEATURES:append = " largefile pam"
     rpi-specific: |
         ## rpi-dev kernel version is dorked on kirkstone
         PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
         ENABLE_I2C = "1"
-        RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
-        RPI_USE_U_BOOT = "1"
-        DISPMANX_OFFLINE = "1"
         ENABLE_UART = "1"
+        RPI_USE_U_BOOT = "1"

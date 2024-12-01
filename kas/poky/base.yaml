@@ -48,15 +48,15 @@ repos:
 local_conf_header:
     base: |
         BBMASK = "meta-small-arm-extra/recipes-qt/"
-        PACKAGE_CLASSES ?= "package_ipk"
+        PACKAGE_CLASSES = "package_ipk"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
         CORE_IMAGE_EXTRA_INSTALL:append = " nano"
-        EXTRA_IMAGE_FEATURES:append = " ssh-server-openssh"
+        IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative rm_work toaster"
-        DISTRO_FEATURES:append = " largefile"
+        DISTRO_FEATURES:append = " largefile opengl pam"
+        ROOTLESS_X = "1"
+    rpi-specific: |
         PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
-        RPI_USE_U_BOOT = "1"
         DISPMANX_OFFLINE = "1"
-        ENABLE_UART = "1"
