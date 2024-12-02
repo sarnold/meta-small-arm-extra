@@ -58,20 +58,20 @@ repos:
 local_conf_header:
     base: |
         BBMASK = "meta-small-arm-extra/recipes-qt/"
-        PACKAGE_CLASSES = "package_ipk"
+        PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano scap-security-guide"
-        IMAGE_FEATURES:append = " ssh-server-openssh"
-        EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano dnf scap-security-guide"
+        IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative rm_work toaster"
-        DISTRO_FEATURES:append = " largefile pam"
+        DISTRO_FEATURES:append = " largefile acl xattr seccomp security"
     rpi-specific: |
         ## rpi-dev kernel version is dorked on kirkstone
         PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
         ENABLE_I2C = "1"
         ENABLE_UART = "1"
+        RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"

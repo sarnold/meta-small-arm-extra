@@ -10,7 +10,7 @@ IMAGE_FEATURES += " \
 
 DISABLE_ROOT ?= "False"
 
-require dev-user.inc
+require scan-user.inc
 
 CORE_IMAGE_EXTRA_INSTALL += " \
     kernel-modules \
@@ -45,12 +45,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
     python3-evdev \
     python3-redis \
     redis-ipc \
-    lighttpd \
-    lighttpd-module-cgi \
-    lighttpd-module-alias \
-    lighttpd-module-status \
-    lighttpd-module-setenv \
-    lighttpd-module-redirect \
     perl \
     perl-misc \
     perl-modules \
