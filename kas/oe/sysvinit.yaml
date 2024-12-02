@@ -8,6 +8,8 @@ distro: harden
 local_conf_header:
   harden: |
     PACKAGE_CLASSES = "package_rpm"
+    CORE_IMAGE_EXTRA_INSTALL:append = " dnf scap-security-guide"
+    DISTRO_FEATURES:append = " security"
   sysvinit: |
     DISTRO_FEATURES:remove = " systemd"
     VIRTUAL-RUNTIME_init_manager = "sysvinit"

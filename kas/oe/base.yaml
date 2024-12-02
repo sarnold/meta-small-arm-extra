@@ -61,17 +61,19 @@ local_conf_header:
         PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano dnf scap-security-guide"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
         IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative rm_work toaster"
-        DISTRO_FEATURES:append = " largefile acl xattr seccomp security"
+        DISTRO_FEATURES:append = " seccomp"
     rpi-specific: |
         ## rpi-dev kernel version is dorked on kirkstone
-        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
+        PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
         ENABLE_I2C = "1"
         ENABLE_UART = "1"
+        ## for serial console via GPIO pins on rp3-64 and rpi0-W
+        SERIAL_CONSOLES = "115200;ttyAMA0"
         RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"
