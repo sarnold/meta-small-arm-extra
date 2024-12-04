@@ -21,15 +21,18 @@ repos:
         branch: kirkstone
         path: "layers/meta-raspberrypi"
 
-    meta-security-backports:
-        url: "https://github.com/VCTLabs/meta-security-backports"
-        branch: kirkstone
-        path: "layers/meta-security-backports"
-
     meta-security:
         url: "https://git.yoctoproject.org/meta-security"
         branch: kirkstone
         path: "layers/meta-security"
+
+    meta-security-backports:
+        url: "https://github.com/VCTLabs/meta-security-backports"
+        branch: kirkstone
+        path: "layers/meta-security-backports"
+        layers:
+            .:
+            meta-hardening:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"

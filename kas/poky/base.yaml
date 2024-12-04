@@ -22,6 +22,16 @@ repos:
         layers:
             .:
 
+    meta-security:
+        url: "https://git.yoctoproject.org/meta-security"
+        branch: kirkstone
+        path: "layers/meta-security"
+
+    meta-security-backports:
+        url: "https://github.com/VCTLabs/meta-security-backports"
+        branch: kirkstone
+        path: "layers/meta-security-backports"
+
     poky:
         url: "https://git.yoctoproject.org/poky"
         branch: kirkstone

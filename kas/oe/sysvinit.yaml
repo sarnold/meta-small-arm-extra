@@ -5,6 +5,8 @@ header:
 
 distro: harden
 
+target: harden-image-minimal
+
 local_conf_header:
   harden: |
     PACKAGE_CLASSES = "package_rpm"
