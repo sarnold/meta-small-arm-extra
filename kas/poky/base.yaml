@@ -66,6 +66,7 @@ local_conf_header:
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative rm_work toaster"
         DISTRO_FEATURES:append = " largefile opengl pam"
+        ROOT_HOME = "/root"
         ROOTLESS_X = "1"
     rpi-specific: |
         PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"

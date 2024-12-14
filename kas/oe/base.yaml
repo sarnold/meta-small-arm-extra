@@ -71,6 +71,7 @@ local_conf_header:
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative rm_work toaster"
         DISTRO_FEATURES:append = " seccomp"
+        ROOT_HOME = "/root"
     rpi-specific: |
         ## rpi-dev kernel version is dorked on kirkstone
         PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
