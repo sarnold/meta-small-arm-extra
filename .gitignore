@@ -1,0 +1,9 @@
+# generated/user files
+*.wic.xz
+*.wic.bz2
+*.tar.gz
+ext/
+*.swu
+*.wic
+.tox/
+__pycache__/

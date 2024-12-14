@@ -1,0 +1,83 @@
+header:
+    version: 9
+
+# make the default rpi3
+machine: raspberrypi3-64
+
+distro: nodistro
+
+target: console-dev-image
+
+repos:
+    meta-small-arm-extra:
+        #url: "https://github.com/sarnold/meta-small-arm-extra.git"
+        path: "layers/meta-small-arm-extra"
+        branch: mickledore
+        layers:
+            .:
+
+    meta-raspberrypi:
+        url: "https://github.com/agherzan/meta-raspberrypi"
+        branch: mickledore
+        path: "layers/meta-raspberrypi"
+
+    meta-security:
+        url: "https://git.yoctoproject.org/meta-security"
+        branch: mickledore
+        path: "layers/meta-security"
+
+    meta-security-backports:
+        url: "https://github.com/VCTLabs/meta-security-backports"
+        branch: mickledore
+        path: "layers/meta-security-backports"
+        layers:
+            .:
+            meta-hardening:
+
+    bitbake:
+        url: "https://git.openembedded.org/bitbake"
+        tag: 2023-04.4-mickledore
+        path: "layers/bitbake"
+        layers:
+            .: excluded
+
+    openembedded-core:
+        url: "https://git.openembedded.org/openembedded-core"
+        tag: 2023-04.4-mickledore
+        path: "layers/openembedded-core"
+        layers:
+            meta:
+
+    meta-openembedded:
+        url: http://git.openembedded.org/meta-openembedded
+        branch: mickledore
+        path: "layers/meta-openembedded"
+        layers:
+            meta-oe:
+            meta-python:
+            meta-networking:
+            meta-perl:
+
+local_conf_header:
+    base: |
+        BBMASK = "meta-small-arm-extra/recipes-qt/"
+        PACKAGE_CLASSES ?= "package_ipk"
+        PATCHRESOLVE = "noop"
+        IMAGE_FSTYPES:append = " wic.xz"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
+        IMAGE_FEATURES:append = " package-management ssh-server-openssh"
+        require conf/distro/include/no-static-libs.inc
+        require conf/distro/include/yocto-uninative.inc
+        require conf/distro/include/security_flags.inc
+        INHERIT:append = " uninative rm_work toaster"
+        DISTRO_FEATURES:append = " seccomp"
+        ROOT_HOME = "/root"
+    rpi-specific: |
+        ## rpi-dev kernel version is dorked on mickledore
+        PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
+        ENABLE_I2C = "1"
+        ENABLE_UART = "1"
+        ## for serial console via GPIO pins on rp3-64 and rpi0-W
+        SERIAL_CONSOLES = "115200;ttyAMA0"
+        RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
+        RPI_USE_U_BOOT = "1"
