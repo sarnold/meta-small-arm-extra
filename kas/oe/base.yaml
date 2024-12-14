@@ -28,7 +28,7 @@ repos:
 
     meta-security-backports:
         url: "https://github.com/VCTLabs/meta-security-backports"
-        branch: mickledore
+        branch: langdale
         path: "layers/meta-security-backports"
         layers:
             .:
