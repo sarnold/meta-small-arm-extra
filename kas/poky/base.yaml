@@ -1,0 +1,73 @@
+header:
+    version: 9
+
+# make the default rpi3
+machine: raspberrypi3-64
+
+distro: poky
+
+target: xorg-dev-image
+
+env:
+    DL_DIR: "${HOME}/shared/downloads"
+    SSTATE_DIR: "${HOME}/shared/oe/sstate-cache"
+    PERSISTENT_DIR: "${HOME}/shared/oe-core"
+
+repos:
+
+    meta-small-arm-extra:
+        #url: "https://github.com/sarnold/meta-small-arm-extra.git"
+        path: "layers/meta-small-arm-extra"
+        branch: mickledore
+        layers:
+            .:
+
+    meta-security:
+        url: "https://git.yoctoproject.org/meta-security"
+        branch: mickledore
+        path: "layers/meta-security"
+
+    meta-security-backports:
+        url: "https://github.com/VCTLabs/meta-security-backports"
+        branch: mickledore
+        path: "layers/meta-security-backports"
+
+    poky:
+        url: "https://git.yoctoproject.org/poky"
+        branch: mickledore
+        path: "layers/poky"
+        layers:
+            meta:
+            meta-poky:
+            meta-yocto-bsp:
+
+    meta-raspberrypi:
+        url: "https://github.com/agherzan/meta-raspberrypi"
+        branch: mickledore
+        path: "layers/meta-raspberrypi"
+
+    meta-openembedded:
+        url: http://git.openembedded.org/meta-openembedded
+        branch: mickledore
+        path: "layers/meta-openembedded"
+        layers:
+            meta-oe:
+            meta-python:
+            meta-networking:
+
+local_conf_header:
+    base: |
+        BBMASK = "meta-small-arm-extra/recipes-qt/"
+        PACKAGE_CLASSES = "package_ipk"
+        PATCHRESOLVE = "noop"
+        IMAGE_FSTYPES:append = " wic.xz"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
+        IMAGE_FEATURES:append = " ssh-server-openssh"
+        EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
+        INHERIT:append = " uninative rm_work toaster"
+        DISTRO_FEATURES:append = " largefile opengl pam"
+        ROOT_HOME = "/root"
+        ROOTLESS_X = "1"
+    rpi-specific: |
+        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
+        DISPMANX_OFFLINE = "1"
