@@ -1,0 +1,161 @@
+From f8af2a5d11f03741c2b4ceeb95e010eafff72c9c Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <nerdboy@gentoo.org>
+Date: Mon, 23 Sep 2024 18:47:10 -0700
+Subject: [PATCH] fix: replicate jama patch for libxcrypt build branch and perl
+ mod fixes
+
+* uses backport commits pulled from upstream release
+
+Signed-off-by: Stephen L Arnold <nerdboy@gentoo.org>
+---
+ ...e03ae37f4ec948474d111105bbdd2938aba2.patch | 61 +++++++++++++++++++
+ ...2f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c.patch | 49 +++++++++++++++
+ meta/recipes-core/libxcrypt/libxcrypt.inc     |  7 ++-
+ 3 files changed, 115 insertions(+), 2 deletions(-)
+ create mode 100644 meta/recipes-core/libxcrypt/files/95d6e03ae37f4ec948474d111105bbdd2938aba2.patch
+ create mode 100644 meta/recipes-core/libxcrypt/files/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c.patch
+
+diff --git a/meta/recipes-core/libxcrypt/files/95d6e03ae37f4ec948474d111105bbdd2938aba2.patch b/meta/recipes-core/libxcrypt/files/95d6e03ae37f4ec948474d111105bbdd2938aba2.patch
+new file mode 100644
+index 0000000000..aa8d155422
+--- /dev/null
++++ b/meta/recipes-core/libxcrypt/files/95d6e03ae37f4ec948474d111105bbdd2938aba2.patch
+@@ -0,0 +1,61 @@
++From 95d6e03ae37f4ec948474d111105bbdd2938aba2 Mon Sep 17 00:00:00 2001
++From: =?UTF-8?q?Andreas=20K=2E=20H=C3=BCttel?= <dilfridge@gentoo.org>
++Date: Sun, 25 Jun 2023 01:35:08 +0200
++Subject: [PATCH] Remove smartmatch usage from gen-crypt-h
++
++Needed for Perl 5.38
++
++Upstream-Status: Backport v4.4.36
++---
++ build-aux/scripts/gen-crypt-h | 31 ++++++++++++++-----------------
++ 1 file changed, 14 insertions(+), 17 deletions(-)
++
++diff --git a/build-aux/scripts/gen-crypt-h b/build-aux/scripts/gen-crypt-h
++index 12aecf6d..b113b791 100644
++--- a/build-aux/scripts/gen-crypt-h
+++++ b/build-aux/scripts/gen-crypt-h
++@@ -12,7 +12,6 @@ use v5.14;    # implicit use strict, use feature ':5.14'
++ use warnings FATAL => 'all';
++ use utf8;
++ use open qw(:std :utf8);
++-no  if $] >= 5.018, warnings => 'experimental::smartmatch';
++ no  if $] >= 5.022, warnings => 'experimental::re_strict';
++ use if $] >= 5.022, re       => 'strict';
++ 
++@@ -37,22 +36,20 @@ sub process_config_h {
++     local $_;
++     while (<$fh>) {
++         chomp;
++-        # Yes, 'given $_' is really required here.
++-        given ($_) {
++-            when ('#define HAVE_SYS_CDEFS_H 1') {
++-                $have_sys_cdefs_h = 1;
++-            }
++-            when ('#define HAVE_SYS_CDEFS_BEGIN_END_DECLS 1') {
++-                $have_sys_cdefs_begin_end_decls = 1;
++-            }
++-            when ('#define HAVE_SYS_CDEFS_THROW 1') {
++-                $have_sys_cdefs_throw = 1;
++-            }
++-            when (/^#define PACKAGE_VERSION "((\d+)\.(\d+)\.\d+)"$/) {
++-                $substs{XCRYPT_VERSION_STR}   = $1;
++-                $substs{XCRYPT_VERSION_MAJOR} = $2;
++-                $substs{XCRYPT_VERSION_MINOR} = $3;
++-            }
+++
+++        if ($_ eq '#define HAVE_SYS_CDEFS_H 1') {
+++            $have_sys_cdefs_h = 1;
+++        }
+++        elsif ($_ eq '#define HAVE_SYS_CDEFS_BEGIN_END_DECLS 1') {
+++            $have_sys_cdefs_begin_end_decls = 1;
+++        }
+++        elsif ($_ eq '#define HAVE_SYS_CDEFS_THROW 1') {
+++            $have_sys_cdefs_throw = 1;
+++        }
+++        elsif (/^#define PACKAGE_VERSION "((\d+)\.(\d+)\.\d+)"$/) {
+++            $substs{XCRYPT_VERSION_STR}   = $1;
+++            $substs{XCRYPT_VERSION_MAJOR} = $2;
+++            $substs{XCRYPT_VERSION_MINOR} = $3;
++         }
++     }
++ 
+diff --git a/meta/recipes-core/libxcrypt/files/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c.patch b/meta/recipes-core/libxcrypt/files/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c.patch
+new file mode 100644
+index 0000000000..a710bf3f16
+--- /dev/null
++++ b/meta/recipes-core/libxcrypt/files/ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c.patch
+@@ -0,0 +1,49 @@
++From ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c Mon Sep 17 00:00:00 2001
++From: Leon Timmermans <fawaka@gmail.com>
++Date: Tue, 6 Jun 2023 17:03:57 +0200
++Subject: [PATCH] Make BuildCommon.pm compatible with latest perl
++
++It was previously using an experimental feature that has since been dropped.
++This removes the use of that feature.
++
++Upstream-Status: Backport v4.4.36
++---
++ build-aux/scripts/BuildCommon.pm | 9 ++++-----
++ 1 file changed, 4 insertions(+), 5 deletions(-)
++
++diff --git a/build-aux/scripts/BuildCommon.pm b/build-aux/scripts/BuildCommon.pm
++index 0e6f2a31..c38ba21b 100644
++--- a/build-aux/scripts/BuildCommon.pm
+++++ b/build-aux/scripts/BuildCommon.pm
++@@ -11,7 +11,6 @@ use v5.14;    # implicit use strict, use feature ':5.14'
++ use warnings FATAL => 'all';
++ use utf8;
++ use open qw(:utf8);
++-no  if $] >= 5.018, warnings => 'experimental::smartmatch';
++ no  if $] >= 5.022, warnings => 'experimental::re_strict';
++ use if $] >= 5.022, re       => 'strict';
++ 
++@@ -519,19 +518,19 @@ sub parse_symver_args {
++     my $COMPAT_ABI;
++     local $_;
++     for (@args) {
++-        when (/^SYMVER_MIN=(.+)$/) {
+++        if (/^SYMVER_MIN=(.+)$/) {
++             $usage_error->() if defined $SYMVER_MIN;
++             $SYMVER_MIN = $1;
++         }
++-        when (/^SYMVER_FLOOR=(.+)$/) {
+++        elsif (/^SYMVER_FLOOR=(.+)$/) {
++             $usage_error->() if defined $SYMVER_FLOOR;
++             $SYMVER_FLOOR = $1;
++         }
++-        when (/^COMPAT_ABI=(.+)$/) {
+++        elsif (/^COMPAT_ABI=(.+)$/) {
++             $usage_error->() if defined $COMPAT_ABI;
++             $COMPAT_ABI = $1;
++         }
++-        default {
+++        else {
++             $usage_error->() if defined $map_in;
++             $map_in = $_;
++         }
+diff --git a/meta/recipes-core/libxcrypt/libxcrypt.inc b/meta/recipes-core/libxcrypt/libxcrypt.inc
+index 61b0381076..bfc4a58712 100644
+--- a/meta/recipes-core/libxcrypt/libxcrypt.inc
++++ b/meta/recipes-core/libxcrypt/libxcrypt.inc
+@@ -11,9 +11,12 @@ inherit autotools pkgconfig
+ 
+ SRC_URI = "git://github.com/besser82/libxcrypt.git;branch=${SRCBRANCH};protocol=https"
+ SRCREV = "d7fe1ac04c326dba7e0440868889d1dccb41a175"
+-SRCBRANCH ?= "develop"
++SRCBRANCH ?= "master"
+ 
+-SRC_URI += "file://fix_cflags_handling.patch"
++SRC_URI += "file://fix_cflags_handling.patch \
++            file://95d6e03ae37f4ec948474d111105bbdd2938aba2.patch \
++            file://ce562f4d33dc090fcd8f6ea1af3ba32cdc2b3c9c.patch \
++"
+ 
+ PROVIDES = "virtual/crypt"
+ 
+-- 
+2.45.2
+

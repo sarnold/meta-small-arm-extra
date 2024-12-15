@@ -47,6 +47,11 @@ repos:
         path: "layers/openembedded-core"
         layers:
             meta:
+        patches:
+            p1:
+                repo: openembedded-core
+                # this path starts with layers path from above
+                path: ../meta-small-arm-extra/patches/0001-fix-replicate-jama-patch-for-libxcrypt-build-branch.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
@@ -72,6 +77,8 @@ local_conf_header:
         INHERIT:append = " uninative rm_work toaster"
         DISTRO_FEATURES:append = " seccomp"
         ROOT_HOME = "/root"
+        PRSERV_HOST = "localhost:0"
+        PACKAGE_FEED_URIS = "http://192.168.0.7:8000"
     rpi-specific: |
         ## rpi-dev kernel version is dorked on mickledore
         PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
