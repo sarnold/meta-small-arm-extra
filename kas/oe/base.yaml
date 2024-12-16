@@ -69,13 +69,14 @@ local_conf_header:
         PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-rootfs"
         IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative rm_work toaster"
         DISTRO_FEATURES:append = " seccomp"
+        PACKAGE_FEED_URIS = "http://192.168.0.7:8000"
         ROOT_HOME = "/root"
         PRSERV_HOST = "localhost:0"
         PACKAGE_FEED_URIS = "http://192.168.0.7:8000"
