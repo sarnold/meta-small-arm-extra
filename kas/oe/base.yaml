@@ -77,7 +77,7 @@ local_conf_header:
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
-        INHERIT:append = " uninative rm_work toaster"
+        INHERIT:append = " uninative"
         DISTRO_FEATURES:append = " seccomp"
         ROOT_HOME = "/root"
     rpi-specific: |
