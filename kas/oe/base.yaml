@@ -34,9 +34,6 @@ repos:
         url: "https://github.com/VCTLabs/meta-security-backports"
         branch: langdale
         path: "layers/meta-security-backports"
-        layers:
-            .:
-            meta-hardening:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
