@@ -9,9 +9,8 @@ distro: poky
 target: xorg-dev-image
 
 env:
-    DL_DIR: "${HOME}/shared/downloads"
-    SSTATE_DIR: "${HOME}/shared/oe/sstate-cache"
-    PERSISTENT_DIR: "${HOME}/shared/oe-core"
+    PACKAGE_FEED_IP_PORT: "192.168.7.150:8000"
+    PACKAGE_FEED_TYPE: ipk
 
 repos:
 
@@ -58,10 +57,11 @@ repos:
 local_conf_header:
     base: |
         BBMASK = "meta-small-arm-extra/recipes-qt/"
-        PACKAGE_CLASSES = "package_ipk"
+        PACKAGE_CLASSES = "package_${PACKAGE_FEED_TYPE}"
+        PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-rootfs"
         IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative rm_work toaster"
