@@ -64,7 +64,7 @@ local_conf_header:
         CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-rootfs"
         IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
-        INHERIT:append = " uninative rm_work toaster"
+        INHERIT:append = " uninative"
         DISTRO_FEATURES:append = " largefile opengl pam"
         ROOT_HOME = "/root"
         ROOTLESS_X = "1"
