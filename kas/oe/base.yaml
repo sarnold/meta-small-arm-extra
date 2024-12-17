@@ -8,6 +8,10 @@ distro: nodistro
 
 target: console-dev-image
 
+env:
+    PACKAGE_FEED_IP_PORT: "192.168.7.150:8000"
+    PACKAGE_FEED_TYPE: ipk
+
 repos:
     meta-small-arm-extra:
         #url: "https://github.com/sarnold/meta-small-arm-extra.git"
@@ -66,11 +70,13 @@ repos:
 local_conf_header:
     base: |
         BBMASK = "meta-small-arm-extra/recipes-qt/"
-        PACKAGE_CLASSES ?= "package_ipk"
+        PACKAGE_CLASSES = "package_${PACKAGE_FEED_TYPE}"
+        PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic.xz"
         CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-rootfs"
         IMAGE_FEATURES:append = " package-management ssh-server-openssh"
+        EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
@@ -78,8 +84,6 @@ local_conf_header:
         DISTRO_FEATURES:append = " seccomp"
         PACKAGE_FEED_URIS = "http://192.168.0.7:8000"
         ROOT_HOME = "/root"
-        PRSERV_HOST = "localhost:0"
-        PACKAGE_FEED_URIS = "http://192.168.0.7:8000"
     rpi-specific: |
         ## rpi-dev kernel version is dorked on mickledore
         PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
