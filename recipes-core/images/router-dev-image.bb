@@ -49,7 +49,6 @@ CORE_IMAGE_EXTRA_INSTALL:append = " \
     lighttpd-module-alias \
     lighttpd-module-status \
     lighttpd-module-setenv \
-    lighttpd-module-compress \
     lighttpd-module-redirect \
     perl \
     perl-misc \
