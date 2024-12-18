@@ -6,6 +6,6 @@ header:
 local_conf_header:
   sysvinit: |
     DISTRO_FEATURES:remove = "systemd"
-    DISTRO_FEATURES:append= " sysvinit"
+    DISTRO_FEATURES_BACKFILL_CONSIDERED:append = " systemd"
     VIRTUAL-RUNTIME_init_manager = "sysvinit"
-    DISTRO_FEATURES_BACKFILL_CONSIDERED = "systemd"
+    VIRTUAL-RUNTIME_initscripts = "initscripts"
