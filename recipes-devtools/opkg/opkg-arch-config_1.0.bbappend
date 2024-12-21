@@ -12,7 +12,7 @@ do_configure:append() {
     fi
 }
 
-do_configure:append_raspberrypi() {
+do_configure:append:raspberrypi() {
     if ${@bb.utils.contains('TUNE_FEATURES','arm1176jzfs','true','false',d)}; then
         sed -i \
             -e "s|armv6-vfp|arm1176jzfshf-vfp|g" \
