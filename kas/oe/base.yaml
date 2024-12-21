@@ -70,6 +70,7 @@ local_conf_header:
         PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic wic.xz"
+        IMAGE_INSTALL:remove = "distro-feed-configs"
         CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-rootfs"
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"

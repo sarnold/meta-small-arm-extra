@@ -1,7 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI:append_beaglebone = "file://local-feeds.conf"
-SRC_URI:append_raspberrypi = "file://local-feeds.conf"
+SRC_URI:append:beaglebone = "file://local-feeds.conf"
+SRC_URI:append:raspberrypi = "file://local-feeds.conf"
 
 do_configure:append() {
     if [ "${CUSTOM_FEED_CONFIG}" = "internal" ] ; then
@@ -12,7 +12,7 @@ do_configure:append() {
     fi
 }
 
-do_configure:append_raspberrypi() {
+do_configure:append:raspberrypi() {
     if ${@bb.utils.contains('TUNE_FEATURES','arm1176jzfs','true','false',d)}; then
         sed -i \
             -e "s|armv6-vfp|arm1176jzfshf-vfp|g" \
@@ -21,11 +21,11 @@ do_configure:append_raspberrypi() {
     fi
 }
 
-do_install:append_raspberrypi() {
+do_install:append:raspberrypi() {
     install -m 0644 ${WORKDIR}/local-feeds.conf ${D}${sysconfdir}/opkg/
 }
 
-do_install:append_beaglebone() {
+do_install:append:beaglebone() {
     install -m 0644 ${WORKDIR}/local-feeds.conf ${D}${sysconfdir}/opkg/
 }
 
