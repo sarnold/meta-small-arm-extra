@@ -1,0 +1,46 @@
+From 45098feb6b84f5b8649b90e61ad6e00b8d311b83 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Sun, 17 Nov 2024 14:15:43 -0800
+Subject: [PATCH] chg: refresh patch use pkgconfig for imlib2 against latest
+ debian src release
+
+* 1.2.4-13 @ https://salsa.debian.org/eric/giblib
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ configure.ac | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6807d86..89527d5 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -17,20 +17,12 @@ AM_SANITY_CHECK
+ AM_MAINTAINER_MODE
+ AM_WITH_DMALLOC
+ 
+-AC_PATH_GENERIC(imlib2, 1.0.0, [
+-  AC_SUBST(IMLIB_LIBS)
+-  AC_SUBST(IMLIB_CFLAGS) ],
+-  AC_MSG_ERROR(Cannot find imlib2: Is imlib2-config in the path?) )
+-
+-dnl the above doesn't work for some reason :/
+-IMLIB_LIBS=`imlib2-config --libs`
+-IMLIB_CFLAGS=`imlib2-config --cflags`
+-AC_SUBST(IMLIB_LIBS)
+-AC_SUBST(IMLIB_CFLAGS)
+-
+-LIBS="$LIBS -lm"
+-CFLAGS="$CFLAGS -Wall"
++PKG_PROG_PKG_CONFIG
++PKG_CHECK_MODULES([IMLIB], [imlib2 > 1.0])
++
++AC_CHECK_LIB([m],[cos])
+ 
++CFLAGS="$CFLAGS -Wall"
+ 
+ AC_CONFIG_FILES([
+ Makefile
+-- 
+2.47.0
+
