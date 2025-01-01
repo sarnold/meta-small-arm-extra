@@ -57,8 +57,8 @@ repos:
 local_conf_header:
     base: |
         BBMASK = "meta-small-arm-extra/recipes-qt/"
-        PACKAGE_CLASSES = "package_${PACKAGE_FEED_TYPE}"
-        PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
+        PACKAGE_CLASSES ?= "package_${PACKAGE_FEED_TYPE}"
+        PACKAGE_FEED_URIS ?= "http://${PACKAGE_FEED_IP_PORT}"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic wic.xz"
         IMAGE_INSTALL:remove = "distro-feed-configs"

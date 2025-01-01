@@ -66,8 +66,8 @@ repos:
 
 local_conf_header:
     base: |
-        PACKAGE_CLASSES = "package_${PACKAGE_FEED_TYPE}"
-        PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
+        PACKAGE_CLASSES ?= "package_${PACKAGE_FEED_TYPE}"
+        PACKAGE_FEED_URIS ?= "http://${PACKAGE_FEED_IP_PORT}"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic wic.xz"
         IMAGE_INSTALL:remove = "distro-feed-configs"
@@ -82,6 +82,7 @@ local_conf_header:
         ROOT_HOME = "/root"
         BBMASK += "meta-small-arm-extra/recipes-qt/"
     rpi-specific: |
+        LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
         ## rpi-dev kernel version is dorked on mickledore
         PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
         ENABLE_I2C = "1"
