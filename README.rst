@@ -6,20 +6,41 @@ Custom small ARM device layer with extra packages and config/package tweaks,
 mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 where the emphasis is mainline support for kernel/u-boot/graphics, etc.
 
-Newer work on rocko/dunfell branches supports mainly arm64 devices,
-including:
+Newer Kas config examples are now available on kirkstone and mickledore
+branches, with workflow support provided in the `VCT Small ARM BSP`_ repo.
+
+Also note that newer work on dunfell and later branches supports mainly
+arm64 devices, including:
 
 * marvell espressobin v5/v7 variants
 * amlogic S905 (odroid-c2, nanopi-k2)
 * allwinner A64/H5/H6 (pine64, pine64-plus, etc)
+* raspberrypi-64 on older supported HW with serial/u-boot support
 
-There is also some new machine support for espressobin (both legacy and
-new device trees) and pine64/pine64-plus on mainline.  Some new "convenience"
-images for router devices (mainly edgerouter and espressobin) were also added.
+There are both generic and machine-specific recipes here that can be
+used with various poky or oe-core builds; tested on Beagles, RPi,
+edgerouter, CI-20, esprssobin, pine64, odroid-c2/nanopi-k2, and many
+freescale machines.  This layer also contains the minimal "machine"
+info required for beaglebone kernel and u-boot recipes to build
+properly against oe-core and meta-ti, as well as a "baseline" machine
+config for espressobin v5 (but is not yet a stand-alone BSP).
 
-The latest branches also include support for riscv machines.
+The older machine-specific support is for Nitrogen6, BeagleBone, and
+RaspberryPi, with any additional materials or updates moved to the new
+`VCT Small ARM BSP`_ repository. See the `U-boot / ATF build manifest`_
+repo for more detailed (and buildable) ARM64 examples.
 
-Previous work on morty for testing imx6 etnaviv graphics includes custom 
+.. _VCT Small ARM BSP: https://github.com/VCTLabs/vct-smallarm-bsp-platform
+.. _U-boot / ATF build manifest: https://github.com/sarnold/u-boot-ATF-manifest
+
+
+Legacy/retired device setup
+===========================
+
+The following is kept here for informational purposes only; please follow
+the new KAS-based setup
+
+Previous work on morty for testing imx6 etnaviv graphics includes custom
 kernel / u-boot recipes for nitrogen6x (imx6q Boundary Devices machine).
 Note the older kernels are still available but should get updates soon.
 
@@ -38,18 +59,9 @@ nitrogen6x wrt to u-boot flash config) and `wandboard`_ for more details.
 * linux-armv7multi recipe supports the imx6 and other machines
 * u-boot-nitrogen6 recipe is for bootscripts only since u-boot lives in SPI flash
 
-There are some generic and machine-specific recipes here that can be used
-with various poky or oe-core builds; tested on Beagles, RPi, edgerouter, CI-20,
-esprssobin, pine64, odroid-c2/nanopi-k2, and many freescale machines.  This layer also
-contains the minimal "machine" info required for beaglebone kernel and u-boot recipes
-to build properly against oe-core and meta-ti, as well as a "baseline" machine
-config for espressobin v5 (but is not yet a stand-alone BSP).
-
-The older machine-specific support is for Nitrogen6, BeagleBone, and RaspberryPi, with
-additional support planned for the future.
 
 To Use This Layer for (fruit/nano) Pi Boards
-============================================
+--------------------------------------------
 
 Use the `vct FOSS clonepi bsp manifest`_ to clone the layers; current support
 is mainly on the oe-dunfell branch, but will migrate to a newer branch soon.
@@ -86,9 +98,8 @@ editor, then change the ``SRC_URI`` line to look like the following:
   SRC_URI = "http://downloads.sourceforge.net/project/lxde/LXDE%20Icon%20Theme/lxde-icon-theme-0.5.1/lxde-icon-theme-0.5.1.tar.xz"
 
 
-
 To Use This Layer for Nitrogen6 Boards
-======================================
+--------------------------------------
 
 Use the `vct FOSS boundary bsp manifest`_ to clone the layers; current support
 is mainly on the oe-morty-test branch, but will migrate to the main branches
@@ -110,7 +121,7 @@ Before you edit the default conf files, make sure to:
 
 * edit bblayers.conf and set the root path to your bsp clone directory
 * cd back to top-level oe-core diectory and source oe-init-build-env build-dir again
-* try "bitbake core-image-minimal"  
+* try "bitbake core-image-minimal"
 * **after** the build is finished, dd the sdcard image file to your card
 * edit uEnv.txt on the boot partition to change video resolution
   (default is 1024x768, try your LCD resolution, eg, 1280x720 or 1920x1080)
@@ -118,7 +129,7 @@ Before you edit the default conf files, make sure to:
 .. _vct FOSS boundary bsp manifest: https://github.com/VCTLabs/vct-boundary-bsp-platform
 .. _manifest page: https://github.com/VCTLabs/vct-boundary-bsp-platform/tree/oe-morty
 
-For Udoo Neo boards, use the `foss-udoo-neo-platform-bsp`_ to clone the 
+For Udoo Neo boards, use the `foss-udoo-neo-platform-bsp`_ to clone the
 layers; current support is mainly on the poky-morty branch.  See also the
 extra `sdcard doc for Udoo Neo`_ (includes Neo gadget ethernet/serial info).
 The latter doc should end up in a git repo soon...
@@ -128,7 +139,7 @@ The latter doc should end up in a git repo soon...
 
 
 To Use This Layer for BeagleBone
-================================
+--------------------------------
 
 This layer can be used manually by cloning it into your oe-core or poky source
 tree, add it to bblayers.conf, and set your preferred providers for u-boot and
@@ -184,7 +195,7 @@ Full config file examples for poky-krogoth:
 Example poky config snippets for bblayers.conf::
 
   POKYROOT = "/home/user/beagleboard-bsp/poky"
-  
+
   BBLAYERS ?= " \
     ${POKYROOT}/meta \
     ${POKYROOT}/meta-poky \
@@ -207,7 +218,7 @@ and for local.conf::
 Example oe-core config snippets for bblayers.conf::
 
   OEROOT = "/home/user/beagleboard-oecore/oe-core"
-  
+
   BBLAYERS ?= " \
     ${OEROOT}/meta \
     ${OEROOT}/meta-small-arm-extra \
@@ -226,8 +237,8 @@ and for local.conf::
   ...
 
 
-ARM64 U-Boot
-============
+Manual ARM64 U-Boot install
+===========================
 
 For amlogic S905-based machines, install the ``u-boot.bin`` to an sdcard
 device with ``dd``.  This depends somewhat on the board vendor's u-boot
@@ -251,4 +262,3 @@ The odroid-c2 is even more "special"::
 More to come...
 
 Enjoy!
-
