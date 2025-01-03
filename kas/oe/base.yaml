@@ -64,6 +64,10 @@ repos:
             meta-python:
             meta-networking:
             meta-perl:
+        patches:
+            p1:
+                repo: meta-openembedded
+                path: ../meta-small-arm-extra/patches/0001-fix-jack-backport-waf-python-patches-from-styhead.patch
 
 local_conf_header:
     base: |
