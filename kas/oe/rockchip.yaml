@@ -6,9 +6,9 @@ machine: roc-rk3328-cc
 
 repos:
     meta-linux-mainline:
-        url: "https://git.yoctoproject.org/meta-mainline"
+        url: "https://github.com/betafive/meta-linux-mainline.git"
         branch: mickledore
-        path: "layers/meta-mainline"
+        path: "layers/meta-linux-mainline"
 
     meta-rockchip:
         url: "https://git.yoctoproject.org/meta-rockchip"
@@ -17,5 +17,5 @@ repos:
 
 local_conf_header:
     rockchip: |
-        PREFERRED_PROVIDER_virtual/kernel = "linux-mainline"
+        PREFERRED_PROVIDER_virtual/kernel = "linux-stable"
         IMAGE_INSTALL:append = " lirc v4l-utils"
