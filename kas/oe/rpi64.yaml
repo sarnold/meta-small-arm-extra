@@ -1,0 +1,23 @@
+header:
+    version: 9
+
+# make the default rpi3
+machine: raspberrypi3-64
+
+repos:
+    meta-raspberrypi:
+        url: "https://github.com/agherzan/meta-raspberrypi"
+        branch: mickledore
+        path: "layers/meta-raspberrypi"
+
+local_conf_header:
+    rpi-specific: |
+        LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
+        ## rpi-dev kernel version is dorked on mickledore
+        PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
+        ENABLE_I2C = "1"
+        ENABLE_UART = "1"
+        ## for serial console via GPIO pins on rp3-64 and rpi0-W
+        SERIAL_CONSOLES = "115200;ttyAMA0"
+        RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
+        RPI_USE_U_BOOT = "1"

@@ -2,6 +2,7 @@ header:
   version: 9
   includes:
     - kas/oe/base.yaml
+    - kas/oe/rpi64.yaml
 
 local_conf_header:
   systemd: |

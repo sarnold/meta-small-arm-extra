@@ -1,0 +1,20 @@
+header:
+    version: 9
+
+# default is firefly/libre roc-rk3328-cc Rpi clone
+machine: roc-rk3328-cc
+
+repos:
+    meta-linux-mainline:
+        url: "https://git.yoctoproject.org/meta-mainline"
+        branch: mickledore
+        path: "layers/meta-mainline"
+
+    meta-rockchip:
+        url: "https://git.yoctoproject.org/meta-rockchip"
+        branch: mickledore
+        path: "layers/meta-rockchip"
+
+local_conf_header:
+    rockchip: |
+        PREFERRED_PROVIDER_virtual/kernel = "linux-mainline"
