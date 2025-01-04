@@ -11,8 +11,8 @@ repos:
         path: "layers/meta-linux-mainline"
 
     meta-rockchip:
-        url: "https://git.yoctoproject.org/meta-rockchip"
-        branch: mickledore
+        url: "https://github.com/shr-project/meta-rockchip"
+        branch: jansa/mickledore
         path: "layers/meta-rockchip"
 
 local_conf_header:
