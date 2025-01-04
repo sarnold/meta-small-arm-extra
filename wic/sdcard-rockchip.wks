@@ -1,0 +1,8 @@
+
+# for mainline uboot
+# sudo dd if=idbloader.img of=/dev/mmcblk1 seek=64
+# sudo dd if=u-boot.itb of=/dev/mmcblk1 seek=16384
+
+part /SPL --source rawcopy --sourceparams="file=${SPL_BINARY}" --ondisk mmcblk --no-table --align 32
+part /SPL --source rawcopy --sourceparams="file=u-boot.${UBOOT_SUFFIX}" --ondisk mmcblk --no-table --align 8192
+part / --offset 16M --source rootfs --ondisk mmcblk --fstype=ext4 --mkfs-extraopts "-O ^metadata_csum,^64bit" --label rootfs --align 4096
