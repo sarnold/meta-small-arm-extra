@@ -18,4 +18,4 @@ repos:
 local_conf_header:
     rockchip: |
         PREFERRED_PROVIDER_virtual/kernel = "linux-stable"
-        IMAGE_INSTALL:append = " lirc v4l-utils ntpdate zram"
+        IMAGE_INSTALL:append = " lirc v4l-utils ntp-utils zram"
