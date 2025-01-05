@@ -5,4 +5,6 @@
 
 part /SPL --source rawcopy --sourceparams="file=${SPL_BINARY}" --ondisk mmcblk --no-table --align 32
 part /SPL --source rawcopy --sourceparams="file=u-boot.${UBOOT_SUFFIX}" --ondisk mmcblk --no-table --align 8192
-part / --offset 16M --source rootfs --ondisk mmcblk --fstype=ext4 --mkfs-extraopts "-O ^metadata_csum,^64bit" --label rootfs --align 4096
+part / --offset 16M --source rootfs --ondisk mmcblk --fstype=ext4 --mkfs-extraopts "-O ^metadata_csum,^64bit" --label root --align 4096
+
+bootloader --ptable msdos --append="root=/dev/mmcblk0p1 console=tty1 console=${RK_CONSOLE_DEVICE},${RK_CONSOLE_BAUD}n8 rw rootfstype=ext4 init=/sbin/init"
