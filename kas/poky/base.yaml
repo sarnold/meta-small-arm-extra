@@ -51,6 +51,7 @@ repos:
         path: "layers/meta-openembedded"
         layers:
             meta-oe:
+            meta-perl:
             meta-python:
             meta-networking:
 
