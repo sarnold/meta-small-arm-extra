@@ -17,15 +17,6 @@ repos:
         layers:
             .:
 
-    meta-arm:
-        url: "https://git.yoctoproject.org/meta-arm"
-        branch: mickledore
-        path: "layers/meta-arm"
-        layers:
-            meta-arm:
-            meta-arm-bsp:
-            meta-arm-toolchain:
-
     meta-security:
         url: "https://git.yoctoproject.org/meta-security"
         branch: mickledore
@@ -83,6 +74,6 @@ local_conf_header:
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative"
-        DISTRO_FEATURES:append = " seccomp"
+        DISTRO_FEATURES:append = " seccomp security"
         ROOT_HOME = "/root"
         BBMASK += "meta-small-arm-extra/recipes-qt/"

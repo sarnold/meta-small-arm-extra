@@ -8,6 +8,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI:append:rockchip = " \
     file://defconfig \
 "
+
 SRC_URI:append = " \
     file://zram.cfg \
 "

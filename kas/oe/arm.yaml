@@ -1,0 +1,11 @@
+header:
+    version: 9
+
+repos:
+    meta-arm:
+        url: "https://git.yoctoproject.org/meta-arm"
+        branch: mickledore
+        path: "layers/meta-arm"
+        layers:
+            meta-arm:
+            meta-arm-toolchain:

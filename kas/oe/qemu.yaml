@@ -1,0 +1,12 @@
+header:
+    version: 9
+
+machine: qemuarm
+
+repos:
+    meta-qemu-bsp:
+        url: "https://github.com/meta-erlang/meta-qemu-bsp"
+        branch: master
+        path: "layers/meta-qemu-bsp"
+        layers:
+            .: excluded
