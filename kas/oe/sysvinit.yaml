@@ -4,6 +4,7 @@ header:
     - kas/oe/base.yaml
     #- kas/oe/rpi64.yaml
     - kas/oe/rockchip.yaml
+    #- kas/oe/qemu.yaml
 
 local_conf_header:
   sysvinit: |

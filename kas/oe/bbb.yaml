@@ -1,0 +1,8 @@
+header:
+  version: 9
+  includes:
+    - kas/oe/ti.yaml
+    - kas/oe/arm.yaml
+
+machine: beaglebone
+

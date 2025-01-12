@@ -1,5 +1,7 @@
 header:
     version: 9
+    includes:
+        - kas/oe/arm.yaml
 
 # default is firefly/libre roc-rk3328-cc Rpi clone
 machine: roc-rk3328-cc
@@ -17,5 +19,6 @@ repos:
 
 local_conf_header:
     rockchip: |
+        # we need this until move to branch with linux-yocto 6.6+
         PREFERRED_PROVIDER_virtual/kernel = "linux-stable"
         IMAGE_INSTALL:append = " lirc v4l-utils ntp-utils zram"
