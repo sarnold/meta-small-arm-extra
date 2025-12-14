@@ -7,10 +7,11 @@ mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
 where the emphasis is mainline support for kernel/u-boot/graphics, etc.
 
 Newer Kas config examples are now available on kirkstone and mickledore
-branches, with workflow support provided in the `VCT Small ARM BSP`_ repo.
+branches, with workflow support provided in a VCTLabs consuming repo
+(https://github.com/VCTLabs/vct-smallarm-bsp-platform).
 
-Also note that newer work on dunfell and later branches supports mainly
-arm64 devices, including:
+Also note that newer work on dunfell and later branches supports several
+example arm64 devices, including:
 
 * marvell espressobin v5/v7 variants
 * amlogic S905 (odroid-c2, nanopi-k2)
