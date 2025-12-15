@@ -1,9 +1,6 @@
 header:
     version: 9
 
-# make the default rpi3
-machine: raspberrypi3-64
-
 distro: nodistro
 
 target: console-dev-image
@@ -15,11 +12,6 @@ repos:
         branch: kirkstone
         layers:
             .:
-
-    meta-raspberrypi:
-        url: "https://github.com/agherzan/meta-raspberrypi"
-        branch: kirkstone
-        path: "layers/meta-raspberrypi"
 
     meta-security:
         url: "https://git.yoctoproject.org/meta-security"
@@ -33,6 +25,14 @@ repos:
         layers:
             .:
             meta-hardening:
+
+    meta-arm:
+        url: "https://git.yoctoproject.org/meta-arm"
+        branch: kirkstone
+        path: "layers/meta-arm"
+        layers:
+            meta-arm:
+            meta-arm-toolchain:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
@@ -72,12 +72,3 @@ local_conf_header:
         INHERIT:append = " uninative rm_work toaster"
         DISTRO_FEATURES:append = " seccomp"
         ROOT_HOME = "/root"
-    rpi-specific: |
-        ## rpi-dev kernel version is dorked on kirkstone
-        PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
-        ENABLE_I2C = "1"
-        ENABLE_UART = "1"
-        ## for serial console via GPIO pins on rp3-64 and rpi0-W
-        SERIAL_CONSOLES = "115200;ttyAMA0"
-        RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
-        RPI_USE_U_BOOT = "1"

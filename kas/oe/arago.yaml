@@ -1,0 +1,13 @@
+header:
+    version: 9
+
+repos:
+    meta-arago:
+        url: "https://github.com/rcn-ee/meta-arago"
+        branch: kirkstone-wip
+        path: "layers/meta-arago"
+        layers:
+            meta-arago-demos:
+            meta-arago-distro:
+            meta-arago-extras:
+            # meta-arago-test:

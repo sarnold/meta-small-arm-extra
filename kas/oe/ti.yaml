@@ -1,0 +1,16 @@
+header:
+    version: 9
+
+repos:
+    meta-processor-sdk:
+        url: "https://github.com/rcn-ee/meta-processor-sdk"
+        branch: kirkstone
+        path: "layers/meta-processor-sdk"
+
+    meta-ti:
+        url: "https://github.com/rcn-ee/meta-ti"
+        branch: kirkstone-wip
+        path: "layers/meta-ti"
+        layers:
+            meta-ti-bsp:
+            meta-ti-extras:
