@@ -12,31 +12,31 @@ env:
 repos:
     meta-small-arm-extra:
         #url: "https://github.com/sarnold/meta-small-arm-extra.git"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-small-arm-extra"
         layers:
             .:
 
     meta-security:
         url: "https://git.yoctoproject.org/meta-security"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-security"
 
     meta-security-backports:
         url: "https://github.com/VCTLabs/meta-security-backports"
-        branch: langdale
+        branch: scarthgap
         path: "layers/meta-security-backports"
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
-        tag: 2023-04.4-mickledore
+        tag: 2024-04.14-scarthgap
         path: "layers/bitbake"
         layers:
             .: excluded
 
     openembedded-core:
         url: "https://git.openembedded.org/openembedded-core"
-        tag: 2023-04.4-mickledore
+        branch: scarthgap
         path: "layers/openembedded-core"
         layers:
             meta:
@@ -47,8 +47,8 @@ repos:
                 path: ../meta-small-arm-extra/patches/0001-fix-replicate-jama-patch-for-libxcrypt-build-branch.patch
 
     meta-openembedded:
-        url: http://git.openembedded.org/meta-openembedded
-        branch: mickledore
+        url: "http://git.openembedded.org/meta-openembedded"
+        branch: scarthgap
         path: "layers/meta-openembedded"
         layers:
             meta-oe:

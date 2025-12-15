@@ -7,7 +7,7 @@ machine: raspberrypi3-64
 repos:
     meta-raspberrypi:
         url: "https://github.com/agherzan/meta-raspberrypi"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-raspberrypi"
 
 local_conf_header:

@@ -4,7 +4,7 @@ header:
 repos:
     meta-arm:
         url: "https://git.yoctoproject.org/meta-arm"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-arm"
         layers:
             meta-arm:

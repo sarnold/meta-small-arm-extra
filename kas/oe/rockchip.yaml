@@ -9,12 +9,12 @@ machine: roc-rk3328-cc
 repos:
     meta-linux-mainline:
         url: "https://github.com/betafive/meta-linux-mainline.git"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-linux-mainline"
 
     meta-rockchip:
         url: "https://github.com/shr-project/meta-rockchip"
-        branch: jansa/mickledore
+        branch: jansa/scarthgap
         path: "layers/meta-rockchip"
 
 local_conf_header:
