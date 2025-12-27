@@ -36,14 +36,14 @@ repos:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
-        tag: 2022-04.22-kirkstone
+        tag: 2022-04.32-kirkstone
         path: "layers/bitbake"
         layers:
-            .: excluded
+            .: disabled
 
     openembedded-core:
         url: "https://git.openembedded.org/openembedded-core"
-        tag: 2022-04.22-kirkstone
+        tag: 2022-04.32-kirkstone
         path: "layers/openembedded-core"
         layers:
             meta:
