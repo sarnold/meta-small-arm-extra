@@ -40,11 +40,6 @@ repos:
         path: "layers/openembedded-core"
         layers:
             meta:
-        patches:
-            p1:
-                repo: openembedded-core
-                # this path starts with layers path from above
-                path: ../meta-small-arm-extra/patches/0001-fix-replicate-jama-patch-for-libxcrypt-build-branch.patch
 
     meta-openembedded:
         url: "http://git.openembedded.org/meta-openembedded"
@@ -55,10 +50,6 @@ repos:
             meta-python:
             meta-networking:
             meta-perl:
-        patches:
-            p1:
-                repo: meta-openembedded
-                path: ../meta-small-arm-extra/patches/0001-fix-jack-backport-waf-python-patches-from-styhead.patch
 
 local_conf_header:
     base: |
