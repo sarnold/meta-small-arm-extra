@@ -1,5 +1,5 @@
 header:
-  version: 9
+  version: 14
   includes:
     - kas/oe/base.yaml
     - kas/oe/rpi64.yaml
@@ -7,5 +7,5 @@ header:
 local_conf_header:
   systemd: |
     CORE_IMAGE_EXTRA_INSTALL:append = " systemd-analyze"
-    DISTRO_FEATURES:append = " systemd"
+    DISTRO_FEATURES:append = " systemd usrmerge"
     INIT_MANAGER = "systemd"

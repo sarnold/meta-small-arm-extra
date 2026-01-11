@@ -10,7 +10,7 @@ Newer Kas config examples are now available on kirkstone and mickledore
 branches, with workflow support provided in a VCTLabs consuming repo
 (https://github.com/VCTLabs/vct-smallarm-bsp-platform).
 
-Also note that newer work on dunfell and later branches supports several
+Also note that newer work on kirkstone and later branches supports several
 example arm64 devices, including:
 
 * marvell espressobin v5/v7 variants
