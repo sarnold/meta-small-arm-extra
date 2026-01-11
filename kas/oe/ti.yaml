@@ -2,15 +2,6 @@ header:
     version: 14
 
 repos:
-    # processor-sdk moved to arago.yaml
-    meta-tisdk:
-        url: "https://github.com/TexasInstruments/meta-tisdk.git"
-        branch: scarthgap
-        path: "layers/meta-tisdk"
-        layers:
-            meta-ti-ml:
-            meta-ti-foundational:
-
     meta-ti:
         url: "https://git.yoctoproject.org/meta-ti"
         branch: scarthgap
