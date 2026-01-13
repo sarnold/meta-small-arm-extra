@@ -5,8 +5,13 @@ header:
         - kas/oe/ti.yaml
         - kas/oe/vboot.yaml
 
-machine: beaglebone
-
 local_conf_header:
     bbb-bits: |
-        EXTRA_IMAGE_FEATURES:append = " tools-debug"
+        PREFERRED_PROVIDER_u-boot = "u-boot-ti-staging"
+
+        # remove default kernel image to make packagegroup-core-boot happy
+        MACHINE_ESSENTIAL_EXTRA_RDEPENDS:remove = "kernel-image-zimage"
+
+        IMAGE_BOOT_FILES:append = " fitImage;image.ub uEnv.txt"
+        IMAGE_BOOT_FILES:remove = "${UBOOT_EXTLINUX_BOOT_FILES}"
+        IMAGE_BOOT_FILES:remove = "zImage "

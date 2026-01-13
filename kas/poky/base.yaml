@@ -1,12 +1,9 @@
 header:
     version: 14
 
-# make the default rpi3
-machine: raspberrypi3-64
-
 distro: poky
 
-target: xorg-dev-image
+target: core-image-minimal
 
 env:
     PACKAGE_FEED_IP_PORT: "192.168.7.150:8000"
@@ -14,16 +11,37 @@ env:
 
 repos:
 
+    bitbake:
+        url: "https://git.openembedded.org/bitbake"
+        branch: scarthgap
+        path: "layers/bitbake"
+        layers:
+            .: disabled
+
+    openembedded-core:
+        url: "https://git.openembedded.org/openembedded-core"
+        branch: scarthgap
+        path: "layers/openembedded-core"
+        layers:
+            meta:
+
+    meta-yocto:
+        url: git://git.yoctoproject.org/git/meta-yocto.git
+        branch: scarthgap
+        layers:
+            meta-poky:
+            meta-yocto-bsp:
+
     meta-small-arm-extra:
         #url: "https://github.com/sarnold/meta-small-arm-extra.git"
+        branch: scarthgap
         path: "layers/meta-small-arm-extra"
-        branch: mickledore
         layers:
             .:
 
     meta-security:
         url: "https://git.yoctoproject.org/meta-security"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-security"
 
     meta-security-backports:
@@ -31,23 +49,14 @@ repos:
         branch: langdale
         path: "layers/meta-security-backports"
 
-    poky:
-        url: "https://git.yoctoproject.org/poky"
-        branch: mickledore
-        path: "layers/poky"
-        layers:
-            meta:
-            meta-poky:
-            meta-yocto-bsp:
-
     meta-raspberrypi:
         url: "https://github.com/agherzan/meta-raspberrypi"
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-raspberrypi"
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
-        branch: mickledore
+        branch: scarthgap
         path: "layers/meta-openembedded"
         layers:
             meta-oe:
@@ -67,9 +76,6 @@ local_conf_header:
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative"
-        DISTRO_FEATURES:append = " largefile opengl pam"
+        DISTRO_FEATURES:append = " largefile pam"
         ROOT_HOME = "/root"
         ROOTLESS_X = "1"
-    rpi-specific: |
-        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
-        DISPMANX_OFFLINE = "1"
