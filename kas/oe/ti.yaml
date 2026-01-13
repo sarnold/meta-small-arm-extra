@@ -1,7 +1,7 @@
 header:
     version: 14
 
-machine: beaglebone
+machine: am335x-evm
 
 repos:
     meta-ti:
@@ -9,6 +9,6 @@ repos:
         branch: scarthgap
         path: "layers/meta-ti"
         layers:
-            meta-beagle:
+            #meta-beagle:
             meta-ti-bsp:
             meta-ti-extras:

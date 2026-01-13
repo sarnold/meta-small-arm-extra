@@ -8,6 +8,7 @@ header:
 local_conf_header:
     bbb-bits: |
         PREFERRED_PROVIDER_u-boot = "u-boot-ti-staging"
+        PREFERRED_PROVIDER_virtual/bootloader ?= "u-boot-ti-staging"
 
         # remove default kernel image to make packagegroup-core-boot happy
         MACHINE_ESSENTIAL_EXTRA_RDEPENDS:remove = "kernel-image-zimage"
