@@ -2,8 +2,9 @@ header:
   version: 9
   includes:
     - kas/oe/base.yaml
+    - kas/oe/bpi.yaml
     #- kas/oe/rpi64.yaml
-    - kas/oe/rockchip.yaml
+    #- kas/oe/rockchip.yaml
     #- kas/oe/qemu.yaml
 
 local_conf_header:

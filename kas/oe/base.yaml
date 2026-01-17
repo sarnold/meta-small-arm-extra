@@ -32,7 +32,7 @@ repos:
         tag: 2023-04.4-mickledore
         path: "layers/bitbake"
         layers:
-            .: excluded
+            .: disabled
 
     openembedded-core:
         url: "https://git.openembedded.org/openembedded-core"

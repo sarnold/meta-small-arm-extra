@@ -1,0 +1,15 @@
+header:
+    version: 9
+
+# default is BPi bananapi-m1-plus
+machine: bananapi-m1-plus
+
+repos:
+    meta-sunxi:
+        url: "https://github.com/linux-sunxi/meta-sunxi.git"
+        branch: mickledore
+        path: "layers/meta-sunxi"
+
+local_conf_header:
+    sunxi: |
+        IMAGE_INSTALL:append = " lirc v4l-utils ntp-utils zram"

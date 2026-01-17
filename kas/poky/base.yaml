@@ -6,7 +6,7 @@ machine: raspberrypi3-64
 
 distro: poky
 
-target: xorg-dev-image
+target: core-image-minimal
 
 env:
     PACKAGE_FEED_IP_PORT: "192.168.7.150:8000"
@@ -40,11 +40,6 @@ repos:
             meta-poky:
             meta-yocto-bsp:
 
-    meta-raspberrypi:
-        url: "https://github.com/agherzan/meta-raspberrypi"
-        branch: mickledore
-        path: "layers/meta-raspberrypi"
-
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
         branch: mickledore
@@ -67,9 +62,6 @@ local_conf_header:
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative"
-        DISTRO_FEATURES:append = " largefile opengl pam"
+        DISTRO_FEATURES:append = " largefile pam"
         ROOT_HOME = "/root"
         ROOTLESS_X = "1"
-    rpi-specific: |
-        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi"
-        DISPMANX_OFFLINE = "1"
