@@ -7,11 +7,6 @@ header:
 machine: bananapi-m1-plus
 
 repos:
-    meta-linux-mainline:
-        url: "https://github.com/betafive/meta-linux-mainline.git"
-        branch: scarthgap
-        path: "layers/meta-linux-mainline"
-
     meta-sunxi:
         url: "https://github.com/linux-sunxi/meta-sunxi.git"
         branch: scarthgap
@@ -19,4 +14,8 @@ repos:
 
 local_conf_header:
     sunxi: |
-        IMAGE_INSTALL:append = " lirc v4l-utils ntp-utils zram"
+        BBMASK += "u-boot-ti-staging.*\.bbappend"
+        BBMASK += "linux-ti-staging.*\.bbappend"
+        BBMASK += "rpi-u-boot-scr.*\.bbappend"
+        IMAGE_INSTALL:append = " lirc ntp-utils zram"
+        # IMAGE_INSTALL:append = " v4l-utils"

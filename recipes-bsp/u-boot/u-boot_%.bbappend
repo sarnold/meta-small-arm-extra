@@ -13,7 +13,7 @@ PACKAGE_BEFORE_PN += "${PN}-conf"
 
 ALLOW_EMPTY:${PN}-conf = "1"
 
-FILES:${PN}-conf = "/boot/extlinux"
+FILES:append:a64:${PN}-conf = "/boot/extlinux"
 
 SRC_URI:append = " \
     file://enable-fit.cfg \
