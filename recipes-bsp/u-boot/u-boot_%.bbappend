@@ -1,3 +1,5 @@
+FILESEXTRAPATHS:prepend:sunxi := "${THISDIR}/files:"
+
 DEPENDS:append_a64 = " u-boot-tools-native"
 
 ATF_DEPENDS ??= ""
@@ -11,4 +13,4 @@ PACKAGE_BEFORE_PN += "${PN}-conf"
 
 ALLOW_EMPTY:${PN}-conf = "1"
 
-FILES:${PN}-conf = "/boot/extlinux"
+FILES:append_a64:${PN}-conf = " /boot/extlinux"
