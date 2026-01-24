@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# SPDX-License-Identifier: BSD-2-Clause
+
+# Copyright (c) Fathi Boudra <fathi.boudra@linaro.org>
+# Copyright (c) Stephen Arnold <sarnold@vctlabs.com>
+# All rights reserved.
+
+set -e
+
+# we must be root
+[ $(whoami) = "root" ] || { echo "E: You must be root" && exit 1; }
+
+# find root device
+ROOT_DEVICE=$(findmnt / -o source -n)
+# prune root device (for example UUID)
+ROOT_DEVICE=$(realpath ${ROOT_DEVICE})
+echo "Found root device: $ROOT_DEVICE"
+# get the partition number
+ROOT_PART_NAME=$(echo "$ROOT_DEVICE" | cut -d "/" -f 3)
+DEVICE_NAME=$(echo /sys/block/*/"${ROOT_PART_NAME}" | cut -d "/" -f 4)
+BASE_DEV="/dev/${DEVICE_NAME}"
+# get the last partition whether root or not
+PART_NUM=$(ls /sys/block/${DEVICE_NAME}/*/partition | wc -l)
+echo "Expanding part number: $PART_NUM"
+
+# Get the starting offset of the root partition
+PART_START=$(parted ${BASE_DEV} -ms unit s p | grep "^${PART_NUM}" | cut -f 2 -d:)
+# Remove suffix:
+PART_START=${PART_START%s}
+echo "resizing last partition, starts at offset: $PART_START"
+[ "$PART_START" ] || return 5
+
+# Return value will likely be error for fdisk as it fails to reload the
+# partition table because the root fs is mounted
+fdisk ${BASE_DEV} <<EOF > /dev/null 2>&1
+p
+d
+$PART_NUM
+n
+p
+$PART_NUM
+$PART_START
+
+p
+w
+EOF
+
+sync
+echo "Probing the partition table ... "
+partprobe
+
+echo "Resizing partition ${BASE_DEV}p${PART_NUM} ... "
+resize2fs ${BASE_DEV}p${PART_NUM} || return $?
