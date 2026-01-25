@@ -13,8 +13,7 @@ repos:
 local_conf_header:
     rpi-specific: |
         LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
-        ## rpi-dev kernel version is dorked on mickledore
-        PREFERRED_PROVIDER_virtual/kernel ?= "linux-raspberrypi"
+        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi-dev"
         ENABLE_I2C = "1"
         ENABLE_UART = "1"
         ## for serial console via GPIO pins on rp3-64 and rpi0-W
