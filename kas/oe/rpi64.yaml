@@ -4,16 +4,34 @@ header:
 # make the default rpi3
 machine: raspberrypi3-64
 
+target: core-image-base
+
 repos:
     meta-raspberrypi:
         url: "https://github.com/agherzan/meta-raspberrypi"
         branch: scarthgap
         path: "layers/meta-raspberrypi"
 
+    meta-swupdate:
+        url: https://github.com/sbabic/meta-swupdate.git
+        branch: scarthgap
+        path: "layers/meta-swupdate"
+
 local_conf_header:
+    swupdate: |
+        IMAGE_IDENTIFIER = "swupdate-core-image"
+        IMAGE_VERSION = "0.1.0"
+        IMAGE_NAME = "${IMAGE_IDENTIFIER}_${MACHINE}_${IMAGE_VERSION}"
+        SWUPDATE_SERVER_ADDRESS = "http://192.168.7.1:8080"
+        WKS_FILE = "sdcard-rpi-ab.wks"
+        WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
+        IMAGE_FSTYPES += "ext4.gz"
+        CORE_IMAGE_EXTRA_INSTALL:append = " swupdate u-boot-fw-utils zram"
+        PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
     rpi-specific: |
+        BBMASK += "u-boot-ti-staging.*\.bbappend"
+        BBMASK += "linux-ti-staging.*\.bbappend"
         LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
-        PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi-dev"
         ENABLE_I2C = "1"
         ENABLE_UART = "1"
         ## for serial console via GPIO pins on rp3-64 and rpi0-W

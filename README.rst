@@ -3,7 +3,7 @@
 ======================
 
 Custom small ARM device layer with extra packages and config/package tweaks,
-mostly for RPi, BBB, imx6 (nitrogen6x), and similar (small being relative ;)
+mostly for RPi, BBB, odroid-c2/nanopi, and similar (small being relative ;)
 where the emphasis is mainline support for kernel/u-boot/graphics, etc.
 
 Newer Kas config examples are now available on kirkstone and mickledore
@@ -15,7 +15,8 @@ example arm64 devices, including:
 
 * marvell espressobin v5/v7 variants
 * amlogic S905 (odroid-c2, nanopi-k2)
-* allwinner A64/H5/H6 (pine64, pine64-plus, etc)
+* rockchip libre roc-rk3328-cc
+* allwinner A64/H5/H6 (pine64, pine64-plus, bananapi-m1-plus, some orangepi)
 * raspberrypi-64 on older supported HW with serial/u-boot support
 
 There are both generic and machine-specific recipes here that can be
