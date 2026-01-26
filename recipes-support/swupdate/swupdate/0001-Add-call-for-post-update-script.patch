@@ -1,0 +1,25 @@
+From 0627ee8cc31b1f0bb74446da1e44dc51df49de69 Mon Sep 17 00:00:00 2001
+From: Adrian Winterstein <mail@int.winterstein.biz>
+Date: Wed, 26 Mar 2025 16:29:16 +0100
+Subject: [PATCH] Add call for post update script
+
+---
+ core/stream_interface.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/core/stream_interface.c b/core/stream_interface.c
+index f5cba496..5b048584 100644
+--- a/core/stream_interface.c
++++ b/core/stream_interface.c
+@@ -745,6 +745,11 @@ void *network_initializer(void *data)
+ 				} else {
+ 					notify(SUCCESS, RECOVERY_NO_ERROR, INFOLEVEL, "SWUPDATE successful !");
+ 					inst.last_install = SUCCESS;
++
++					if (postupdate(software, NULL))
++					{
++						return -1;
++					}
+ 				}
+ 			}
+ 		} else {

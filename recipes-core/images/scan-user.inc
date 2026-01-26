@@ -7,6 +7,16 @@ USER_FOR_AUTH ?= "myadmin"
 PASS_FOR_AUTH ?= "${DIGEST_PASSWD}"
 UID_FOR_AUTH ?= "1008"
 
+set_swu_remote_ip () {
+    #!/bin/sh -e
+    if [ -z "${SWUPDATE_SERVER_ADDRESS}" ]; then
+        echo -e "\nVariable SWUPDATE_SERVER_ADDRESS is not set." >&2
+        exit 1
+    fi
+    sed -i "s|@@SWUPDATE_SERVER_ADDRESS@@|${SWUPDATE_SERVER_ADDRESS}|g" \
+        ${IMAGE_ROOTFS}/etc/swupdate/conf.d/general-server.cfg
+}
+
 set_sudoers_rules () {
     #!/bin/sh -e
     echo '%sudo ALL=(ALL) ALL' > ${IMAGE_ROOTFS}/etc/sudoers.d/myadmin

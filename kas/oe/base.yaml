@@ -3,7 +3,7 @@ header:
 
 distro: nodistro
 
-target: core-image-minimal
+target: core-image-base
 
 env:
     PACKAGE_FEED_IP_PORT: "192.168.7.150:8000"
@@ -58,7 +58,7 @@ local_conf_header:
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic wic.xz"
         IMAGE_INSTALL:remove = "distro-feed-configs"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-helper"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-helper zram"
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks tools-debug"
         require conf/distro/include/no-static-libs.inc

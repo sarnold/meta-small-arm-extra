@@ -1,0 +1,75 @@
+software =
+{
+        version = "0.1.0";
+        description = "@@DESCRIPTION@@";
+
+        hardware-compatibility: ["1.0"];
+        reboot = false;
+
+        copy1 : {
+                images: (
+                        {
+                                filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootf.ext4.gz";
+                                sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz)";
+                                device = "/dev/mmcblk0p2";
+                                compressed = "zlib";
+                        }
+                );
+                scripts: (
+                        {
+                                filename = "preinstall.sh";
+                                sha256 = "$swupdate_get_sha256(preinstall.sh)";
+                                type = "preinstall";
+                        },
+                        {
+                                filename = "postinstall.sh";
+                                sha256 = "$swupdate_get_sha256(postinstall.sh)";
+                                type = "postinstall";
+                        }
+                );
+                bootenv: (
+                        {
+                                name = "partnum";
+                                value = "2";
+                        },
+                        {
+                                name = "ustate";
+                                value = "1";
+                        }
+                );
+
+        };
+        copy2 : {
+                images: (
+                        {
+                                filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz";
+                                sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz)";
+                                device = "/dev/mmcblk0p3";
+                                compressed = "zlib";
+                        }
+                );
+                scripts: (
+                        {
+                                filename = "preinstall.sh";
+                                sha256 = "$swupdate_get_sha256(preinstall.sh)";
+                                type = "preinstall";
+                        },
+                        {
+                                filename = "postinstall.sh";
+                                sha256 = "$swupdate_get_sha256(postinstall.sh)";
+                                type = "postinstall";
+                        }
+                );
+                bootenv: (
+                        {
+                                name = "partnum";
+                                value = "3";
+                        },
+                        {
+                                name = "ustate";
+                                value = "1";
+                        }
+                );
+
+        };
+}
