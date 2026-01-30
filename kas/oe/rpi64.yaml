@@ -12,6 +12,8 @@ repos:
 
 local_conf_header:
     rpi-specific: |
+        BBMASK += "u-boot-ti-staging.*\.bbappend"
+        BBMASK += "linux-ti-staging.*\.bbappend"
         LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
         PREFERRED_PROVIDER_virtual/kernel = "linux-raspberrypi-dev"
         ENABLE_I2C = "1"
