@@ -1,0 +1,20 @@
+header:
+    version: 14
+
+repos:
+    meta-swupdate:
+        url: https://github.com/sbabic/meta-swupdate.git
+        branch: scarthgap
+        path: "layers/meta-swupdate"
+
+local_conf_header:
+    swupdate: |
+        PREFERRED_VERSION_swupdate = "2024.12"
+        WKS_FILE = "sdcard-vfat-boot-ab.wks"
+        WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
+        IMAGE_FSTYPES += "ext4.gz"
+        CORE_IMAGE_EXTRA_INSTALL:append = " swupdate u-boot-fw-utils"
+        CORE_IMAGE_EXTRA_INSTALL:append = " ${@bb.utils.contains('INIT_MANAGER', 'systemd', 'swupdate-usb', '', d)}"
+        PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
+        # swupdate adds root=a/b for dual-root conf so unset rpi default root
+        CMDLINE_ROOTFS = "${CMDLINE_ROOT_FSTYPE} rootwait ro"

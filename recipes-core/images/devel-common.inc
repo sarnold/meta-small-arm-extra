@@ -1,8 +1,7 @@
 # include file for devel images
 
-IMAGE_INSTALL = "packagegroup-core-boot"
-
 IMAGE_INSTALL:append = "\
+    ${@bb.utils.contains('INIT_MANAGER', 'systemd', '', ' packagegroup-core-boot', d)} \
     kernel-modules \
     libcgroup \
     zram \
