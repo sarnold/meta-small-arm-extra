@@ -1,0 +1,36 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          update-checker
+# Short-Description: Check designated services on first boot after update
+### END INIT INFO
+
+# Read configuration variable file if it is present
+[ -r /etc/default/update-checker ] && . /etc/default/update-checker
+
+case "$1" in
+  start)
+    reboot=false
+
+    echo "Checking status of critical services..."
+
+    /usr/sbin/update-checker $SYSTEM $USER
+
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+      echo "Service check failed, see log files. Error code: $?"
+    else
+      echo "Service check complete. Update looks good!"
+    fi
+
+    update-rc.d -f zzz-update-checker remove >/dev/null 2>&1
+
+  ;;
+
+  *)
+    echo "Usage: $0 {start}" >&2
+    exit 1
+  ;;
+esac
+
+exit 0

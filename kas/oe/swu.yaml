@@ -13,7 +13,7 @@ local_conf_header:
         WKS_FILE = "sdcard-vfat-boot-ab.wks"
         WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
         IMAGE_FSTYPES += "ext4.gz"
-        CORE_IMAGE_EXTRA_INSTALL:append = " swupdate u-boot-fw-utils"
+        CORE_IMAGE_EXTRA_INSTALL:append = " swupdate update-tools"
         CORE_IMAGE_EXTRA_INSTALL:append = " ${@bb.utils.contains('INIT_MANAGER', 'systemd', 'swupdate-usb', '', d)}"
         PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
         # swupdate adds root=a/b for dual-root conf so unset rpi default root

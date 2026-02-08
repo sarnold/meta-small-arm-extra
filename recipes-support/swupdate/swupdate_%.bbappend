@@ -14,7 +14,7 @@ UNPACKDIR = "${WORKDIR}"
 
 do_configure:prepend() {
     # fix root home directory in sysv init script
-    sed -i -e "s|/home||" ${UNPACKDIR}/swupdate
+    sed -i -e "s|/home||" ${WORKDIR}/swupdate
 }
 
 do_install:append() {
