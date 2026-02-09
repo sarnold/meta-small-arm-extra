@@ -17,7 +17,13 @@ local_conf_header:
         LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
         ENABLE_I2C = "1"
         ENABLE_UART = "1"
+        PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
+        PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
         ## for serial console via GPIO pins on rp3-64 and rpi0-W
         SERIAL_CONSOLES = "115200;ttyAMA0"
         RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"
+        # set dtb for rpi3-64
+        FIT_CONF_DEFAULT_DTB = "bcm2837-rpi-3-b.dtb"
+        # adjusted for fitImage
+        KERNEL_BOOTCMD = "bootm 0x4000000"

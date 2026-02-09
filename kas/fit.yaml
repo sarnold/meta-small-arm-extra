@@ -1,0 +1,8 @@
+header:
+    version: 9
+
+local_conf_header:
+    fit: |
+        KERNEL_CLASSES += "kernel-fitimage"
+        KERNEL_IMAGETYPES += " fitImage "
+        IMAGE_BOOT_FILES:append = " fitImage;fitImage-${MACHINE}"
