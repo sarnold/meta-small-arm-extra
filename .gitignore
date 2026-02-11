@@ -3,6 +3,7 @@
 *.wic.bz2
 *.tar.gz
 ext/
+layers/
 *.swu
 *.wic
 .tox/
