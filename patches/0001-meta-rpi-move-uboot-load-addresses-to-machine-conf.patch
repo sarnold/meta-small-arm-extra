@@ -1,0 +1,66 @@
+From 67e422d44da78e5d20f14bc239b5679480933b40 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Mon, 9 Feb 2026 21:41:06 -0800
+Subject: [PATCH] fix: dev: move uboot load/entrypoint from kernel recipe to
+ machine conf
+
+* also allow larger bootm length for all machines
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ conf/machine/include/rpi-base.inc          | 8 ++++++++
+ recipes-bsp/u-boot/u-boot_%.bbappend       | 2 +-
+ recipes-kernel/linux/linux-raspberrypi.inc | 8 --------
+ 3 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/conf/machine/include/rpi-base.inc b/conf/machine/include/rpi-base.inc
+index 9b57a88..68a7c17 100644
+--- a/conf/machine/include/rpi-base.inc
++++ b/conf/machine/include/rpi-base.inc
+@@ -116,6 +116,14 @@ KERNEL_DEVICETREE ??= " \
+ #
+ # * When u-boot is enabled use the "uImage" format and the "bootm" command
+ #   within u-boot to load the kernel.
++UBOOT_LOADADDRESS ?= "0x00080000"
++UBOOT_ENTRYPOINT ?= "0x00080000"
++
++# A LOADADDR is needed when building a uImage format kernel. This value is not
++# set by default in rpi-4.8.y and later branches so we provide it in the base
++# machine conf. This value is unused if KERNEL_IMAGETYPE is not uImage.
++KERNEL_EXTRA_ARGS:append = " LOADADDR=${UBOOT_ENTRYPOINT}"
++
+ KERNEL_BOOTCMD ??= "bootm"
+ KERNEL_IMAGETYPE_UBOOT ??= "uImage"
+ KERNEL_IMAGETYPE_DIRECT ??= "zImage"
+diff --git a/recipes-bsp/u-boot/u-boot_%.bbappend b/recipes-bsp/u-boot/u-boot_%.bbappend
+index e990879..a2ec85d 100644
+--- a/recipes-bsp/u-boot/u-boot_%.bbappend
++++ b/recipes-bsp/u-boot/u-boot_%.bbappend
+@@ -5,7 +5,7 @@ SRC_URI:append:rpi = " \
+ "
+ 
+ SRC_URI:append:rpi = " file://0001-rpi-always-set-fdt_addr-with-firmware-provided-FDT-address.patch"
+-SRC_URI:append:raspberrypi4 = " file://maxsize.cfg"
++SRC_URI:append:rpi = " file://maxsize.cfg"
+ 
+ DEPENDS:append:rpi = " u-boot-default-script"
+ 
+diff --git a/recipes-kernel/linux/linux-raspberrypi.inc b/recipes-kernel/linux/linux-raspberrypi.inc
+index 036ff22..854ce99 100644
+--- a/recipes-kernel/linux/linux-raspberrypi.inc
++++ b/recipes-kernel/linux/linux-raspberrypi.inc
+@@ -38,11 +38,3 @@ KBUILD_DEFCONFIG:raspberrypi5 ?= "bcm2712_defconfig"
+ LINUX_VERSION_EXTENSION ?= ""
+ 
+ KERNEL_MODULE_AUTOLOAD += "${@bb.utils.contains("MACHINE_FEATURES", "pitft28r", "stmpe-ts", "", d)}"
+-
+-# A LOADADDR is needed when building a uImage format kernel. This value is not
+-# set by default in rpi-4.8.y and later branches so we need to provide it
+-# manually. This value unused if KERNEL_IMAGETYPE is not uImage.
+-KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
+-
+-UBOOT_ENTRYPOINT =       "0x00008000"
+-UBOOT_LOADADDRESS =      "0x00008000"
+-- 
+2.52.0
+

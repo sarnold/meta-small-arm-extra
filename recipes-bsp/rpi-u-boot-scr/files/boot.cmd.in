@@ -1,7 +1,12 @@
-setenv kernel_addr_r 0x4000000
+# workaround using ramdisk addr for fitImage kernels
 
 fdt addr ${fdt_addr} && fdt get value bootargs /chosen bootargs
-fatload @@BOOT_MEDIA@@ 0:1 ${kernel_addr_r} @@KERNEL_IMAGETYPE@@
+load @@BOOT_MEDIA@@ 0 ${ramdisk_addr_r} @@KERNEL_IMAGETYPE@@
 if test ! -e @@BOOT_MEDIA@@ 0:1 uboot.env; then saveenv; fi;
 
-@@KERNEL_BOOTCMD@@ ${kernel_addr_r}
+@@KERNEL_BOOTCMD@@ ${ramdisk_addr_r}
+
+# defaults
+#fdt_addr_r=0x02600000
+#ramdisk_addr_r=0x02700000
+#scriptaddr=0x02400000
