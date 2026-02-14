@@ -2,7 +2,8 @@ header:
     version: 14
 
 # make the default rpi3
-machine: raspberrypi3-64
+machine: raspberrypi3
+# 64bit kernel for raspberrypi3-64 is just too big
 
 repos:
     meta-raspberrypi:
@@ -26,16 +27,18 @@ local_conf_header:
         ENABLE_UART = "1"
         PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
         PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
-        ## for serial console via GPIO pins on rp3-64 and rpi0-W
+        ## for serial console via GPIO pins on rp3 and rpi0-W
         SERIAL_CONSOLES = "115200;ttyAMA0"
         RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"
     rpi-overrides: |
         # set dtb for rpi3-64
-        FIT_CONF_DEFAULT_DTB = "bcm2837-rpi-3-b.dtb"
+        FIT_CONF_DEFAULT_DTB = "bcm2710-rpi-3-b.dtb"
         # disable for rpi
+        #FIT_KERNEL_COMP_ALG = "none"
+        IMAGE_FSTYPES:remove = " ext3 rpi-sdimg wic.bz2"
         #INITRAMFS_IMAGE = ""
         # adjusted for fitImage
-        #UBOOT_LOADADDRESS = "0x01080000"
-        #UBOOT_ENTRYPOINT = "0x01080000"
+        UBOOT_DTB_LOADADDRESS = "0x03000000"
+        #UBOOT_DTBO_LOADADDRESS = ""
         KERNEL_BOOTCMD = "bootm"
