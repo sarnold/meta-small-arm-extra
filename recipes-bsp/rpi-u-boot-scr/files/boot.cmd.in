@@ -1,10 +1,12 @@
-# workaround using ramdisk addr for fitImage kernels
+# workaround using different addresses for fitImage kernels
+setenv fit_addr_r 0x02100000
 
 fdt addr ${fdt_addr} && fdt get value bootargs /chosen bootargs
-load @@BOOT_MEDIA@@ 0 ${ramdisk_addr_r} @@KERNEL_IMAGETYPE@@
+load @@BOOT_MEDIA@@ 0 ${fit_addr_r} @@KERNEL_IMAGETYPE@@
 if test ! -e @@BOOT_MEDIA@@ 0:1 uboot.env; then saveenv; fi;
+imxtract ${fit_addr_r}#conf-bcm2710-rpi-3-b.dtb fdt-bcm2710-rpi-3-b.dtb 0x03000000
 
-@@KERNEL_BOOTCMD@@ ${ramdisk_addr_r}
+@@KERNEL_BOOTCMD@@ ${fit_addr_r}#conf-bcm2710-rpi-3-b.dtb - 0x03000000
 
 # defaults
 #fdt_addr_r=0x02600000
