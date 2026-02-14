@@ -3,7 +3,7 @@ header:
     includes:
         - kas/oe/arm.yaml
         - kas/oe/ti.yaml
-        - kas/oe/vboot.yaml
+        #- kas/vboot.yaml
 
 local_conf_header:
     bbb-bits: |
