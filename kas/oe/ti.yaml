@@ -12,3 +12,8 @@ repos:
             #meta-beagle:
             meta-ti-bsp:
             meta-ti-extras:
+
+local_conf_header:
+    bbb-dtb: |
+        FIT_CONF_DEFAULT_DTB = "ti_omap_am335x-boneblack.dtb"
+

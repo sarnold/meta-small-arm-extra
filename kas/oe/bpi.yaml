@@ -1,0 +1,22 @@
+header:
+    version: 14
+    includes:
+        - kas/oe/arm.yaml
+
+# default is BPi bananapi-m1-plus
+machine: bananapi-m1-plus
+
+repos:
+    meta-linux-mainline:
+        url: "https://github.com/betafive/meta-linux-mainline.git"
+        branch: scarthgap
+        path: "layers/meta-linux-mainline"
+
+    meta-sunxi:
+        url: "https://github.com/linux-sunxi/meta-sunxi.git"
+        branch: scarthgap
+        path: "layers/meta-sunxi"
+
+local_conf_header:
+    sunxi: |
+        IMAGE_INSTALL:append = " lirc v4l-utils ntp-utils zram"
