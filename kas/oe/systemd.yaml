@@ -7,5 +7,5 @@ header:
 local_conf_header:
   systemd: |
     CORE_IMAGE_EXTRA_INSTALL:append = " systemd-analyze"
-    DISTRO_FEATURES:append = " systemd usrmerge"
+    DISTRO_FEATURES:append = " systemd usrmerge sysvinit"
     INIT_MANAGER = "systemd"

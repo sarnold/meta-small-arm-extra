@@ -1,5 +1,8 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
+SRC_URI:append = " file://enable-fit.cfg"
+SRC_URI:append:sunxi = " file://boot.cmd"
+
 DEPENDS:append:a64 = " u-boot-tools-native"
 
 ATF_DEPENDS ??= ""
@@ -14,7 +17,3 @@ PACKAGE_BEFORE_PN += "${PN}-conf"
 ALLOW_EMPTY:${PN}-conf = "1"
 
 FILES:append:a64:${PN}-conf = "/boot/extlinux"
-
-SRC_URI:append = " \
-    file://enable-fit.cfg \
-"

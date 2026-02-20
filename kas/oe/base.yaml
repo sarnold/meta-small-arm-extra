@@ -40,6 +40,13 @@ repos:
         path: "layers/openembedded-core"
         layers:
             meta:
+        patches:
+            p1:
+                repo: openembedded-core
+                path: ../meta-small-arm-extra/patches/oe-core-kernel-fitimage-fix-handling-of-empty-default-dtb.patch
+            p2:
+                repo: openembedded-core
+                path: ../meta-small-arm-extra/patches/oe-core-add-machine-agnostic-symlink-for-fitimage-in.patch
 
     meta-openembedded:
         url: "http://git.openembedded.org/meta-openembedded"

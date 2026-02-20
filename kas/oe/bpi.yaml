@@ -19,3 +19,6 @@ local_conf_header:
         BBMASK += "rpi-u-boot-scr.*\.bbappend"
         IMAGE_INSTALL:append = " lirc ntp-utils zram"
         # IMAGE_INSTALL:append = " v4l-utils"
+        INITRAMFS_IMAGE = "devel-initramfs"
+        IMAGE_BOOT_FILES:append = " fitImage-devel-initramfs;initramfs-image.ub"
+        SUNXI_BOOT_SPACE = "512M"

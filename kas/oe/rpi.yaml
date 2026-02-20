@@ -31,9 +31,11 @@ local_conf_header:
         SERIAL_CONSOLES = "115200;ttyAMA0"
         RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"
+        #KBUILD_DEFCONFIG:raspberrypi3 = "bcmrpi3_defconfig"
+        #UBOOT_MACHINE:raspberrypi3 = "rpi_3_defconfig"
     rpi-overrides: |
         # set dtb for rpi3-64
-        FIT_CONF_DEFAULT_DTB = "bcm2710-rpi-3-b.dtb"
+        #FIT_CONF_DEFAULT_DTB = "bcm2710-rpi-3-b.dtb"
         # disable for rpi
         #FIT_KERNEL_COMP_ALG = "none"
         IMAGE_FSTYPES:remove = " ext3 rpi-sdimg wic.bz2"

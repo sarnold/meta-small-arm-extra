@@ -3,7 +3,9 @@
 USE_DEVFS = "1"
 
 # Do not pollute the initrd image with rootfs features
-IMAGE_FEATURES = ""
+IMAGE_FEATURES = " \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'security', '', 'debug-tweaks', d)} \
+"
 
 # try to avoid dependency loops
 EXTRA_IMAGEDEPENDS = ""
