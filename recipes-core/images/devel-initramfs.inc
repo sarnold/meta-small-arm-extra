@@ -2,15 +2,11 @@
 
 USE_DEVFS = "1"
 
-# Do not pollute the initrd image with rootfs features
-IMAGE_FEATURES = " \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'security', '', 'debug-tweaks', d)} \
-"
-
 # try to avoid dependency loops
 EXTRA_IMAGEDEPENDS = ""
 
 BASE_DEVEL_INSTALL = "\
+    ${ROOTFS_BOOTSTRAP_INSTALL} \
     base-files \
     base-passwd \
     busybox \
@@ -26,6 +22,8 @@ BASE_DEVEL_INSTALL = "\
     memtester \
     util-linux-sfdisk \
 "
+
+inherit image
 
 IMAGE_LINGUAS = ""
 

@@ -1,0 +1,13 @@
+header:
+    version: 14
+
+machine: friendlyelec-nanopik2
+
+target:
+    - amlogic-image-headless-sd
+
+repos:
+    meta-meson:
+        url: "https://github.com/superna9999/meta-meson.git"
+        branch: scarthgap
+        path: "layers/meta-meson"
