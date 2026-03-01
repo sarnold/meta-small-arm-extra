@@ -12,6 +12,8 @@ SRC_URI = " \
         file://resize-helper \
 "
 
+S = "${WORKDIR}"
+
 inherit systemd update-rc.d
 
 RDEPENDS:${PN} += "e2fsprogs-resize2fs parted util-linux-fdisk util-linux-findmnt udev"
@@ -29,5 +31,8 @@ INITSCRIPT_NAME = "resize-last"
 INITSCRIPT_PARAMS = "start 10 S ."
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
+
 SYSTEMD_SERVICE:${PN} = "resize-helper.service"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+
 FILES:${PN} += "${bindir}"

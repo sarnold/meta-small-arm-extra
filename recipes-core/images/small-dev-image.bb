@@ -8,15 +8,15 @@ IMAGE_FEATURES:append = " \
     package-management \
 "
 
-EXTRA_IMAGE_FEATURES ??= "debug-tweaks"
+EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
 
-require devel-common.inc
+require devel-small.inc
 
-IMAGE_INSTALL:append = " ${CORE_IMAGE_EXTRA_INSTALL}"
+IMAGE_INSTALL:append = " ${CORE_IMAGE_EXTRA_INSTALL} resize-helper"
 
 IMAGE_LINGUAS = " "
 
 inherit core-image
 
 IMAGE_OVERHEAD_FACTOR = "1.2"
-IMAGE_FSTYPES:append = " wic.xz"
+IMAGE_FSTYPES:append = " cpio.gz wic.xz"

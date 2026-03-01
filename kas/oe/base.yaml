@@ -40,6 +40,13 @@ repos:
         path: "layers/openembedded-core"
         layers:
             meta:
+        patches:
+            p1:
+                repo: openembedded-core
+                path: ../meta-small-arm-extra/patches/oe-core-kernel-fitimage-fix-handling-of-empty-default-dtb.patch
+            p2:
+                repo: openembedded-core
+                path: ../meta-small-arm-extra/patches/oe-core-add-machine-agnostic-symlink-for-fitimage-in.patch
 
     meta-openembedded:
         url: "http://git.openembedded.org/meta-openembedded"
@@ -58,7 +65,7 @@ local_conf_header:
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic wic.xz"
         IMAGE_INSTALL:remove = "distro-feed-configs"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-helper bash-completion"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks tools-debug"
         require conf/distro/include/no-static-libs.inc

@@ -10,6 +10,6 @@ local_conf_header:
         UBOOT_SIGN_ENABLE = "1"
         UBOOT_SIGN_KEYDIR = "${TOPDIR}/../dev-keys"
         UBOOT_SIGN_KEYNAME = "dev"
-        UBOOT_MKIMAGE_DTCOPTS = "-I dts -O dtb"
+        UBOOT_MKIMAGE_DTCOPTS = "-I dts -O dtb -p 2000"
         FIT_GENERATE_KEYS = "1"
         FIT_SIGN_INDIVIDUAL = "0"

@@ -72,7 +72,7 @@ local_conf_header:
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic wic.xz"
         IMAGE_INSTALL:remove = "distro-feed-configs"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-helper"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano resize-helper bash-completion"
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         INHERIT:append = " uninative"
