@@ -29,7 +29,7 @@ repos:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
-        tag: 2024-04.14-scarthgap
+        tag: yocto-5.0.18
         path: "layers/bitbake"
         layers:
             .: disabled

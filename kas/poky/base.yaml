@@ -13,7 +13,7 @@ repos:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
-        branch: scarthgap
+        branch: yocto-5.0.18
         path: "layers/bitbake"
         layers:
             .: disabled
