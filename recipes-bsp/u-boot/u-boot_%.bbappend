@@ -1,5 +1,7 @@
 DEPENDS:append_a64 = " u-boot-tools-native"
 
+SRC_URI:append:rpi = " file://maxsize.cfg"
+
 ATF_DEPENDS ??= ""
 
 EXTRA_OEMAKE:append_a64 = " BL31=${DEPLOY_DIR_IMAGE}/bl31-sun50i_a64.bin"

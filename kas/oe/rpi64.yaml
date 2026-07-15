@@ -14,6 +14,7 @@ local_conf_header:
     rpi-specific: |
         BBMASK += "u-boot-ti-staging.*\.bbappend"
         BBMASK += "linux-ti-staging.*\.bbappend"
+        BBMASK += "linux-stable.*\.bbappend"
         LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
         ENABLE_I2C = "1"
         ENABLE_UART = "1"
@@ -21,3 +22,14 @@ local_conf_header:
         SERIAL_CONSOLES = "115200;ttyAMA0"
         RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"
+     rpi-overrides: |
+        # set dtb for rpi3-64
+        FIT_CONF_DEFAULT_DTB = "bcm2837-rpi-3-b.dtb"
+        # use uncompressed Image for fit kernel
+        FIT_KERNEL_COMP_ALG = "none"
+        # disable for rpi
+        #INITRAMFS_IMAGE = ""
+        # adjusted for fitImage
+        UBOOT_LOADADDRESS = "0x00008000"
+        UBOOT_ENTRYPOINT = "0x00008000"
+        #KERNEL_BOOTCMD = "bootm"
