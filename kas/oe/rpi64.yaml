@@ -22,7 +22,7 @@ local_conf_header:
         SERIAL_CONSOLES = "115200;ttyAMA0"
         RPI_EXTRA_CONFIG = "dtoverlay=pi3-disable-bt"
         RPI_USE_U_BOOT = "1"
-     rpi-overrides: |
+    rpi-overrides: |
         # set dtb for rpi3-64
         FIT_CONF_DEFAULT_DTB = "bcm2837-rpi-3-b.dtb"
         # use uncompressed Image for fit kernel
@@ -30,6 +30,6 @@ local_conf_header:
         # disable for rpi
         #INITRAMFS_IMAGE = ""
         # adjusted for fitImage
-        UBOOT_LOADADDRESS = "0x00008000"
-        UBOOT_ENTRYPOINT = "0x00008000"
+        UBOOT_LOADADDRESS = "0x00080000"
+        UBOOT_ENTRYPOINT = "0x00080000"
         #KERNEL_BOOTCMD = "bootm"
