@@ -1,6 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append = " file://enable-fit.cfg"
+SRC_URI:append = " file://maxsize.cfg"
 SRC_URI:append:sunxi = " file://boot.cmd"
 
 DEPENDS:append:a64 = " u-boot-tools-native"

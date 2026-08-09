@@ -1,9 +1,9 @@
 header:
     version: 14
 
-# make the default rpi3
-machine: raspberrypi3
-# 64bit kernel for raspberrypi3-64 is just too big
+# make the default rpi3-64
+machine: raspberrypi3-64
+# 64bit kernel for raspberrypi3-64 can be very big
 
 repos:
     meta-raspberrypi:
@@ -20,6 +20,7 @@ local_conf_header:
     rpi-specific: |
         BBMASK += "u-boot-ti-staging.*\.bbappend"
         BBMASK += "linux-ti-staging.*\.bbappend"
+        BBMASK += "linux-mainline.*\.bbappend"
         #BBMASK += "rpi-u-boot-scr.*\.bbappend"
         #BBMASK += "libubootenv.*\.bbappend"
         LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
@@ -41,6 +42,8 @@ local_conf_header:
         IMAGE_FSTYPES:remove = " ext3 rpi-sdimg wic.bz2"
         #INITRAMFS_IMAGE = ""
         # adjusted for fitImage
-        UBOOT_DTB_LOADADDRESS = "0x03000000"
+        #UBOOT_DTB_LOADADDRESS = "0x03000000"
         #UBOOT_DTBO_LOADADDRESS = ""
-        KERNEL_BOOTCMD = "bootm"
+        UBOOT_LOADADDRESS = "0x00080000"
+        UBOOT_ENTRYPOINT = "0x00080000"
+        #KERNEL_BOOTCMD = "bootm"
