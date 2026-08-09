@@ -1,0 +1,31 @@
+From d1066795b6ae90cc3692970954e1f2a682979896 Mon Sep 17 00:00:00 2001
+From: Adrian Freihofer <adrian.freihofer@siemens.com>
+Date: Thu, 4 Jul 2024 09:09:42 +0200
+Subject: [PATCH] kernel-fitimage: fix handling of empty default dtb
+
+Fix error in run.do_assemble_fitimage_initramfs.2779256:
+             line 238: [: =: unary operator expected
+if FIT_CONF_DEFAULT_DTB is empty.
+
+Signed-off-by: Adrian Freihofer <adrian.freihofer@siemens.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta/classes-recipe/kernel-fitimage.bbclass | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta/classes-recipe/kernel-fitimage.bbclass b/meta/classes-recipe/kernel-fitimage.bbclass
+index 3e20c3248b..fe076badfa 100644
+--- a/meta/classes-recipe/kernel-fitimage.bbclass
++++ b/meta/classes-recipe/kernel-fitimage.bbclass
+@@ -560,7 +560,7 @@ fitimage_assemble() {
+ 			fi
+ 
+ 			# Set the default dtb image if it exists in the devicetree.
+-			if [ ${FIT_CONF_DEFAULT_DTB} = $DTB ];then
++			if [ "${FIT_CONF_DEFAULT_DTB}" = "$DTB" ];then
+ 				default_dtb_image=$(echo "$DTB" | tr '/' '_')
+ 			fi
+ 
+-- 
+2.52.0
+

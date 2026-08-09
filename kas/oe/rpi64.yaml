@@ -9,6 +9,10 @@ repos:
         url: "https://github.com/agherzan/meta-raspberrypi"
         branch: scarthgap
         path: "layers/meta-raspberrypi"
+        patches:
+            p1:
+                repo: meta-raspberrypi
+                path: ../meta-small-arm-extra/patches/0001-meta-rpi-move-uboot-load-addresses-to-machine-conf.patch
 
 local_conf_header:
     rpi-specific: |

@@ -1,6 +1,9 @@
 DEPENDS:append_a64 = " u-boot-tools-native"
 
-SRC_URI:append:rpi = " file://maxsize.cfg"
+SRC_URI:append:rpi = " \
+    file://maxsize.cfg \
+    file://enable-fit.cfg \
+"
 
 ATF_DEPENDS ??= ""
 

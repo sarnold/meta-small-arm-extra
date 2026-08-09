@@ -1,0 +1,30 @@
+From e3a829e470ddff7b2cce2d134c1959e003ca284e Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Sat, 10 Jan 2026 12:37:00 -0800
+Subject: [PATCH] chg: dev: add machine-agnostic symlink for fitimage-initramfs
+
+* this is needed for fitImage initramfs so the built image can be
+  included via IMAGE_BOOT_FILES without using machine name (this
+  is analogous to the 'fitImage' symlink for the kernel image
+  without initramfs)
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ meta/classes-recipe/kernel-fitimage.bbclass | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/meta/classes-recipe/kernel-fitimage.bbclass b/meta/classes-recipe/kernel-fitimage.bbclass
+index 6684478c33..ce59f6b2a4 100644
+--- a/meta/classes-recipe/kernel-fitimage.bbclass
++++ b/meta/classes-recipe/kernel-fitimage.bbclass
+@@ -856,6 +856,7 @@ kernel_do_deploy:append() {
+ 				if [ -n "${KERNEL_FIT_LINK_NAME}" ] ; then
+ 					ln -snf fitImage-${INITRAMFS_IMAGE_NAME}-${KERNEL_FIT_NAME}${KERNEL_FIT_BIN_EXT} "$deployDir/fitImage-${INITRAMFS_IMAGE_NAME}-${KERNEL_FIT_LINK_NAME}"
+ 				fi
++				ln -snf fitImage-${INITRAMFS_IMAGE_NAME}-${KERNEL_FIT_NAME}${KERNEL_FIT_BIN_EXT} "$deployDir/fitImage-${INITRAMFS_IMAGE}"
+ 			fi
+ 		fi
+ 	fi
+-- 
+2.52.0
+
